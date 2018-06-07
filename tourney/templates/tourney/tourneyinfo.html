@@ -1,0 +1,139 @@
+{% extends "tourney/header.html" %}
+{% block content %}
+{% load staticfiles %} <!--not sure why this is needed here when it's in the header.html file but it gave an error without it -->
+<h1>Tourney Info</h1>
+
+
+<div id="accordion">
+	<div class="card">
+		<div class="card-header" id="headingOne">
+			<h5 class="mb-0">
+				<h3 role="button" class="collapsed" aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" data-target="#collapseOne">
+					Arrival and Check In
+				</h3>
+			</h5>
+		</div>
+
+		<div id="collapseOne" class="panel-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion">
+			<div class="card-body">
+				<p>Reunion Resort Golf Course</p>
+				<ul>
+					<li>Address: 7593 Gathering Dr., Kissimmee, FL 34747</li>
+					<li>Phone: (407) 396-3199</li>
+				</ul>
+				<p>When you arrive at Reunion, you’ll need to check in for both your lodging and for the tournament.</p>
+				<p>Check in for lodging is in the tall building.  If you get to Reunion early, it’s helpful to check in with lodging and pick up your key so you don’t have to do it after your sloppy day on the golf course.  If your villa is ready, you can drop your gear off prior to heading to the course.</p>
+				<p>Check in for the tournament is at the pro shop which is just to the east (to the right as your facing the front of the tall building).  Last year, we checked in at a table outside to pick up our bag tags.  These tags let you store your bags overnight so you don’t have to lug them around.  If there’s no one outside to check in with, try the pro shop desk.</p>
+				<p>After you’ve checked in, you can head to the range and hit all the balls you want (fo’ free!), putt and chip, or you can save your girly hands for the 36 holes of golf you have ahead of you.  The range is a good place to meet and greet the rest of the folks you’ll have to put up with for the weekend.</p>
+				<center>
+					<img src="{% static 'tourney/img/checkin.jpg' %}" class="responsive-img" style='max-height:350px;' alt="face">
+				</center>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingTwo">
+			<h5 class="mb-0">
+				<h3 role="button" class="collapsed" aria-controls="collapseTwo" aria-expanded="false" data-toggle="collapse" data-target="#collapseTwo">
+					Format and Scoring
+				</h3>
+			</h5>
+		</div>
+
+		<div id="collapseTwo" class="panel-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+			<div class="card-body">
+				<p><b>All scoring is individual.</b>  This is not a team event, which is the only reason why you were asked to play.</p>
+				<p>Scoring is based on a points system where you can earn points for each hole based on your score versus par.  In this case, <b>high scores are good.</b>  Points for each hole are earned as follows:</p>
+				<ul>
+					<li>Bogey = 1 point</li>
+					<li>Par = 2 points</li>
+					<li>Birdie = 4 points</li>
+					<li>Eagle = 8 points</li>
+					<li>Double Eagle = 10 points</li>					
+				</ul>
+				<p><b>Your score for each round is the total points you score for that round minus your quota (handicap) for that round.</b>  For example, if you start the round with a quota of 10 and score 12 points, you are +2 for that round and those 2 points are added to your overall tournament score (that’s a good thing!).</p>
+				<p><b>Your quota for the next round is adjusted by averaging the previous round’s score with the previous round’s quota.</b>  In the example above where someone starts with a quota and of 10 and scores 12 points, the quota for the next round is 11.  If the average ends in 0.5, the quota is rounded down in the golfer’s favor.</p>
+				<p>If this math scares you, go find someone without an orange and blue hat to help you out.</p>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingThree">
+			<h5 class="mb-0">
+				<h3 role="button" class="collapsed" aria-controls="collapseThree" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree">
+					Courses and Tee Times
+				</h3>
+			</h5>
+		</div>
+
+		<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree" data-parent="#accordion">
+			<div class="card-body">
+				<p>This year we will play the <b>Nicklaus</b> course twice and the <b>Palmer</b> course once.  Tee times for the three days are:</p>
+				<ul>
+					<li>Friday: 11:30a - 12:40p</li>
+					<li>Saturday: 8:30a - 9:30a</li>
+					<li>Sunday: 8:00a - 9:10a</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingFour">
+			<h5 class="mb-0">
+				<h3 role="button" class="collapsed" aria-controls="collapseFour" aria-expanded="false" data-toggle="collapse" data-target="#collapseFour">
+					Golfers and Groupies
+				</h3>
+			</h5>
+		</div>
+
+		<div id="collapseFour" class="panel-collapse collapse" aria-labelledby="headingFour" data-parent="#accordion">
+			<div class="card-body">
+				<h5>
+					Golfers
+				</h5>
+				<table class="table table-condensed">
+					
+					<tr>
+						<th>NAME</th>
+						<th>AKA</th>
+						<th>HOMETOWN</th>
+					</tr>
+					{% for key, val in golfers.items %}
+					<tr>
+						{% for k, v in val.items %}
+						<td>{{ v }}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+										
+				</table>
+				
+				<p></p>
+				<h5>
+					Groupies
+				</h5>
+				<table class="table table-condensed">
+					
+					<tr>
+						<th>NAME</th>
+						<th>AKA</th>
+						<th>HOMETOWN</th>
+					</tr>
+					{% for key, val in groupies.items %}
+					<tr>
+						{% for k, v in val.items %}
+						<td>{{ v }}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+										
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+
+	

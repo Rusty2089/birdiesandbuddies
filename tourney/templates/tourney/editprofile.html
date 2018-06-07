@@ -1,0 +1,34 @@
+{% extends "tourney/header.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Edit Profile</h1>
+</div>
+
+<div class="container-fluid">
+<center>
+	<img src="{% static "tourney/img/bb_logo.jpg" %}" height="150" alt="BB Logo">
+	<h2>{{ username }}</h2>
+</center>
+<form action="/editprofile/" method="post">
+    {% csrf_token %}
+	<center>
+	<table border="3" cellpadding = "5" cellspacing = "5">
+		{{ form }}
+	</table>
+	<p></p>
+    <input type="submit" value="Save" />
+	</center>
+</form>
+
+<center>
+	<p></p>
+	<p>
+		Update info and hit "Save", or use the</br>
+		Navigation Bar below to move on.
+	</p>
+</center>
+</div>
+
+{% endblock %}
