@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'users',
         'USER': 'blexwlbpphyejn',
         'PASSWORD': '59e735339730ca22be5c465a5473a6186eee7ce9f0a55c2ace9cde3452610a9a',
-        'HOST': 'postgres://blexwlbpphyejn:59e735339730ca22be5c465a5473a6186eee7ce9f0a55c2ace9cde3452610a9a@ec2-54-243-213-188.compute-1.amazonaws.com:5432/d1por2ma62952u',
+        'HOST': 'ec2-54-243-213-188.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
