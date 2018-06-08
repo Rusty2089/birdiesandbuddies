@@ -25,8 +25,9 @@ SECRET_KEY = 'tqbkl5og8=*c_!f5cx&geu#n_rww#knrtpg7^ozp@qm)*@(d&d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+	'thawing-tor-67269.herokuapp.com',
+]
 
 # Application definition
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django', #for OAuth
+	'social.apps.django_app.default',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +151,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+django_heroku.settings(locals())
