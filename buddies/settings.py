@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'buddies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'users',
+        'NAME': 'd1por2ma62952u',
         'USER': 'blexwlbpphyejn',
         'PASSWORD': '59e735339730ca22be5c465a5473a6186eee7ce9f0a55c2ace9cde3452610a9a',
         'HOST': 'ec2-54-243-213-188.compute-1.amazonaws.com',
