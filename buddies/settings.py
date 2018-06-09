@@ -75,14 +75,15 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+	'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+	'social_core.backends.google.GoogleOpenId',  # for Google authentication
 	'social_core.backends.google.GoogleOAuth',
-    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
-    'social_core.backends.github.GithubOAuth2',  # for Github authentication
-    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
- 
-    'django.contrib.auth.backends.ModelBackend',
+	'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+	'social_core.backends.github.GithubOAuth2',  # for Github authentication
+	'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+	'social_core.backends.yahoo.YahooOAuth2', #for yahoo
+	
+	'django.contrib.auth.backends.ModelBackend',
 )
 
 
@@ -129,6 +130,9 @@ LOGOUT_REDIRECT_URL = 'login'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='582209861944-o4ph2kr8bq9nnvub219bik3dpv3r7bsp.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ejUH_vTAaw2iAIaAnDPfdhvj'
+
+SOCIAL_AUTH_YAHOO_OAUTH2_KEY = 'dj0yJmk9OWJnRzFSZVlDUEZUJmQ9WVdrOU5sTnVSV3RGTlRRbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kNQ--'
+SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = '718e5ac08f2fff125d1f67c258ed29089d000719'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'
 SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
