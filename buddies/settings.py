@@ -89,31 +89,9 @@ AUTHENTICATION_BACKENDS = (
 	'social_core.backends.facebook.FacebookOAuth2',
 	'django.contrib.auth.backends.ModelBackend',
 	
-	'allauth.account.auth_backends.AuthenticationBackend',
 	'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-       {'METHOD': 'oauth2',
-        'SCOPE': ['email','public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time'],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'kr_KR',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.4'}}
 
 WSGI_APPLICATION = 'buddies.wsgi.application'
 
@@ -162,8 +140,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ejUH_vTAaw2iAIaAnDPfdhvj'
 SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'
 SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 
-#site id
-SITE_ID = 'https://thawing-tor-67269.herokuapp.com' # for the dev mode, you need to use localhost's id facebook does not support the name 127.0.0.1:8000
 #little options for your page's signup.
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_USERNAME_REQURIED=True
