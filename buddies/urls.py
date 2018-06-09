@@ -10,7 +10,6 @@ urlpatterns = [
 	path('', include('tourney.urls')),
 	path('tourney/', include('tourney.urls'), name='tourney'),
 	path('admin/', admin.site.urls),
-	path('accounts/', include('allauth.urls')), #new
 	re_path(r'^login/$', views.login, name='login'),
 	re_path(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
 	re_path(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here

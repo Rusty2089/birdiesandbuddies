@@ -42,13 +42,6 @@ INSTALLED_APPS = [
 	'social_django', #for OAuth
 	'social.apps.django_app.default',
 	
-	'django.contrib.sites', # new
-
-	'allauth', # new
-	'allauth.account', # new
-	'allauth.socialaccount', # new
-	'allauth.socialaccount.providers.github', # new
-
 ]
 
 MIDDLEWARE = [
@@ -86,13 +79,8 @@ AUTHENTICATION_BACKENDS = (
 	'social_core.backends.google.GoogleOpenId',  # for Google authentication
 	'social_core.backends.google.GoogleOAuth',
 	'social_core.backends.google.GoogleOAuth2',  # for Google authentication
-	'social_core.backends.github.GithubOAuth2',  # for Github authentication
-	'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
-	'social_core.backends.yahoo.YahooOAuth2', #for yahoo
-	
 	'django.contrib.auth.backends.ModelBackend',
 	
-	"allauth.account.auth_backends.AuthenticationBackend", #new
 )
 
 
@@ -140,11 +128,6 @@ LOGOUT_REDIRECT_URL = 'login'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='582209861944-o4ph2kr8bq9nnvub219bik3dpv3r7bsp.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ejUH_vTAaw2iAIaAnDPfdhvj'
 
-SOCIAL_AUTH_YAHOO_OAUTH2_KEY = 'dj0yJmk9Zm1Tb2pBTkZCOWM1JmQ9WVdrOWNVVldjSEpvTkdjbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1lNg--'
-SOCIAL_AUTH_YAHOO_OAUTH2_SECRET = '8d7b8723a0d212fa42aa23545c10cd1266927e0d'
-
-SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'
-SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
@@ -167,4 +150,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SITE_ID = 1 #new
+
