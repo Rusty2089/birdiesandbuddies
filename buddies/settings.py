@@ -33,14 +33,20 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
 	'tourney.apps.TourneyConfig',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'social_django', #for OAuth
+	'django.contrib.admin',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.sessions',
+	'django.contrib.messages',
+	'django.contrib.staticfiles',
+	'social_django', #for OAuth
 	'social.apps.django_app.default',
+	
+	'django.contrib.sites',
+	'allauth',
+	'allauth.account',
+	'allauth.socialaccount',
+	'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
@@ -74,15 +80,40 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+	'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+	'social_core.backends.google.GoogleOpenId',  # for Google authentication
 	'social_core.backends.google.GoogleOAuth',
-    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
-    'social_core.backends.github.GithubOAuth2',  # for Github authentication
-    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
- 
-    'django.contrib.auth.backends.ModelBackend',
+	'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+	'social_core.backends.github.GithubOAuth2',  # for Github authentication
+	'social_core.backends.facebook.FacebookAppOAuth2',  # for Facebook authentication
+	'social_core.backends.facebook.FacebookOAuth2',
+	'django.contrib.auth.backends.ModelBackend',
+	
+	'allauth.account.auth_backends.AuthenticationBackend',
+	'django.contrib.auth.backends.ModelBackend',
 )
+
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+       {'METHOD': 'oauth2',
+        'SCOPE': ['email','public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time'],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': lambda request: 'kr_KR',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v2.4'}}
 
 WSGI_APPLICATION = 'buddies.wsgi.application'
 
@@ -128,8 +159,14 @@ LOGOUT_REDIRECT_URL = 'login'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='582209861944-o4ph2kr8bq9nnvub219bik3dpv3r7bsp.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ejUH_vTAaw2iAIaAnDPfdhvj'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '185892905461600'
-SOCIAL_AUTH_FACEBOOK_SECRET = '234b018e6eb51a51319151553a75338b'
+SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'
+SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
+
+#site id
+SITE_ID = https://thawing-tor-67269.herokuapp.com # for the dev mode, you need to use localhost's id facebook does not support the name 127.0.0.1:8000
+#little options for your page's signup.
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_USERNAME_REQURIED=True
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
