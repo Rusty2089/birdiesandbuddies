@@ -43,10 +43,6 @@ INSTALLED_APPS = [
 	'social.apps.django_app.default',
 	
 	'django.contrib.sites',
-	'allauth',
-	'allauth.account',
-	'allauth.socialaccount',
-	'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
