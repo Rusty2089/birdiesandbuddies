@@ -163,7 +163,7 @@ SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'
 SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 
 #site id
-SITE_ID = https://thawing-tor-67269.herokuapp.com # for the dev mode, you need to use localhost's id facebook does not support the name 127.0.0.1:8000
+SITE_ID = 'https://thawing-tor-67269.herokuapp.com' # for the dev mode, you need to use localhost's id facebook does not support the name 127.0.0.1:8000
 #little options for your page's signup.
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_USERNAME_REQURIED=True
