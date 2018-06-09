@@ -41,6 +41,13 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'social_django', #for OAuth
 	'social.apps.django_app.default',
+	
+	'django.contrib.sites', # new
+
+	'allauth', # new
+	'allauth.account', # new
+	'allauth.socialaccount', # new
+	'allauth.socialaccount.providers.github', # new
 
 ]
 
@@ -84,6 +91,8 @@ AUTHENTICATION_BACKENDS = (
 	'social_core.backends.yahoo.YahooOAuth2', #for yahoo
 	
 	'django.contrib.auth.backends.ModelBackend',
+	
+	"allauth.account.auth_backends.AuthenticationBackend", #new
 )
 
 
@@ -157,3 +166,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SITE_ID = 1 #new

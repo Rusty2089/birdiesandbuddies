@@ -1,0 +1,12 @@
+To Do
+
+Add Yahoo
+Domain Name
+Admin Site
+Static Files
+
+
+
+
+heroku logs --tail
+heroku ps:scale web=1
