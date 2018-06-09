@@ -41,8 +41,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'social_django', #for OAuth
 	'social.apps.django_app.default',
-	
-	'django.contrib.sites',
+
 ]
 
 MIDDLEWARE = [
@@ -76,16 +75,14 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-	'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
-	'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
 	'social_core.backends.google.GoogleOAuth',
-	'social_core.backends.google.GoogleOAuth2',  # for Google authentication
-	'social_core.backends.github.GithubOAuth2',  # for Github authentication
-	'social_core.backends.facebook.FacebookAppOAuth2',  # for Facebook authentication
-	'social_core.backends.facebook.FacebookOAuth2',
-	'django.contrib.auth.backends.ModelBackend',
-	
-	'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+ 
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 
@@ -135,10 +132,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ejUH_vTAaw2iAIaAnDPfdhvj'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'
 SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
-
-#little options for your page's signup.
-ACCOUNT_EMAIL_REQUIRED=True
-ACCOUNT_USERNAME_REQURIED=True
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
