@@ -13,3 +13,5 @@ heroku run pip freeze
 git add .
 git commit -m "Update"
 git push heroku master
+
+python manage.py collectstatic <-- add static files locally before pushing to heroku
