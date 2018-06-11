@@ -4,7 +4,7 @@ Add Yahoo
 Domain Name
 Admin Site
 Static Files
-
+Add Cancel to Profile and explain why it popped up if already have an account
 
 
 
