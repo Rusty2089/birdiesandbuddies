@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # <--
 ]
 
 ROOT_URLCONF = 'buddies.urls'
@@ -80,6 +82,7 @@ AUTHENTICATION_BACKENDS = (
 	'social_core.backends.google.GoogleOAuth',
 	'social_core.backends.google.GoogleOAuth2',  # for Google authentication
 	'django.contrib.auth.backends.ModelBackend',
+	'social_core.backends.facebook.FacebookOAuth2',
 	
 )
 
@@ -128,6 +131,8 @@ LOGOUT_REDIRECT_URL = 'login'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='582209861944-o4ph2kr8bq9nnvub219bik3dpv3r7bsp.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'ejUH_vTAaw2iAIaAnDPfdhvj'
 
+SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
