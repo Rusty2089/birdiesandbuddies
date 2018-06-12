@@ -1,9 +1,8 @@
 To Do
 
 Domain Name
-Static Files
 Add Cancel to Profile and explain why it popped up if already have an account
-
+Status Bar Blocking Buttons
 
 
 heroku logs --tail
