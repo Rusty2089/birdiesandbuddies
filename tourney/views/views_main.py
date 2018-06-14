@@ -61,3 +61,8 @@ def enterscores(request):
 	#Variables to pass on to html = hole, par, course, g1 name, g1 prescore, g2 name, g2 prescore, g3, name, g3 prescore, g4 name, g4 prescore
 	
 	return render(request, 'tourney/enterscores.html', {})
+	
+	
+@login_required
+def compile(request):
+	return render(request, 'tourney/compile.html', {})

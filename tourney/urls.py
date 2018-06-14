@@ -11,4 +11,5 @@ urlpatterns = [
 	path('enterscores/', views.enterscores, name='enterscores'),
 	path('newprofile/', views.new_profile, name='newprofile'),
 	path('editprofile/', views.edit_profile, name='editprofile'),
+	path('compile/', views.compile, name='compile'),
 ]

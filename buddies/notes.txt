@@ -16,3 +16,17 @@ git push heroku master
 python manage.py collectstatic <-- add static files locally before pushing to heroku
 
 Status Bar Blocking Buttons can be fixed by adjusting "body {margin-bottom: 100px;}"
+
+
+
+
+Build Daily from List of Profiles
+0. Delete all lines of Daily db
+1. Query Profiles to find all Golfer=True
+2. Loop through queary set to add each Profile Golfer to Daily
+
+Buttons
+1. Delete db contents Daily.objects.all().delete()
+2. Populate Golfers from Profile
+3. Populate Groups
+4. Populate remaining data
