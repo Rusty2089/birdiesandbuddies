@@ -2,7 +2,7 @@ To Do
 
 Domain Name
 Add Cancel to Profile and explain why it popped up if already have an account
-Status Bar Blocking Buttons
+Text Feature
 
 
 heroku logs --tail
@@ -14,3 +14,5 @@ git commit -m "Update"
 git push heroku master
 
 python manage.py collectstatic <-- add static files locally before pushing to heroku
+
+Status Bar Blocking Buttons can be fixed by adjusting "body {margin-bottom: 100px;}"
