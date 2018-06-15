@@ -29,7 +29,7 @@ class Profile(models.Model):
         return self.display_name
 
 class Daily(models.Model):
-	golfer = models.CharField(max_length=20, unique=True)
+	golfer = models.CharField(max_length=20, unique=True, null=True)
 	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
 	quota = models.PositiveSmallIntegerField(default = 0)
 	h1_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
