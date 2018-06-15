@@ -8,6 +8,7 @@ gunicorn = "==19.8.1"
 django-heroku = "*"
 social-auth-app-django = "*"
 python-social-auth = {extras = ["django"]}
+django-tables2 = "==1.21.2"
 
 [dev-packages]
 
