@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from tourney.models import Profile
+from tourney.models import Profile, Daily
 
 from django.contrib.auth.decorators import login_required
 
@@ -65,4 +65,24 @@ def enterscores(request):
 	
 @login_required
 def compile(request):
+	return render(request, 'tourney/compile.html', {'golfers': Daily.objects.all()})
+#	return render(request, 'tourney/compile.html', {})
+
+@login_required
+def delete_daily(request):
+	Daily.objects.all().delete()
+	return render(request, 'tourney/compile.html', {'golfers': Daily.objects.all()})
+#	return render(request, 'tourney/compile.html', {})
+
+@login_required	
+def golfers_daily(request):
+	qs = Profile.objects.filter(isgolfing=True)
+	for user in qs:
+		g = Daily(golfer = user)
+		g.save()
+	return render(request, 'tourney/compile.html', {'golfers': Daily.objects.all()})
+#	return render(request, 'tourney/compile.html', {})
+
+@login_required
+def groups_daily(request):
 	return render(request, 'tourney/compile.html', {})

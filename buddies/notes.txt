@@ -3,6 +3,7 @@ To Do
 Domain Name
 Add Cancel to Profile and explain why it popped up if already have an account
 Text Feature
+Force Score to be entered
 
 
 heroku logs --tail
@@ -30,3 +31,22 @@ Buttons
 2. Populate Golfers from Profile
 3. Populate Groups
 4. Populate remaining data
+
+
+Extra:
+-Warning for deleting the Daily db
+-Pin to keep from deleting the Daily 
+-Post a warning if hole was skipped
+
+
+
+
+
+
+Django Tables:
+Django-tables2 is Available on pypi and can be installed using pip:
+
+pip install django-tables2
+After installing, add 'django_tables2' to INSTALLED_APPS and make sure that 'django.template.context_processors.request' is added to the context_processors in your template setting OPTIONS.
+
+

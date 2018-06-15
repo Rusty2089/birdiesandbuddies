@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'social_django', #for OAuth
 	'social.apps.django_app.default',
+	'django_tables2',
 	
 ]
 

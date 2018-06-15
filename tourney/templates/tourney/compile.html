@@ -1,40 +1,16 @@
 {% extends "tourney/header.html" %}
+{% load render_table from django_tables2 %}
 {% block content %}
+
 <p>Compile</p>
 
-<p>Delete current records for Daily Database  <a href="{% url 'tourney.delete_daily' %}" class="btn-danger">Delete</a></p>
-<p>Populate Golfers into Daily Database  <a href="{% url 'tourney.golfers_daily' %}" class="btn-success">Golfers</a></p>
-<p>Add Groups to Golfers in Daily Database  <a href="{% url 'tourney.groups_daily' %}" class="btn-success">Groups</a></p>
-<p>Finish Golfer data in Daily Database  <a href="{% url 'tourney.finish_daily' %}" class="btn-success">Finish</a></p>
+<p>Delete current records for Daily Database  <a href="{% url 'delete_daily' %}" class="btn-danger">Delete</a></p>
+<p>Populate Golfers into Daily Database  <a href="{% url 'golfers_daily' %}" class="btn-success">Golfers</a></p>
+<p>Add Groups to Golfers in Daily Database  <a href="{% url 'groups_daily' %}" class="btn-success">Groups</a></p>
+<p>Result:</p>
+<p></p>
+{% render_table golfers %}
 
-<table id="customers">
-  <tr>
-    <th>Golfer</th>
-    <th>Score</th>
-    <th>Thru</th>
-  </tr>
-  <tr>
-    <td>Golfer 1</td>
-    <td>+3</td>
-    <td>6</td>
-  </tr>
-  <tr>
-    <td>Golfer 2</td>
-    <td>+2</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td>Golfer 3</td>
-    <td>E</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td>Golfer 4</td>
-    <td>E</td>
-    <td>6</td>
-  </tr>
-
-</table>
 
 {% endblock %}
 

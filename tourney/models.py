@@ -2,46 +2,9 @@ from django.db import models
 
 # Create your models here.
 
-class Daily(models.Model):
-	display_name = models.CharField(max_length=15, unique=True)
-	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
-	quota = models.PositiveSmallIntegerField(default = 0)
-	h1_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h2_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h3_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h4_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h5_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h6_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h7_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h8_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h9_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h10_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h11_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h12_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h13_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h14_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h15_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h16_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h17_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	h18_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)))
-	raw_day_points = models.PositiveSmallIntegerField()
-	net_day_points = models.SmallIntegerField()
-	net_tourney_score = models.SmallIntegerField()
-	
-	def __str__(self): #to return display_name instead of _id
-		return self.display_name
-		
-class RoundData(models.Model):
-	current_round = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3)))
-	group1_ttime = models.TimeField(auto_now=False)
-	group2_ttime = models.TimeField(auto_now=False)
-	group3_ttime = models.TimeField(auto_now=False)
-	group4_ttime = models.TimeField(auto_now=False)
-	group5_ttime = models.TimeField(auto_now=False)
-	
 class Profile(models.Model):
     user_id = models.CharField(max_length=100, unique=True)
-    display_name = models.CharField(max_length=15, unique=True)
+    display_name = models.CharField(max_length=20, unique=True)
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
     city = models.CharField(max_length=20, default='City')
@@ -64,6 +27,43 @@ class Profile(models.Model):
 	
     def __str__(self): #to return display_name instead of _id
         return self.display_name
+
+class Daily(models.Model):
+	golfer = models.CharField(max_length=20, unique=True)
+	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+	quota = models.PositiveSmallIntegerField(default = 0)
+	h1_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h2_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h3_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h4_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h5_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h6_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h7_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h8_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h9_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h10_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h11_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h12_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h13_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h14_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h15_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h16_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h17_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	h18_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	raw_day_points = models.PositiveSmallIntegerField(default = 0)
+	net_day_points = models.SmallIntegerField(default = 0)
+	net_tourney_score = models.SmallIntegerField(default = 0)
+	
+	def __str__(self): #to return golfer instead of _id
+		return self.golfer
+		
+class RoundData(models.Model):
+	current_round = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3)))
+	group1_ttime = models.TimeField(auto_now=False)
+	group2_ttime = models.TimeField(auto_now=False)
+	group3_ttime = models.TimeField(auto_now=False)
+	group4_ttime = models.TimeField(auto_now=False)
+	group5_ttime = models.TimeField(auto_now=False)
 	
 class Course(models.Model):
     course_name = models.CharField(max_length=40)
