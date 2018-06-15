@@ -27,6 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
 	'thawing-tor-67269.herokuapp.com',
+	'www.birdiesandbuddies.com',
 ]
 
 # Application definition

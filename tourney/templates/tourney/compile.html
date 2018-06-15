@@ -2,6 +2,11 @@
 {% block content %}
 <p>Compile</p>
 
+<p>Delete current records for Daily Database  <a href="{% url 'tourney.delete_daily' %}" class="btn-danger">Delete</a></p>
+<p>Populate Golfers into Daily Database  <a href="{% url 'tourney.golfers_daily' %}" class="btn-success">Golfers</a></p>
+<p>Add Groups to Golfers in Daily Database  <a href="{% url 'tourney.groups_daily' %}" class="btn-success">Groups</a></p>
+<p>Finish Golfer data in Daily Database  <a href="{% url 'tourney.finish_daily' %}" class="btn-success">Finish</a></p>
+
 <table id="customers">
   <tr>
     <th>Golfer</th>
