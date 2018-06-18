@@ -36,7 +36,6 @@ def new_profile(request):
 	return render(request, 'tourney/newprofile.html', {'form': form})
 
 @login_required
-#@profile_complete
 def edit_profile(request):
 	uname = request.user.username
 	instance = Profile.objects.get(user_id = uname)
@@ -57,14 +56,5 @@ def edit_profile(request):
 	# if a GET (or any other method) we'll create a blank form
 	dname = instance.display_name
 	return render(request, 'tourney/editprofile.html', {'form': form, 'username': dname})
-	
-@login_required
-def main(request):
-	#uid = request.user.id
-	uid = request.user.username
-	who = Profile.objects.filter(user_id=uid)
-	if who.exists():
-		return render(request, 'tourney/index.html', {'uid': uid})
-	else:
-		return new_profile(request)
+
 

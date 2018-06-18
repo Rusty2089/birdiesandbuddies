@@ -4,14 +4,45 @@
 
 <p>Compile</p>
 
-<p>Delete current records for Daily Database  <a href="{% url 'delete_daily' %}" class="btn-danger">Delete</a></p>
-<p>Populate Golfers into Daily Database  <a href="{% url 'golfers_daily' %}" class="btn-success">Golfers</a></p>
-<p>Add Groups to Golfers in Daily Database  <a href="{% url 'groups_daily' %}" class="btn-success">Groups</a></p>
+
+  <p>Delete current records for Daily Database  <a href="{% url 'delete_daily' %}" class="btn-danger">Delete</a></p>
+  <p>Populate Golfers into Daily Database  <a href="{% url 'golfers_daily' %}" class="btn-success">Golfers</a></p>
+  <p></p>
+
+
+  
+<form action="#" method="post">
+{%csrf_token%}
+<p>Select Round to set data for (the next round to be played):
+<select name="whichround">
+  <option value="blank">Round</option>
+  <option value="r1">Round 1</option>
+  <option value="r2">Round 2</option>
+  <option value="r3">Round 3</option>
+</select></p>
+
+<p>Add Starting Score and Quota for the Round to Golfers in Daily Database
+<input type="submit" class="btn-success" value="Score and Quota" name="button"></p>
+</form>
+
 <p>Result:</p>
 <p></p>
-{% render_table golfers %}
+{% render_table table %}
 
 
 {% endblock %}
 
-	
+<!---
+<form action="/action_page.php">
+  Select Round to set data for (the next round to be played):</br>
+  <div class="form-group">
+    <select class="custom-select">
+      <option selected="">Round</option>
+	  <option value="empty">None</option>
+      <option value="r1">Round 1</option>
+      <option value="r2">Round 2</option>
+      <option value="r3">Round 3</option>
+    </select>
+  </div>
+-->
+

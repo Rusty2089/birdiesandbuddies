@@ -1,4 +1,5 @@
 {% extends "tourney/header.html" %}
+{% load render_table from django_tables2 %}
 {% block content %}
 
 
@@ -15,67 +16,13 @@
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
 
-<h4>Welcome, {{ user.username }}</h4>
-User Name</br>
-Tee Time:</br>
-Group:</br>
-Mini Leaderboard</br>
-Chat Messages</br>
+<h4> {{ name }}</h4>
+Group: {{ group }} Tee Time: {{teetime}}</br>
 
-<style>
-#customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+<p></p>
 
-#customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 2px;
-    font-size:x-small
-}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-    padding-top: 4px;
-    padding-bottom: 4px;
-    text-align: left;
-    background-color: #1c5ec9;
-    color: white;
-}
-</style>
-</head>
-<body>
-
-<table id="customers">
-  <tr>
-    <th>Golfer</th>
-    <th>Score</th>
-    <th>Thru</th>
-  </tr>
-  <tr>
-    <td>Golfer 1</td>
-    <td>+3</td>
-    <td>6</td>
-  </tr>
-  <tr>
-    <td>Golfer 2</td>
-    <td>+2</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td>Golfer 3</td>
-    <td>E</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td>Golfer 4</td>
-    <td>E</td>
-    <td>6</td>
-  </tr>
-
-</table> 
+{% render_table table %}
+<p>Messages:<p></p>
 
 {% endblock %}
 

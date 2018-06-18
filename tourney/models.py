@@ -4,23 +4,21 @@ from django.db import models
 
 class Profile(models.Model):
     user_id = models.CharField(max_length=100, unique=True)
-    display_name = models.CharField(max_length=20, unique=True)
+    display_name = models.CharField(max_length=15, unique=True)
     first_name = models.CharField(max_length=15)
     last_name = models.CharField(max_length=15)
     city = models.CharField(max_length=20, default='City')
     state = models.CharField(max_length=2, default='FL')
     isgolfing = models.NullBooleanField(default=True)
     r1_quota = models.PositiveSmallIntegerField(default = 0)
-    r1_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+    r1_startscore = models.SmallIntegerField(default = 0)
     r1_rawscore = models.SmallIntegerField(default = 0)
     r1_netscore = models.SmallIntegerField(default = 0)
     r2_quota = models.PositiveSmallIntegerField(default = 0)
-    r2_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
     r2_startscore = models.SmallIntegerField(default = 0)	
     r2_rawscore = models.SmallIntegerField(default = 0)
     r2_netscore = models.SmallIntegerField(default = 0)
     r3_quota = models.PositiveSmallIntegerField(default = 0)
-    r3_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
     r3_startscore = models.SmallIntegerField(default = 0)	
     r3_rawscore = models.SmallIntegerField(default = 0)
     r3_netscore = models.SmallIntegerField(default = 0)
@@ -29,8 +27,11 @@ class Profile(models.Model):
         return self.display_name
 
 class Daily(models.Model):
-	golfer = models.CharField(max_length=20, unique=True, null=True)
+	user_name = models.CharField(max_length=15, unique=True, null=True)
+	golfer = models.CharField(max_length=30, unique=True, null=True)
 	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+	teetime = models.TimeField(auto_now=False, null=True)
+	startscore = models.SmallIntegerField(default = 0)
 	quota = models.PositiveSmallIntegerField(default = 0)
 	h1_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
 	h2_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
@@ -50,12 +51,13 @@ class Daily(models.Model):
 	h16_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
 	h17_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
 	h18_pts = models.PositiveSmallIntegerField(choices = (('aweful', 0), ('bogey', 1), ('par', 2), ('birdy', 4), ('eagle', 8), ('d_eagle', 10)), blank=True, null=True)
+	thru = models.PositiveSmallIntegerField(default = 0)
 	raw_day_points = models.PositiveSmallIntegerField(default = 0)
 	net_day_points = models.SmallIntegerField(default = 0)
 	net_tourney_score = models.SmallIntegerField(default = 0)
 	
-	def __str__(self): #to return golfer instead of _id
-		return self.golfer
+	def __str__(self): #to return user_name instead of _id
+		return self.user_name
 		
 class RoundData(models.Model):
 	current_round = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3)))
@@ -89,4 +91,10 @@ class Course(models.Model):
     hole18_par = models.PositiveSmallIntegerField()
     def __str__(self): #to return course_name instead of _id
         return self.course_name
+		
+class Chat(models.Model):
+	author = models.CharField(max_length=15)
+	message = models.TextField(max_length=200, null=True)
+	timestamp = models.TimeField()
+	
 		

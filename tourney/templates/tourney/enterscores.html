@@ -1,113 +1,106 @@
 {% extends "tourney/header.html" %}
 {% block content %}
 
-<h2>Enter Scores</h2>
+<h2>Enter Scores, Group {{ group }}</h2>
 
 
-<form action="/action_page.php">
-  Hole Number:</br>
-  <div class="form-group">
-    <select class="custom-select">
-      <option selected="">Select Hole</option>
-      <option value="1">Hole 1</option>
-      <option value="2">Hole 2</option>
-      <option value="3">Hole 3</option>
-	  <option value="4">Hole 4</option>
-	  <option value="5">Hole 5</option>
-	  <option value="6">Hole 6</option>
-	  <option value="7">Hole 7</option>
-	  <option value="8">Hole 8</option>
-	  <option value="9">Hole 9</option>
-	  <option value="10">Hole 10</option>
-	  <option value="11">Hole 11</option>
-	  <option value="12">Hole 12</option>
-	  <option value="13">Hole 13</option>
-	  <option value="14">Hole 14</option>
-	  <option value="15">Hole 15</option>
-	  <option value="16">Hole 16</option>
-	  <option value="17">Hole 17</option>
-	  <option value="18">Hole 18</option>
-    </select>
-  </div>
+<form action="/enterscores">
+  <center>
+    <p>{{ form.hole }} Par:</p>
+  </center>
+  
 <div class="container">
   <div class="row" >
-    <div class="col-sm">
-      <center>
-	  <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div align="left" class="card-header">Golfer 1</div>
-          <div align="right" class="card-body">
-		  <input list="scores">
-          <datalist id="scores">
-            <option value="Aweful (0 Pt)">
-  		    <option value="Bogey (1 Pt)">
-            <option value="Par (2 Pt)">
-            <option value="Birdie (4 Pt)">
-            <option value="Eagle (8 Pt)">
-            <option value="Double Eagle (10 Pt)">
-          </datalist>
-          </div>
-      </div>
-      </center>
-    </div>
-	    <div class="col-sm">
-      <center>
-	  <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div align="left" class="card-header">Golfer 2</div>
-          <div align="right" class="card-body">
-		  <input list="scores">
-          <datalist id="scores">
-            <option value="Aweful (0 Pt)">
-  		    <option value="Bogey (1 Pt)">
-            <option value="Par (2 Pt)">
-            <option value="Birdie (4 Pt)">
-            <option value="Eagle (8 Pt)">
-            <option value="Double Eagle (10 Pt)">
-          </datalist>
-          </div>
-      </div>
-      </center>
-    </div>
-	    <div class="col-sm">
-      <center>
-	  <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div align="left" class="card-header">Golfer 3</div>
-          <div align="right" class="card-body">
-		  <input list="scores">
-          <datalist id="scores">
-            <option value="Aweful (0 Pt)">
-  		    <option value="Bogey (1 Pt)">
-            <option value="Par (2 Pt)">
-            <option value="Birdie (4 Pt)">
-            <option value="Eagle (8 Pt)">
-            <option value="Double Eagle (10 Pt)">
-          </datalist>
-          </div>
-      </div>
-      </center>
-    </div>
-	    <div class="col-sm">
-      <center>
-	  <div class="card border-primary mb-3" style="max-width: 20rem;">
-        <div align="left" class="card-header">Golfer 4</div>
-          <div align="right" class="card-body">
-		  <input list="scores">
-          <datalist id="scores">
-            <option value="Aweful (0 Pt)">
-  		    <option value="Bogey (1 Pt)">
-            <option value="Par (2 Pt)">
-            <option value="Birdie (4 Pt)">
-            <option value="Eagle (8 Pt)">
-            <option value="Double Eagle (10 Pt)">
-          </datalist>
-          </div>
-      </div>
-      </center>
-    </div>
     
+	<div class="col-sm">
+      <center>
+	  <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> {{ g1_name }} </div>
+          <div align="right" class="card-body">
+            <div class="container">
+              <div class="row">
+               <div class="col">
+                 {{ g1_ts }}
+               </div>
+               <div class="col-9">
+                 {{ form.g1_score }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> {{ g2_name }} </div>
+          <div align="right" class="card-body">
+            <div class="container">
+              <div class="row">
+               <div class="col">
+                 {{ g2_ts }}
+               </div>
+               <div class="col-9">
+                 {{ form.g2_score }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> {{ g3_name }} </div>
+          <div align="right" class="card-body">
+            <div class="container">
+              <div class="row">
+               <div class="col">
+                 {{ g3_ts }}
+               </div>
+               <div class="col-9">
+                 {{ form.g3_score }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> {{ g4_name }} </div>
+          <div align="right" class="card-body">
+            <div class="container">
+              <div class="row">
+               <div class="col">
+                 {{ g4_ts }}
+               </div>
+               <div class="col-9">
+                 {{ form.g4_score }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	
+	
+  </div>
+ </div>
 <center>
   <button type="submit" class="btn btn-primary">Save Scores</button>
   <button type="reset" class="btn btn-primary">Reset</button>
 </center>
+
 </form>
 
 

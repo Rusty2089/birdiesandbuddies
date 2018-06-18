@@ -1,10 +1,21 @@
 To Do
 
-Domain Name
 Add Cancel to Profile and explain why it popped up if already have an account
 Text Feature
 Force Score to be entered
 
+Enter Scores (by group)
+-Populate the Golfers based on the group they are in
+-Determine Thru
+-Set selector value to Thru +1
+-If selector is set to another hole, have it prefill the score values
+-POST values to Daily
+-Form Validation?
+
+
+
+heroku init
+pipenv lock (to lock pipfile which contains modules needing to be loaded)
 
 heroku logs --tail
 heroku ps:scale web=1
@@ -29,7 +40,7 @@ Build Daily from List of Profiles
 Buttons
 1. Delete db contents Daily.objects.all().delete()
 2. Populate Golfers from Profile
-3. Populate Groups
+3. Populate Groups in ADmin
 4. Populate remaining data
 
 
@@ -37,16 +48,25 @@ Extra:
 -Warning for deleting the Daily db
 -Pin to keep from deleting the Daily 
 -Post a warning if hole was skipped
+-List what place someone is in
+-Make it so less than 4 golfers can be in a group
 
 
-
-
-
-
-Django Tables:
-Django-tables2 is Available on pypi and can be installed using pip:
-
-pip install django-tables2
-After installing, add 'django_tables2' to INSTALLED_APPS and make sure that 'django.template.context_processors.request' is added to the context_processors in your template setting OPTIONS.
-
-
+>>> qs = Profile.objects.all()
+>>> qs
+<QuerySet [<Profile: RickyBobby>, <Profile: LizardKing>, <Profile: Coach>, <Profile: Stinky Pete>, <Profile: HappyG>, <Profile: Jones>, <Profile: Rusty2089>, <Profile: RedRocket>]>
+>>> qs = qs[0]
+>>> qs
+<Profile: RickyBobby>
+>>> getattr(Profile, 'first_name')
+<django.db.models.query_utils.DeferredAttribute object at 0x044D81F0>
+>>> getattr(Profile, 'user_id')
+<django.db.models.query_utils.DeferredAttribute object at 0x044D81B0>
+>>> qs.first_name
+'Ricky'
+>>> getattr(qs, 'first_name')
+'Ricky'
+>>> thisstring = 'first_name'
+>>> getattr(qs, thisstring)
+'Ricky'
+>>>
