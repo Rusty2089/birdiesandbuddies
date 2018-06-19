@@ -92,9 +92,9 @@ class Course(models.Model):
     def __str__(self): #to return course_name instead of _id
         return self.course_name
 		
-class Chat(models.Model):
+class Message(models.Model):
 	author = models.CharField(max_length=15)
 	message = models.TextField(max_length=200, null=True)
-	timestamp = models.TimeField()
+	posttime = models.DateTimeField(null=True)
 	
 		

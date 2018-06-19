@@ -1,16 +1,11 @@
 To Do
 
-Add Cancel to Profile and explain why it popped up if already have an account
 Text Feature
-Force Score to be entered
 
 Enter Scores (by group)
--Populate the Golfers based on the group they are in
 -Determine Thru
--Set selector value to Thru +1
 -If selector is set to another hole, have it prefill the score values
 -POST values to Daily
--Form Validation?
 
 
 
@@ -33,9 +28,6 @@ Status Bar Blocking Buttons can be fixed by adjusting "body {margin-bottom: 100p
 
 
 Build Daily from List of Profiles
-0. Delete all lines of Daily db
-1. Query Profiles to find all Golfer=True
-2. Loop through queary set to add each Profile Golfer to Daily
 
 Buttons
 1. Delete db contents Daily.objects.all().delete()

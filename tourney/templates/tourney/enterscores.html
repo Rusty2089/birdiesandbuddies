@@ -4,7 +4,8 @@
 <h2>Enter Scores, Group {{ group }}</h2>
 
 
-<form action="/enterscores">
+<form action="/enterscores/" method="post">
+  {% csrf_token %}
   <center>
     <p>{{ form.hole }} Par:</p>
   </center>

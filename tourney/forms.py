@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from tourney.models import Profile, Daily
+from tourney.models import Profile, Daily, Message
 
 GOLFING_CHOICES = (
 	(True, 'Golfer'),
@@ -68,3 +68,10 @@ class EnterScoreForm(forms.ModelForm):
 	class Meta:
 		model = Daily
 		fields = ['golfer']
+		
+class MessageForm(forms.ModelForm):
+	message = forms.CharField(label='Message', max_length = 180)
+	
+	class Meta:
+		model = Message
+		fields = ['message']

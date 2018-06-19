@@ -23,6 +23,15 @@ Group: {{ group }} Tee Time: {{teetime}}</br>
 
 {% render_table table %}
 <p>Messages:<p></p>
+{% render_table messtable %}
+<form action="/main/" method="post">
+  {% csrf_token %}
+  
+    {{ form.message }}</br>
+    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="reset" class="btn btn-primary">Clear</button>
+  
+</form>
 
 {% endblock %}
 

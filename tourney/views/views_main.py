@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from tourney.models import Profile, Daily
+from tourney.models import Profile, Daily, Message
 from django_tables2 import RequestConfig
-from tourney.tables import DailyTable, SmallLeaderTable
-from tourney.forms import EnterScoreForm
-
+from tourney.tables import DailyTable, SmallLeaderTable, MessageTable
+from tourney.forms import EnterScoreForm, MessageForm
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -13,12 +13,28 @@ def main(request):
 	who = Profile.objects.get(user_id=uid)
 	name = who.first_name + ' ' + who.last_name
 	qs = Daily.objects.all()
-	instance = qs.get(user_name = who.display_name)
-	group = instance.grouping
-	teetime = instance.teetime
+	if qs.filter(user_name = who).exists():
+		instance = qs.get(user_name = who.display_name)
+		group = instance.grouping
+		teetime = instance.teetime
+	else:
+		group = 'None'
+		teetime  = 'None'
 	table = SmallLeaderTable(qs)
 	RequestConfig(request).configure(table)
-	return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table})
+	messtable = MessageTable(Message.objects.all())
+	messtable.order_by = '-posttime'
+	RequestConfig(request).configure(messtable)
+	
+	form = MessageForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			author = who.display_name
+			message = author + ': ' + request.POST['message']
+			posttime = timezone.now()
+			p = Message.objects.create(author=author, message=message, posttime=posttime)
+			return HttpResponseRedirect('/main/')
+	return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'messtable':messtable})
 	
 @login_required
 def leaderboard(request):
@@ -59,63 +75,103 @@ def enterscores(request):
 	uid = request.user.username
 	who = Profile.objects.get(user_id=uid)
 	qs = Daily.objects.all()
-	instance = qs.get(user_name = who.display_name)
-	group = instance.grouping
-	thru = instance.thru
-	if thru < 18:
-		pf_hole = thru + 1 #pre-filled hole value for form selector
-	else:
-		pf_hole = 18
+	if qs.filter(user_name = who).exists():
+		instance = qs.get(user_name = who.display_name)
+		group = instance.grouping	
+		thru = instance.thru
+		if thru < 18:
+			pf_hole = thru + 1 #pre-filled hole value for form selector
+		else:
+			pf_hole = 18
 	
-	#par = 
+		#par = 
 	
-	golfer_qs = qs.filter(grouping = group)
-	golfer_list = list(golfer_qs)
+		golfer_qs = qs.filter(grouping = group)
+		golfer_list = list(golfer_qs)
 	
-	g1_name = golfer_list[0].golfer
-	g1_ts = golfer_list[0].net_tourney_score
-	g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
-	g2_name = golfer_list[1].golfer
-	g2_ts = golfer_list[1].net_tourney_score
-	g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
-	g3_name = golfer_list[2].golfer
-	g3_ts = golfer_list[2].net_tourney_score
-	g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
-	g4_name = golfer_list[3].golfer
-	g4_ts = golfer_list[3].net_tourney_score
-	g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
-	
-	form = EnterScoreForm(request.POST or None, initial={'hole':pf_hole})
-	if request.method == 'POST':
-		if form.is_valid():
-			#instance.first_name=request.POST['g1_score']
-			#instance.last_name=request.POST['g2_score']
-			#instance.city=request.POST['g3_score']
-			#instance.state=request.POST['g4_score']
-			#instance.isgolfing=request.POST['hole']
-			#update thru
-			#instance.save()
-		# redirect to a new URL:
-			return HttpResponseRedirect('/enterscores/')
-
-	# if a GET (or any other method) we'll create a blank form
-	content = {
-		'group' : group,
-		'g1_name': g1_name,
-		'g1_ts': g1_ts,
-		'g2_name': g2_name,
-		'g2_ts': g2_ts,
-		'g3_name': g3_name,
-		'g3_ts': g3_ts,
-		'g4_name': g4_name,
-		'g4_ts': g4_ts,
-		'form':form,
-		}
+		try:	
+			g1_name = golfer_list[0].golfer
+			g1_ts = golfer_list[0].net_tourney_score
+			g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
+		except IndexError:
+			g1_name = 'None Assigned'
+			g1_ts = 0
+			g1_user_name = ''
+		try:
+			g2_name = golfer_list[1].golfer
+			g2_ts = golfer_list[1].net_tourney_score
+			g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
+		except IndexError:
+			g2_name = 'None Assigned'
+			g2_ts = 0
+			g2_user_name = ''
+		try:
+			g3_name = golfer_list[2].golfer
+			g3_ts = golfer_list[2].net_tourney_score
+			g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
+		except IndexError:
+			g3_name = 'None Assigned'
+			g3_ts = 0
+			g3_user_name = ''		
+		try:
+			g4_name = golfer_list[3].golfer
+			g4_ts = golfer_list[3].net_tourney_score
+			g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
+		except IndexError:
+			g4_name = 'None Assigned'
+			g4_ts = 0
+			g4_user_name = ''		
 		
-	return render(request, 'tourney/enterscores.html', content)
+		
+		form = EnterScoreForm(request.POST or None, initial={'hole':pf_hole})
+		if request.method == 'POST':
+			if form.is_valid():
+				#instance.first_name=request.POST['g1_score']
+				#instance.last_name=request.POST['g2_score']
+				#instance.city=request.POST['g3_score']
+				#instance.state=request.POST['g4_score']
+				#instance.isgolfing=request.POST['hole']
+				#update thru
+				#instance.save()
+				# redirect to a new URL:
+				return HttpResponseRedirect('/enterscores/')
+
+		# if a GET (or any other method) we'll create a blank form
+		content = {
+			'group' : group,
+			'g1_name': g1_name,
+			'g1_ts': g1_ts,
+			'g2_name': g2_name,
+			'g2_ts': g2_ts,
+			'g3_name': g3_name,
+			'g3_ts': g3_ts,
+			'g4_name': g4_name,
+			'g4_ts': g4_ts,
+			'form':form,
+			}
+		
+		return render(request, 'tourney/enterscores.html', content)
 	
+	else:
+		form = EnterScoreForm(request.POST or None)
+		if request.method == 'POST':
+			return HttpResponseRedirect('/enterscores/')
+		content = {
+			'group' : 0,
+			'g1_name': '',
+			'g1_ts': 0,
+			'g2_name': '',
+			'g2_ts': 0,
+			'g3_name': '',
+			'g3_ts': 0,
+			'g4_name': '',
+			'g4_ts': 0,
+			'form':form,
+			}
+		
+		return render(request, 'tourney/enterscores.html', content)
+			
 	#TODO
-	#determine what happens if a group is not assigned
 	#determine what happens if too few golfers
 	#determine what happens if too many golfers
 	#find hole number based on previously entered holes; auto fill the hole select bar with this value
@@ -126,9 +182,7 @@ def enterscores(request):
 	#index to the next hole with new par, blank scores, etc.
 
 	#Variables to pass on to html = hole, par, course, g1 name, g1 prescore, g2 name, g2 prescore, g3, name, g3 prescore, g4 name, g4 prescore
-	
-	return render(request, 'tourney/enterscores.html', {})
-	
+		
 	
 @login_required
 def compile(request):

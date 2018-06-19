@@ -1,6 +1,6 @@
 # tables.py
 import django_tables2 as tables
-from tourney.models import Daily
+from tourney.models import Daily, Message
 
 class DailyTable(tables.Table):
     class Meta:
@@ -13,3 +13,8 @@ class SmallLeaderTable(tables.Table):
         model = Daily
         #template_name = 'django_tables2/bootstrap.html'
         fields = ('golfer', 'net_tourney_score', 'quota')
+		
+class MessageTable(tables.Table):
+	class Meta:
+		model = Message
+		fields = ('message',)
