@@ -6,35 +6,40 @@ from tourney.tables import DailyTable, SmallLeaderTable, MessageTable
 from tourney.forms import EnterScoreForm, MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from tourney.views import *
 
 @login_required
 def main(request):
 	uid = request.user.username
-	who = Profile.objects.get(user_id=uid)
-	name = who.first_name + ' ' + who.last_name
-	qs = Daily.objects.all()
-	if qs.filter(user_name = who).exists():
-		instance = qs.get(user_name = who.display_name)
-		group = instance.grouping
-		teetime = instance.teetime
-	else:
-		group = 'None'
-		teetime  = 'None'
-	table = SmallLeaderTable(qs)
-	RequestConfig(request).configure(table)
-	messtable = MessageTable(Message.objects.all())
-	messtable.order_by = '-posttime'
-	RequestConfig(request).configure(messtable)
+	who = Profile.objects.filter(user_id=uid)
+	if who.exists():
+		name = who.first_name + ' ' + who.last_name
+		qs = Daily.objects.all()
+		if qs.filter(user_name = who).exists():
+			instance = qs.get(user_name = who.display_name)
+			group = instance.grouping
+			teetime = instance.teetime
+		else:
+			group = 'None'
+			teetime  = 'None'
+		table = SmallLeaderTable(qs)
+		RequestConfig(request).configure(table)
+		messtable = MessageTable(Message.objects.all())
+		messtable.order_by = '-posttime'
+		RequestConfig(request).configure(messtable)
 	
-	form = MessageForm(request.POST or None)
-	if request.method == 'POST':
-		if form.is_valid():
-			author = who.display_name
-			message = author + ': ' + request.POST['message']
-			posttime = timezone.now()
-			p = Message.objects.create(author=author, message=message, posttime=posttime)
-			return HttpResponseRedirect('/main/')
-	return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'messtable':messtable})
+		form = MessageForm(request.POST or None)
+		if request.method == 'POST':
+			if form.is_valid():
+				author = who.display_name
+				message = author + ': ' + request.POST['message']
+				posttime = timezone.now()
+				p = Message.objects.create(author=author, message=message, posttime=posttime)
+				return HttpResponseRedirect('/main/')
+		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'messtable':messtable})
+	
+	else:
+		return HttpResponseRedirect('newprofile/')
 	
 @login_required
 def leaderboard(request):

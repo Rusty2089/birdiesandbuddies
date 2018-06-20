@@ -33,7 +33,7 @@ def new_profile(request):
 	# if a GET (or any other method) we'll create a blank form
 	else:
 		form = NewProfileForm()
-	return render(request, 'tourney/newprofile.html', {'form': form})
+		return render(request, 'tourney/newprofile.html', {'form': form})
 
 @login_required
 def edit_profile(request):
