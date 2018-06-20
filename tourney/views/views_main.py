@@ -6,15 +6,18 @@ from tourney.tables import DailyTable, SmallLeaderTable, MessageTable
 from tourney.forms import EnterScoreForm, MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from tourney.views import *
 
 @login_required
 def main(request):
 	uid = request.user.username
+	print(uid)
 	who = Profile.objects.filter(user_id=uid)
+	print(who)
+	qs = Daily.objects.all()
 	if who.exists():
+		who = who[0]
 		name = who.first_name + ' ' + who.last_name
-		qs = Daily.objects.all()
+		#qs = Daily.objects.all()
 		if qs.filter(user_name = who).exists():
 			instance = qs.get(user_name = who.display_name)
 			group = instance.grouping
