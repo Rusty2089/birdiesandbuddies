@@ -15,6 +15,8 @@ class SmallLeaderTable(tables.Table):
         fields = ('golfer', 'net_tourney_score', 'quota')
 		
 class MessageTable(tables.Table):
+	message = tables.Column(verbose_name= 'Messages' )
+
 	class Meta:
 		model = Message
-		fields = ('message',)
+		fields = ('message', 'posttime',)

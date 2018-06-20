@@ -10,9 +10,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def main(request):
 	uid = request.user.username
-	print(uid)
 	who = Profile.objects.filter(user_id=uid)
-	print(who)
 	qs = Daily.objects.all()
 	if who.exists():
 		who = who[0]
@@ -27,19 +25,27 @@ def main(request):
 			teetime  = 'None'
 		table = SmallLeaderTable(qs)
 		RequestConfig(request).configure(table)
+		
 		messtable = MessageTable(Message.objects.all())
 		messtable.order_by = '-posttime'
+		messtable.exclude = ('posttime')
 		RequestConfig(request).configure(messtable)
+	
+		messlist = []
+		messqs = Message.objects.order_by('-posttime')[:20]
+		for i in messqs:
+			messlist.append(tuple([i.author, i.message]))
+		print(messlist)
 	
 		form = MessageForm(request.POST or None)
 		if request.method == 'POST':
 			if form.is_valid():
 				author = who.display_name
-				message = author + ': ' + request.POST['message']
+				message = request.POST['message']
 				posttime = timezone.now()
 				p = Message.objects.create(author=author, message=message, posttime=posttime)
 				return HttpResponseRedirect('/main/')
-		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'messtable':messtable})
+		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'messtable':messtable, 'messlist':messlist})
 	
 	else:
 		return HttpResponseRedirect('newprofile/')
@@ -134,6 +140,7 @@ def enterscores(request):
 		form = EnterScoreForm(request.POST or None, initial={'hole':pf_hole})
 		if request.method == 'POST':
 			if form.is_valid():
+				
 				#instance.first_name=request.POST['g1_score']
 				#instance.last_name=request.POST['g2_score']
 				#instance.city=request.POST['g3_score']

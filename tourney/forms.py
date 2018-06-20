@@ -40,7 +40,7 @@ HOLE_CHOICES = (
 )
 
 class NewProfileForm(forms.Form):
-	display_name = forms.CharField(label='User Name', max_length=15)
+	display_name = forms.CharField(label='User Name', max_length=20)
 	first_name = forms.CharField(label='First Name', max_length=15)
 	last_name = forms.CharField(label='Last Name', max_length=15)
 	city = forms.CharField(label='Home City', max_length=30)
@@ -70,7 +70,7 @@ class EnterScoreForm(forms.ModelForm):
 		fields = ['golfer']
 		
 class MessageForm(forms.ModelForm):
-	message = forms.CharField(label='Message', max_length = 180)
+	message = forms.CharField(label='Message', max_length = 200, widget=forms.Textarea(attrs={'width':"100%", 'cols' : "80", 'rows': "4",}))
 	
 	class Meta:
 		model = Message

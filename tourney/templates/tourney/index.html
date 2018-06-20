@@ -22,8 +22,13 @@ Group: {{ group }} Tee Time: {{teetime}}</br>
 <p></p>
 
 {% render_table table %}
-<p>Messages:<p></p>
-{% render_table messtable %}
+<p></p>
+<h4>Messages:</h4>
+
+{% for author, message in messlist %}
+    <b>{{ author }}</b>: {{ message }}</br>
+{% endfor %}
+
 <form action="/main/" method="post">
   {% csrf_token %}
   
