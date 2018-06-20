@@ -70,7 +70,7 @@ class EnterScoreForm(forms.ModelForm):
 		fields = ['golfer']
 		
 class MessageForm(forms.ModelForm):
-	message = forms.CharField(label='Message', max_length = 200, widget=forms.Textarea(attrs={'width':"80%",'rows': "4",}))
+	message = forms.CharField(label='Message', max_length = 200)) #widget=forms.Textarea(attrs={'width':"80%",'rows': "4",}
 	
 	class Meta:
 		model = Message
