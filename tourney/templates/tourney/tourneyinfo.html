@@ -1,16 +1,16 @@
 {% extends "tourney/header.html" %}
 {% block content %}
 {% load staticfiles %} <!--not sure why this is needed here when it's in the header.html file but it gave an error without it -->
-<h1>Tourney Info</h1>
+<h2>Tourney Info</h2>
 
 
 <div id="accordion">
 	<div class="card">
 		<div class="card-header" id="headingOne">
 			<h5 class="mb-0">
-				<h3 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" data-target="#collapseOne">
+				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" data-target="#collapseOne">
 					Arrival and Check In
-				</h3>
+				</h4>
 			</h5>
 		</div>
 
@@ -34,14 +34,28 @@
 	<div class="card">
 		<div class="card-header" id="headingTwo">
 			<h5 class="mb-0">
-				<h3 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseTwo" aria-expanded="false" data-toggle="collapse" data-target="#collapseTwo">
-					Format and Scoring
-				</h3>
+				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseTwo" aria-expanded="false" data-toggle="collapse" data-target="#collapseTwo">
+					Rules and Scoring
+				</h4>
 			</h5>
 		</div>
 
 		<div id="collapseTwo" class="panel-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 			<div class="card-body">
+				<h5><b>Rules:</b></h5>
+				<p>
+				<ol>
+				    <li>You get 2 tee shots off the 1st tee.  No mulligans the rest of the round.</li>
+					<li>All out of bounds will be played as a lateral hazard.  That means you get to drop a ball lateral to where your ball crossed the hazard taking a 1 stroke penalty.</li>
+					<li>Putts inside the length of the putter are considered “gimmies”, but must be conceded by the group.</li>
+					<li>All putts for birdie or better must be putted out.</li>
+					<li>To qualify for the closest to the pin contest, your ball must be on the green.</li>
+					<li>To qualify for the longest drive, your ball must be in the fairway.</li>
+				</ol>
+				
+				
+				
+				<h5><b>Scoring:</b></h5>
 				<p><b>All scoring is individual.</b>  This is not a team event, which is the only reason why you were asked to play.</p>
 				<p>Scoring is based on a points system where you can earn points for each hole based on your score versus par.  In this case, <b>high scores are good.</b>  Points for each hole are earned as follows:</p>
 				<ul>
@@ -60,9 +74,27 @@
 	<div class="card">
 		<div class="card-header" id="headingThree">
 			<h5 class="mb-0">
-				<h3 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseThree" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree">
+				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseThree" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree">
+					Payouts
+				</h4>
+			</h5>
+		</div>
+
+		<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree" data-parent="#accordion">
+			<div class="card-body">
+				<p>Winning = Some percentage of the pool</p>
+				<p>Second Place = Some smaller percentage of the pool</p>
+				<p>Kicking a beach ball while jumping into the pool such that said beach ball strikes pavilian roof = Instant glory</p>
+
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingThree">
+			<h5 class="mb-0">
+				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseThree" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree">
 					Courses and Tee Times
-				</h3>
+				</h4>
 			</h5>
 		</div>
 
@@ -80,9 +112,9 @@
 	<div class="card">
 		<div class="card-header" id="headingFour">
 			<h5 class="mb-0">
-				<h3 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseFour" aria-expanded="false" data-toggle="collapse" data-target="#collapseFour">
+				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseFour" aria-expanded="false" data-toggle="collapse" data-target="#collapseFour">
 					Golfers and Groupies
-				</h3>
+				</h4>
 			</h5>
 		</div>
 

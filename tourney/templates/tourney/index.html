@@ -25,18 +25,17 @@ Group: {{ group }} Tee Time: {{teetime}}</br>
 <p></p>
 <h4>Messages:</h4>
 
-{% for author, message in messlist %}
-    <b>{{ author }}</b>: {{ message }}</br>
-{% endfor %}
-
 <form action="/main/" method="post">
   {% csrf_token %}
   
-    {{ form.message }}</br>
+    {{ form.message }}
     <button type="submit" class="btn btn-primary">Post</button>
-    <button type="reset" class="btn btn-primary">Clear</button>
   
 </form>
+
+{% for author, message in messlist %}
+    <b>{{ author }}</b>: {{ message }}</br>
+{% endfor %}
 
 {% endblock %}
 
