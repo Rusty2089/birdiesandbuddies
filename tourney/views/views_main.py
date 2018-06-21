@@ -107,7 +107,7 @@ def enterscores(request):
 			print(group)
 			golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
 			ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
-			golfer_list = list(ordered_gqs)  #sort the golfer list to match below
+			#golfer_list = list(ordered_gqs)  #sort the golfer list to match below
 			
 			g1_score = request.POST['g1_score']
 			g2_score = request.POST['g2_score']
@@ -132,14 +132,7 @@ def enterscores(request):
 				print(i.h15_pts)
 				#except:
 				#	pass
-			#instance.first_name=request.POST['g1_score']
-			#instance.last_name=request.POST['g2_score']
-			#instance.city=request.POST['g3_score']
-			#instance.state=request.POST['g4_score']
-			#instance.isgolfing=request.POST['hole']
-			#update thru
-			#instance.save()
-			# redirect to a new URL:
+
 			return HttpResponseRedirect('/enterscores/')
 		else:
 			print('not valid')
@@ -151,7 +144,7 @@ def enterscores(request):
 			group = instance.grouping	
 			thru = instance.thru
 			if thru < 18:
-				pf_hole = thru + 1 #pre-filled hole value for form selector
+				pf_hole = thru #pre-filled hole value for form selector
 			else:
 				pf_hole = 18
 	
@@ -160,6 +153,7 @@ def enterscores(request):
 			golfer_qs = qs.filter(grouping = group)
 			ordered_gqs = golfer_qs.order_by('user_name')
 			golfer_list = list(ordered_gqs)
+			
 	
 			try:	
 				g1_name = golfer_list[0].golfer
