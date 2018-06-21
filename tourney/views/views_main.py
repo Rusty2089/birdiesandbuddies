@@ -89,105 +89,144 @@ def enterscores(request):
 	uid = request.user.username
 	who = Profile.objects.get(user_id=uid)
 	qs = Daily.objects.all()
-	if qs.filter(user_name = who).exists():
-		instance = qs.get(user_name = who.display_name)
-		group = instance.grouping	
-		thru = instance.thru
-		if thru < 18:
-			pf_hole = thru + 1 #pre-filled hole value for form selector
-		else:
-			pf_hole = 18
-	
-		#par = 
-	
-		golfer_qs = qs.filter(grouping = group)
-		golfer_list = list(golfer_qs)
-	
-		try:	
-			g1_name = golfer_list[0].golfer
-			g1_ts = golfer_list[0].net_tourney_score
-			g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
-		except IndexError:
-			g1_name = 'None Assigned'
-			g1_ts = 0
-			g1_user_name = ''
-		try:
-			g2_name = golfer_list[1].golfer
-			g2_ts = golfer_list[1].net_tourney_score
-			g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
-		except IndexError:
-			g2_name = 'None Assigned'
-			g2_ts = 0
-			g2_user_name = ''
-		try:
-			g3_name = golfer_list[2].golfer
-			g3_ts = golfer_list[2].net_tourney_score
-			g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
-		except IndexError:
-			g3_name = 'None Assigned'
-			g3_ts = 0
-			g3_user_name = ''		
-		try:
-			g4_name = golfer_list[3].golfer
-			g4_ts = golfer_list[3].net_tourney_score
-			g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
-		except IndexError:
-			g4_name = 'None Assigned'
-			g4_ts = 0
-			g4_user_name = ''		
-		
-		
-		form = EnterScoreForm(request.POST or None, initial={'hole':pf_hole})
-		if request.method == 'POST':
-			if form.is_valid():
-				hole = request.POST['hole'] #returns the hole number as an integer
-				thru = hole + 1 #indexes the thru value up one
-				hole_str = 'h' + str(hole) #should be a string like 'h1'
-				
-				#instance.first_name=request.POST['g1_score']
-				#instance.last_name=request.POST['g2_score']
-				#instance.city=request.POST['g3_score']
-				#instance.state=request.POST['g4_score']
-				#instance.isgolfing=request.POST['hole']
-				#update thru
-				#instance.save()
-				# redirect to a new URL:
-				return HttpResponseRedirect('/enterscores/')
+	user_list=[]
+	if request.method == 'POST':
+		form = EnterScoreForm(request.POST)    # or None)   #, initial={'hole':pf_hole})
+		print('it posted')
+		if form.is_valid():
+			print('its valid')
+			hole = int(request.POST['hole']) #returns the hole number as an integer
+			print(hole)
+			thru = hole + 1 #indexes the thru value up one
+			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
+			print(hole_score)
 
-		# if a GET (or any other method) we'll create a blank form
-		content = {
-			'group' : group,
-			'g1_name': g1_name,
-			'g1_ts': g1_ts,
-			'g2_name': g2_name,
-			'g2_ts': g2_ts,
-			'g3_name': g3_name,
-			'g3_ts': g3_ts,
-			'g4_name': g4_name,
-			'g4_ts': g4_ts,
-			'form':form,
-			}
-		
-		return render(request, 'tourney/enterscores.html', content)
+			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
+			group = inst.grouping  #sort the golfer list to match below
+			print('group')
+			print(group)
+			golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
+			ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
+			golfer_list = list(ordered_gqs)  #sort the golfer list to match below
+			
+			g1_score = request.POST['g1_score']
+			g2_score = request.POST['g2_score']
+			g3_score = request.POST['g3_score']
+			g4_score = request.POST['g4_score']
+			score_list = [g1_score, g2_score, g3_score, g4_score]
+			n = 0
+			for i in ordered_gqs:
+				print(i)
+				print(i.golfer)
+				#try:
+				instance = qs.get(user_name = i)
+				instance.thru = thru
+				instance.save()
+				pts = int(score_list[n])
+				n += 1
+				setattr(instance, hole_score, pts)
+				print(instance)
+				print(hole_score)
+				print(type(pts))
+				
+				print(i.h15_pts)
+				#except:
+				#	pass
+			#instance.first_name=request.POST['g1_score']
+			#instance.last_name=request.POST['g2_score']
+			#instance.city=request.POST['g3_score']
+			#instance.state=request.POST['g4_score']
+			#instance.isgolfing=request.POST['hole']
+			#update thru
+			#instance.save()
+			# redirect to a new URL:
+			return HttpResponseRedirect('/enterscores/')
+		else:
+			print('not valid')
 	
 	else:
-		form = EnterScoreForm(request.POST or None)
-		if request.method == 'POST':
-			return HttpResponseRedirect('/enterscores/')
-		content = {
-			'group' : 0,
-			'g1_name': '',
-			'g1_ts': 0,
-			'g2_name': '',
-			'g2_ts': 0,
-			'g3_name': '',
-			'g3_ts': 0,
-			'g4_name': '',
-			'g4_ts': 0,
-			'form':form,
-			}
+		print('went through else')
+		if qs.filter(user_name = who).exists():
+			instance = qs.get(user_name = who.display_name)
+			group = instance.grouping	
+			thru = instance.thru
+			if thru < 18:
+				pf_hole = thru + 1 #pre-filled hole value for form selector
+			else:
+				pf_hole = 18
+	
+			#par = 
+	
+			golfer_qs = qs.filter(grouping = group)
+			ordered_gqs = golfer_qs.order_by('user_name')
+			golfer_list = list(ordered_gqs)
+	
+			try:	
+				g1_name = golfer_list[0].golfer
+				g1_ts = golfer_list[0].net_tourney_score
+				g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
+			except IndexError:
+				g1_name = 'None Assigned'
+				g1_ts = 0
+				g1_user_name = ''
+			try:
+				g2_name = golfer_list[1].golfer
+				g2_ts = golfer_list[1].net_tourney_score
+				g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
+			except IndexError:
+				g2_name = 'None Assigned'
+				g2_ts = 0
+				g2_user_name = ''
+			try:
+				g3_name = golfer_list[2].golfer
+				g3_ts = golfer_list[2].net_tourney_score
+				g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
+			except IndexError:
+				g3_name = 'None Assigned'
+				g3_ts = 0
+				g3_user_name = ''		
+			try:
+				g4_name = golfer_list[3].golfer
+				g4_ts = golfer_list[3].net_tourney_score
+				g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
+			except IndexError:
+				g4_name = 'None Assigned'
+				g4_ts = 0
+				g4_user_name = ''		
 		
-		return render(request, 'tourney/enterscores.html', content)
+			# if a GET (or any other method) we'll create a blank form
+			
+			form = EnterScoreForm(initial={'hole': pf_hole})
+			content = {
+				'group' : group,
+				'g1_name': g1_name,
+				'g1_ts': g1_ts,
+				'g2_name': g2_name,
+				'g2_ts': g2_ts,
+				'g3_name': g3_name,
+				'g3_ts': g3_ts,
+				'g4_name': g4_name,
+				'g4_ts': g4_ts,
+				'form':form,
+				}
+			return render(request, 'tourney/enterscores.html', content)
+	
+		else:
+			form = EnterScoreForm()
+			content = {
+				'group' : 0,
+				'g1_name': '',
+				'g1_ts': 0,
+				'g2_name': '',
+				'g2_ts': 0,
+				'g3_name': '',
+				'g3_ts': 0,
+				'g4_name': '',
+				'g4_ts': 0,
+				'form':form,
+				}
+			
+			return render(request, 'tourney/enterscores.html', content)
 			
 	#TODO
 	#determine what happens if too few golfers

@@ -58,16 +58,16 @@ class EditProfileForm(forms.ModelForm):
 		model = Profile
 		fields = ['first_name', 'last_name', 'city', 'state', 'isgolfing']
 		
-class EnterScoreForm(forms.ModelForm):
+class EnterScoreForm(forms.Form):
 	g1_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g2_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g3_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g4_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	hole = forms.ChoiceField(label='Hole', choices=HOLE_CHOICES)
 
-	class Meta:
-		model = Daily
-		fields = ['golfer']
+	#class Meta:
+		#model = Daily
+		#fields = ['golfer', 'hole']
 		
 class MessageForm(forms.ModelForm):
 	message = forms.CharField(label='Message', max_length = 200)
