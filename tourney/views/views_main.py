@@ -140,6 +140,9 @@ def enterscores(request):
 		form = EnterScoreForm(request.POST or None, initial={'hole':pf_hole})
 		if request.method == 'POST':
 			if form.is_valid():
+				hole = request.POST['hole'] #returns the hole number as an integer
+				thru = hole + 1 #indexes the thru value up one
+				hole_str = 'h' + str(hole) #should be a string like 'h1'
 				
 				#instance.first_name=request.POST['g1_score']
 				#instance.last_name=request.POST['g2_score']
