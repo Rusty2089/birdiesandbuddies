@@ -9,10 +9,24 @@ class DailyTable(tables.Table):
         fields = ('golfer', 'user_name', 'grouping', 'startscore', 'quota')
 		
 class SmallLeaderTable(tables.Table):
-    class Meta:
-        model = Daily
-        #template_name = 'django_tables2/bootstrap.html'
-        fields = ('golfer', 'net_tourney_score', 'quota')
+	net_day_points = tables.Column(
+		verbose_name = 'Daily Net', 
+		attrs={
+		"th": {"id": "foo"},
+		"td": {"align": "center"}
+		}	
+		)
+	thru = tables.Column(	
+		verbose_name = 'Thru', 
+		attrs={
+		"th": {"id": "foo"},
+		"td": {"align": "center"}
+		}	
+		)
+		
+	class Meta:
+		model = Daily
+		fields = ('golfer', 'net_day_points', 'thru')
 		
 class MessageTable(tables.Table):
 	message = tables.Column(verbose_name= 'Messages' )
@@ -20,3 +34,25 @@ class MessageTable(tables.Table):
 	class Meta:
 		model = Message
 		fields = ('message', 'posttime',)
+		
+
+		
+class ScoreCardTable(tables.Table):
+	net_day_points = tables.Column(
+		verbose_name = 'Daily Net', 
+		attrs={
+		"th": {"id": "foo"},
+		"td": {"align": "center"}
+		}	
+		)
+	thru = tables.Column(	
+		verbose_name = 'Thru', 
+		attrs={
+		"th": {"id": "foo"},
+		"td": {"align": "center"}
+		}	
+		)
+		
+	class Meta:
+		model = Daily
+		exclude = ('id', 'user_name', 'grouping', 'teetime', 'startscore')

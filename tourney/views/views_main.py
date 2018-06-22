@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from tourney.models import Profile, Daily, Message
 from django_tables2 import RequestConfig
-from tourney.tables import DailyTable, SmallLeaderTable, MessageTable
+from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable
 from tourney.forms import EnterScoreForm, MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -23,19 +23,20 @@ def main(request):
 		else:
 			group = 'None'
 			teetime  = 'None'
+		qs = qs.order_by('-net_day_points')
 		table = SmallLeaderTable(qs)
+		#table.order_by = '-net_day_points'
 		RequestConfig(request).configure(table)
 		
-		messtable = MessageTable(Message.objects.all())
+		messtable = MessageTable(Message.objects.all()) ###### DELTE ALL OF THIS??????????????
 		messtable.order_by = '-posttime'
 		messtable.exclude = ('posttime')
-		RequestConfig(request).configure(messtable)
+		RequestConfig(request).configure(messtable)     ###### DELTE ALL OF THIS??????????????
 	
 		messlist = []
 		messqs = Message.objects.order_by('-posttime')[:20]
 		for i in messqs:
 			messlist.append(tuple([i.author, i.message]))
-		print(messlist)
 	
 		form = MessageForm(request.POST or None)
 		if request.method == 'POST':
@@ -56,7 +57,10 @@ def leaderboard(request):
 
 @login_required
 def scorecards(request):
-	return render(request, 'tourney/scorecards.html', {})
+	scoretable = ScoreCardTable(Daily.objects.all())
+	scoretable.order_by = 'golfer'
+	RequestConfig(request).configure(scoretable)
+	return render(request, 'tourney/scorecards.html', {'scoretable':scoretable})
 
 @login_required
 def tourneyinfo(request):
@@ -94,7 +98,7 @@ def enterscores(request):
 		form = EnterScoreForm(request.POST)    # or None)   #, initial={'hole':pf_hole})
 		if form.is_valid():
 			hole = int(request.POST['hole']) #returns the hole number as an integer
-			thru = hole + 1 #indexes the thru value up one
+			thru = hole #indexes the thru value up one
 			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
 
 			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
@@ -110,16 +114,16 @@ def enterscores(request):
 			g4_score = request.POST['g4_score']
 			score_list = [g1_score, g2_score, g3_score, g4_score]
 			n = 0
-			for i in ordered_gqs:  
-				#try:
+			for i in ordered_gqs:
 				instance = qs.get(user_name = i)
-				print(instance)
 				instance.thru = thru
 				pts = int(score_list[n])
 				n += 1
 				setattr(instance, hole_score, pts)
+				
+				#update raw_daily_points
 				points_sum = 0
-				for p in range(1,19):  #update raw_daily_points
+				for p in range(1,19):  
 					hole_attr = 'h' + str(p) + '_pts'
 					try:
 						points_sum += getattr(instance, hole_attr)
@@ -128,9 +132,12 @@ def enterscores(request):
 					print(points_sum)
 				setattr(instance, 'raw_day_points', points_sum)
 				
+				#update net_day_points
+				net_score = getattr(instance, 'raw_day_points') - instance.quota
+				setattr(instance, 'net_day_points', net_score)
+				
 				instance.save()
-				#except:
-				#	pass
+
 
 				
 				
@@ -142,7 +149,7 @@ def enterscores(request):
 			group = instance.grouping	
 			thru = instance.thru
 			if thru < 18:
-				pf_hole = thru #pre-filled hole value for form selector
+				pf_hole = thru + 1 #pre-filled hole value for form selector
 			else:
 				pf_hole = 18
 	
