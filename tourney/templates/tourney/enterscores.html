@@ -1,7 +1,7 @@
 {% extends "tourney/header.html" %}
 {% block content %}
 
-<h2>Enter Scores, Group {{ group }}</h2>
+<h4>Enter Scores, Group {{ group }}</h4>
 
 
 <form action="/enterscores/" method="post">
@@ -21,7 +21,7 @@
             <div class="container">
               <div class="row">
                <div class="col">
-                 {{ g1_ts }}
+                 {{ g1_rdp }}
                </div>
                <div class="col-9">
                  {{ form.g1_score }}
@@ -41,7 +41,7 @@
             <div class="container">
               <div class="row">
                <div class="col">
-                 {{ g2_ts }}
+                 {{ g2_rdp }}
                </div>
                <div class="col-9">
                  {{ form.g2_score }}
@@ -61,7 +61,7 @@
             <div class="container">
               <div class="row">
                <div class="col">
-                 {{ g3_ts }}
+                 {{ g3_rdp }}
                </div>
                <div class="col-9">
                  {{ form.g3_score }}
@@ -81,7 +81,7 @@
             <div class="container">
               <div class="row">
                <div class="col">
-                 {{ g4_ts }}
+                 {{ g4_rdp }}
                </div>
                <div class="col-9">
                  {{ form.g4_score }}
