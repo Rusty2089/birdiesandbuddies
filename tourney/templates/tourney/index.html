@@ -16,13 +16,32 @@
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 </script>
 
-<h4> {{ name }}</h4>
-Group: {{ group }} Tee Time: {{teetime}}</br>
+<p> <b>{{ name }}</b> - Group: {{ group }} - Tee Time: {{teetime}}</p>
+
+<h4>Leaders:</h4>
+<table>
+	<font color="blue">
+	<tr>
+		<th>Golfer</th>
+		<th><center>Day Pts</center></th>
+		<th><center>Thru</center></th>
+	</tr>
+	</font>
+{% for golfer, net_day_points, thru in small_lb_list %}
+	<tr>
+		<td>{{ golfer }}</td>
+		<td><center>{{ net_day_points }}</center></td>
+		<td><center>{{ thru }}</center></td>
+	</tr>
+{% endfor %}	
+</table>
+
+<!--{% render_table table %}-->
 
 <p></p>
 
-{% render_table table %}
-<p></p>
+
+
 <h4>Messages:</h4>
 
 <form action="/main/" method="post">

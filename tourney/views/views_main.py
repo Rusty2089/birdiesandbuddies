@@ -23,9 +23,14 @@ def main(request):
 		else:
 			group = 'None'
 			teetime  = 'None'
-		qs = qs.order_by('-net_day_points')
+			
+		#make a list that becomes the small leaderboard
+		small_lb_list = []
+		small_lb_qs = qs.order_by('-net_day_points')[:7]   #CHANGE TO NER_TOURNEY_POINTS
+		for j in small_lb_qs:
+			small_lb_list.append(tuple([j.golfer, j.net_day_points, j.thru]))
+		
 		table = SmallLeaderTable(qs)
-		#table.order_by = '-net_day_points'
 		RequestConfig(request).configure(table)
 		
 		messtable = MessageTable(Message.objects.all()) ###### DELTE ALL OF THIS??????????????
@@ -46,7 +51,7 @@ def main(request):
 				posttime = timezone.now()
 				p = Message.objects.create(author=author, message=message, posttime=posttime)
 				return HttpResponseRedirect('/main/')
-		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'messtable':messtable, 'messlist':messlist})
+		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
 	
 	else:
 		return HttpResponseRedirect('newprofile/')
