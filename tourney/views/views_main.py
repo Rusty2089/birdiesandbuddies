@@ -7,6 +7,8 @@ from tourney.forms import EnterScoreForm, MessageForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
+#########################################################          MAIN              ####################################
+
 @login_required
 def main(request):
 	uid = request.user.username
@@ -59,6 +61,10 @@ def main(request):
 @login_required
 def leaderboard(request):
 	return render(request, 'tourney/leaderboard.html', {})
+	
+
+############################################        SCORE CARDS          ##################################################	
+
 
 @login_required
 def scorecards(request):
@@ -66,6 +72,8 @@ def scorecards(request):
 	scoretable.order_by = 'golfer'
 	RequestConfig(request).configure(scoretable)
 	return render(request, 'tourney/scorecards.html', {'scoretable':scoretable})
+
+#############################################       TOURNEY INFO         ###################################################	
 
 @login_required
 def tourneyinfo(request):
@@ -92,6 +100,7 @@ def tourneyinfo(request):
 	#print(content) <--can print and view in logs for troubleshooting
 	return render(request, 'tourney/tourneyinfo.html', content)
 	
+################################################       ENTER SCORES          ###############################################
 
 @login_required
 def enterscores(request):
@@ -102,12 +111,13 @@ def enterscores(request):
 	if request.method == 'POST':
 		form = EnterScoreForm(request.POST)    # or None)   #, initial={'hole':pf_hole})
 		if form.is_valid():
-			hole = int(request.POST['hole']) #returns the hole number as an integer
-			thru = hole #indexes the thru value up one
-			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
-
+			#hole = int(request.POST['hole']) #returns the hole number as an integer
+			
 			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
 			group = inst.grouping  #sort the golfer list to match below
+			hole = inst.thru
+			thru = hole + 1
+			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
 			golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
 			ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
 			#golfer_list = list(ordered_gqs)  #sort the golfer list to match below
@@ -134,27 +144,23 @@ def enterscores(request):
 						points_sum += getattr(instance, hole_attr)
 					except TypeError:
 						pass
-					print(points_sum)
 				setattr(instance, 'raw_day_points', points_sum)
 				
 				#update net_day_points
 				net_score = getattr(instance, 'raw_day_points') - instance.quota
 				setattr(instance, 'net_day_points', net_score)
-				
 				instance.save()
-
-
-				
-				
 			return HttpResponseRedirect('/enterscores/')
 	
+# CREATE A NEW FORM FOR WHEN PAGE IS FIRST LOADED
 	else:
 		if qs.filter(user_name = who).exists():
 			instance = qs.get(user_name = who.display_name)
 			group = instance.grouping	
-			thru = instance.thru
+			hole = instance.thru
+			thru = hole + 1
 			if thru < 18:
-				pf_hole = thru + 1 #pre-filled hole value for form selector
+				pf_hole = hole #pre-filled hole value for form selector
 			else:
 				pf_hole = 18
 	
@@ -201,6 +207,168 @@ def enterscores(request):
 			# if a GET (or any other method) we'll create a blank form
 			hpt_attr = 'h' + str(pf_hole) + '_pts' #to set the key for the getattr function
 			
+			#pre fill scores into a new form
+			try:
+				pf_g1_score = getattr(golfer_list[0], hpt_attr)
+			except IndexError:	
+				pf_g1_score = None
+			try:	
+				pf_g2_score = getattr(golfer_list[1], hpt_attr)
+			except IndexError:
+				pf_g2_score = None
+			try:
+				pf_g3_score = getattr(golfer_list[2], hpt_attr)
+			except IndexError:	
+				pf_g3_score = None
+			try:
+				pf_g4_score = getattr(golfer_list[3], hpt_attr)
+			except IndexError:
+				pf_g4_score = None
+			
+			
+			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
+			content = {
+				'hole': pf_hole,
+				'group' : group,
+				'g1_name': g1_name,
+				'g1_rdp': g1_rdp,
+				'g2_name': g2_name,
+				'g2_rdp': g2_rdp,
+				'g3_name': g3_name,
+				'g3_rdp': g3_rdp,
+				'g4_name': g4_name,
+				'g4_rdp': g4_rdp,
+				'form':form,
+				}
+			return render(request, 'tourney/enterscores.html', content)
+	
+		else:
+			form = EnterScoreForm()
+			content = {
+				'hole' : pf_hole,
+				'group' : 0,
+				'g1_name': '',
+				'g1_ts': 0,
+				'g2_name': '',
+				'g2_ts': 0,
+				'g3_name': '',
+				'g3_ts': 0,
+				'g4_name': '',
+				'g4_ts': 0,
+				'form':form,
+				}
+			
+			return render(request, 'tourney/enterscores.html', content)
+			
+	#TODO
+	#determine what happens if too few golfers
+	#determine what happens if too many golfers
+	#find hole number based on previously entered holes; auto fill the hole select bar with this value
+	#display that the scores were saved.... pause
+	#index to the next hole with new par, blank scores, etc.
+
+################################################       CHANGE HOLES / ENTER SCORES          ###############################################
+
+@login_required
+def changeholes(request, hole_id):
+	uid = request.user.username
+	who = Profile.objects.get(user_id=uid)
+	qs = Daily.objects.all()
+	user_list=[]
+	if request.method == 'POST':
+		form = EnterScoreForm(request.POST)    # or None)   #, initial={'hole':pf_hole})
+		if form.is_valid():
+			#hole = int(request.POST['hole']) #returns the hole number as an integer
+			hole = hole_id
+			thru = hole
+			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
+
+			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
+			group = inst.grouping  #sort the golfer list to match below
+			golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
+			ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
+			#golfer_list = list(ordered_gqs)  #sort the golfer list to match below
+			
+			#update thru and hole scores in Daily
+			g1_score = request.POST['g1_score']
+			g2_score = request.POST['g2_score']
+			g3_score = request.POST['g3_score']
+			g4_score = request.POST['g4_score']
+			score_list = [g1_score, g2_score, g3_score, g4_score]
+			n = 0
+			for i in ordered_gqs:
+				instance = qs.get(user_name = i)
+				instance.thru = thru
+				pts = int(score_list[n])
+				n += 1
+				setattr(instance, hole_score, pts)
+				
+				#update raw_daily_points
+				points_sum = 0
+				for p in range(1,19):  
+					hole_attr = 'h' + str(p) + '_pts'
+					try:
+						points_sum += getattr(instance, hole_attr)
+					except TypeError:
+						pass
+				setattr(instance, 'raw_day_points', points_sum)
+				
+				#update net_day_points
+				net_score = getattr(instance, 'raw_day_points') - instance.quota
+				setattr(instance, 'net_day_points', net_score)
+				instance.save()
+			return HttpResponseRedirect('/enterscores/')
+	
+# CREATE A NEW FORM FOR WHEN PAGE IS FIRST LOADED
+	else:
+		if qs.filter(user_name = who).exists():
+			instance = qs.get(user_name = who.display_name)
+			group = instance.grouping	
+			#thru = instance.thru
+			pf_hole = hole_id
+	
+			#par = 
+	
+			golfer_qs = qs.filter(grouping = group)
+			ordered_gqs = golfer_qs.order_by('user_name')
+			golfer_list = list(ordered_gqs)
+			
+	
+			try:	
+				g1_name = golfer_list[0].golfer
+				g1_rdp = golfer_list[0].raw_day_points
+				g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
+			except IndexError:
+				g1_name = 'None Assigned'
+				g1_rdp = 0
+				g1_user_name = ''
+			try:
+				g2_name = golfer_list[1].golfer
+				g2_rdp = golfer_list[1].raw_day_points
+				g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
+			except IndexError:
+				g2_name = 'None Assigned'
+				g2_rdp = 0
+				g2_user_name = ''
+			try:
+				g3_name = golfer_list[2].golfer
+				g3_rdp = golfer_list[2].raw_day_points
+				g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
+			except IndexError:
+				g3_name = 'None Assigned'
+				g3_rdp = 0
+				g3_user_name = ''		
+			try:
+				g4_name = golfer_list[3].golfer
+				g4_rdp = golfer_list[3].raw_day_points
+				g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
+			except IndexError:
+				g4_name = 'None Assigned'
+				g4_rdp = 0
+				g4_user_name = ''		
+		
+			# if a GET (or any other method) we'll create a blank form
+			hpt_attr = 'h' + str(pf_hole) + '_pts' #to set the key for the getattr function
 			
 			#pre fill scores into a new form
 			try:
@@ -221,8 +389,9 @@ def enterscores(request):
 				pf_g4_score = None
 			
 			
-			form = EnterScoreForm(initial={'hole': pf_hole, 'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
+			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
 			content = {
+				'hole': pf_hole,
 				'group' : group,
 				'g1_name': g1_name,
 				'g1_rdp': g1_rdp,
@@ -239,6 +408,7 @@ def enterscores(request):
 		else:
 			form = EnterScoreForm()
 			content = {
+				'hole': pf_hole,
 				'group' : 0,
 				'g1_name': '',
 				'g1_ts': 0,
@@ -251,20 +421,9 @@ def enterscores(request):
 				'form':form,
 				}
 			
-			return render(request, 'tourney/enterscores.html', content)
-			
-	#TODO
-	#determine what happens if too few golfers
-	#determine what happens if too many golfers
-	#find hole number based on previously entered holes; auto fill the hole select bar with this value
-	#display course name
-	#display hole par
-	#POST scores to Daily.objects by user_name
-	#display that the scores were saved.... pause
-	#index to the next hole with new par, blank scores, etc.
-
-	#Variables to pass on to html = hole, par, course, g1 name, g1 prescore, g2 name, g2 prescore, g3, name, g3 prescore, g4 name, g4 prescore
-		
+			return render(request, 'tourney/enterscores.html', content)	
+	
+###################################             COMPILE             #################################################
 	
 @login_required
 def compile(request):

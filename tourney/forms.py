@@ -63,7 +63,7 @@ class EnterScoreForm(forms.Form):
 	g2_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g3_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g4_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
-	hole = forms.ChoiceField(label='Hole', choices=HOLE_CHOICES)
+	#hole = forms.ChoiceField(label='Hole', choices=HOLE_CHOICES)
 
 	#class Meta:
 		#model = Daily

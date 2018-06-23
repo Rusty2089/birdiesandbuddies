@@ -9,6 +9,8 @@ urlpatterns = [
 	path('scorecards/', views.scorecards, name='scorecards'),
 	path('tourneyinfo/', views.tourneyinfo, name='tourneyinfo'),
 	path('enterscores/', views.enterscores, name='enterscores'),
+	# ex: /5/
+    path('<int:hole_id>/', views.changeholes, name='changeholes'),
 	path('newprofile/', views.new_profile, name='newprofile'),
 	path('editprofile/', views.edit_profile, name='editprofile'),
 	path('compile/', views.compile, name='compile'),
