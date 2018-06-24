@@ -11,18 +11,15 @@
 
 
   
-<form action="#" method="post">
-{%csrf_token%}
-<p>Select Round to set data for (the next round to be played):
-<select name="whichround">
-  <option value="blank">Round</option>
-  <option value="r1">Round 1</option>
-  <option value="r2">Round 2</option>
-  <option value="r3">Round 3</option>
-</select></p>
-
-<p>Add Starting Score and Quota for the Round to Golfers in Daily Database
-<input type="submit" class="btn-success" value="Score and Quota" name="button"></p>
+<form action="/editprofile/" method="post">
+    {% csrf_token %}
+	<center>
+	<table border="3" cellpadding = "5" cellspacing = "5">
+		{{ compile_form }}
+	</table>
+	<p></p>
+    <input type="submit" value="Run" />
+	</center>
 </form>
 
 <p>Result:</p>
@@ -32,17 +29,5 @@
 
 {% endblock %}
 
-<!---
-<form action="/action_page.php">
-  Select Round to set data for (the next round to be played):</br>
-  <div class="form-group">
-    <select class="custom-select">
-      <option selected="">Round</option>
-	  <option value="empty">None</option>
-      <option value="r1">Round 1</option>
-      <option value="r2">Round 2</option>
-      <option value="r3">Round 3</option>
-    </select>
-  </div>
--->
+
 

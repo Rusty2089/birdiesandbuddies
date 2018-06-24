@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from tourney.models import Profile, Daily, Message
 from django_tables2 import RequestConfig
 from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable
-from tourney.forms import EnterScoreForm, MessageForm
+from tourney.forms import EnterScoreForm, MessageForm, CompileForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
@@ -430,30 +430,71 @@ def changeholes(request, hole_id):
 		return render(request, 'tourney/enterscores.html', content)	
 	
 ###################################             COMPILE             #################################################
-	
+
+
+##########################  LOADS DAILY WITH QUOTA, GROUP, ROUND 1 SCORE, ROUND 2 SCORE
 @login_required
 def compile(request):
-    if(request.POST.get('button')):
-        if(request.POST.get('whichround') == 'blank'):
-            print('Select a Round') #---- Replace with render
-        else:
-            quota = request.POST.get('whichround') + '_quota'
-            score = request.POST.get('whichround') + '_startscore'
-            dailyq = Daily.objects.all()
-            profileq = Profile.objects.all()
-            for user in dailyq:
-                profilerow = profileq.get(display_name=user)
-                newquota = getattr(profilerow, quota)
-                newscore = getattr(profilerow, score)
-                dailyrow = dailyq.get(user_name=user)
-                dailyrow.quota = newquota
-                dailyrow.startscore = newscore
-                dailyrow.save()
-                			
-    table = DailyTable(Daily.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'tourney/compile.html', {'table': table})
+	compile_form = CompileForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+			#get the info from the form
+			round = request.POST['round']
+			course = request.POST['course']
+			g1_tt = request.POST['g1_tt']
+			g2_tt = request.POST['g2_tt']
+			g3_tt = request.POST['g3_tt']
+			g4_tt = request.POST['g4_tt']
+			g5_tt = request.POST['g5_tt']
+	
+			#make the variables for getattr using 'round'
+			group_var = round + '_group'
+			quota_var = round + '_quota'
+	
+			#load Profile and Daily as a queryset
+			qsProfile = Profile.objects.filter(isgolfing=True)
+			qsDaily = Daily.objects.all()
+			
+			#Move info from Profile to Daily (quota, group, r1 score, r2 score, r3 score)
+			for user in qsProfile:
+				uname = user.display_name
+				quota = getattr(user, quota_var)
+				group = getattr(user, group_var)
+				r1_score = user.r1_score # the score from round 1; will be zero while the first round is played
+				r2_score = user.r2_score # the score from round 2; will be zero while the first two rounds are palyed
+				r3_score = user.r3_score # the score from round 3; will be zero while the first two rounds are palyed
+				instance = qsDaily.get(user_name = user)
+				instance.quota = quota
+				instance.group = group
+				instance.r1_score = r1_score
+				instance.r2_score = r2_score
+				instance.r3_score = r3_score
+				instance.net_tourney_score = r1_score + r2_score + r3_score #Computes starting score until scores are computed with enterscores view
+				instance.course = course
+				if group == 1:
+					instance.teetime = g1_tt
+				elif group == 2:
+					instance.teetime = g2_tt
+				elif group == 3:
+					instance.teetime = g3_tt
+				elif group == 4:
+					instance.teetime = g4_tt
+				elif group == 5:
+					instance.teetime = g5_tt
+				else:
+					instance.teetime = g1_tt
+				instance.save()
+			
+			
+			#Compute current score
+			
+			return HttpResponseRedirect('/compile/')
+	table = DailyTable(Daily.objects.all())
+	RequestConfig(request).configure(table)
+	return render(request, 'tourney/compile.html', {'table': table, 'compile_form': compile_form})
 
+	
+######################### DELETES DAILY  #########################################
 @login_required
 def delete_daily(request):
     Daily.objects.all().delete()
@@ -461,6 +502,8 @@ def delete_daily(request):
     RequestConfig(request).configure(table)
     return render(request, 'tourney/compile.html', {'table': table})
 
+	
+########################### LOADS GOLFERS INTO DAILY  ###############################
 @login_required	
 def golfers_daily(request):
     qs = Profile.objects.filter(isgolfing=True)
