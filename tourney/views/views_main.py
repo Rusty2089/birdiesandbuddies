@@ -115,8 +115,10 @@ def enterscores(request):
 			
 			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
 			group = inst.grouping  #sort the golfer list to match below
-			hole = inst.thru
-			thru = hole + 1
+			#hole = request.POST['hole_pass']
+			#hole = inst.thru + 1
+			hole = request.session.get('pass_hole')
+			thru = hole
 			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
 			golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
 			ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
@@ -157,9 +159,11 @@ def enterscores(request):
 		if qs.filter(user_name = who).exists():
 			instance = qs.get(user_name = who.display_name)
 			group = instance.grouping	
-			hole = instance.thru
-			thru = hole + 1
-			if thru < 18:
+			hole = instance.thru + 1
+			thru = hole
+			request.session['pass_hole'] = hole
+			#request.session.modified = True
+			if hole < 18:
 				pf_hole = hole #pre-filled hole value for form selector
 			else:
 				pf_hole = 18
@@ -228,7 +232,7 @@ def enterscores(request):
 			
 			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
 			content = {
-				'hole': pf_hole,
+				'hole': hole,
 				'group' : group,
 				'g1_name': g1_name,
 				'g1_rdp': g1_rdp,
@@ -275,6 +279,7 @@ def changeholes(request, hole_id):
 	who = Profile.objects.get(user_id=uid)
 	qs = Daily.objects.all()
 	user_list=[]
+	"""
 	if request.method == 'POST':
 		form = EnterScoreForm(request.POST)    # or None)   #, initial={'hole':pf_hole})
 		if form.is_valid():
@@ -318,110 +323,111 @@ def changeholes(request, hole_id):
 				setattr(instance, 'net_day_points', net_score)
 				instance.save()
 			return HttpResponseRedirect('/enterscores/')
-	
-# CREATE A NEW FORM FOR WHEN PAGE IS FIRST LOADED
-	else:
-		if qs.filter(user_name = who).exists():
-			instance = qs.get(user_name = who.display_name)
-			group = instance.grouping	
-			#thru = instance.thru
-			pf_hole = hole_id
-	
-			#par = 
-	
-			golfer_qs = qs.filter(grouping = group)
-			ordered_gqs = golfer_qs.order_by('user_name')
-			golfer_list = list(ordered_gqs)
-			
-	
-			try:	
-				g1_name = golfer_list[0].golfer
-				g1_rdp = golfer_list[0].raw_day_points
-				g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
-			except IndexError:
-				g1_name = 'None Assigned'
-				g1_rdp = 0
-				g1_user_name = ''
-			try:
-				g2_name = golfer_list[1].golfer
-				g2_rdp = golfer_list[1].raw_day_points
-				g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
-			except IndexError:
-				g2_name = 'None Assigned'
-				g2_rdp = 0
-				g2_user_name = ''
-			try:
-				g3_name = golfer_list[2].golfer
-				g3_rdp = golfer_list[2].raw_day_points
-				g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
-			except IndexError:
-				g3_name = 'None Assigned'
-				g3_rdp = 0
-				g3_user_name = ''		
-			try:
-				g4_name = golfer_list[3].golfer
-				g4_rdp = golfer_list[3].raw_day_points
-				g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
-			except IndexError:
-				g4_name = 'None Assigned'
-				g4_rdp = 0
-				g4_user_name = ''		
+	"""
+# CREATE A NEW FORM FOR WHEN PAGE IS FIRST LOADED FROM A HOLE CHANGE
+	#else:
+	if qs.filter(user_name = who).exists():
+		instance = qs.get(user_name = who.display_name)
+		group = instance.grouping	
+		#thru = instance.thru
+		pf_hole = hole_id
+		request.session['pass_hole'] = hole_id
+		#request.session.modified = True
+		#par = 
+
+		golfer_qs = qs.filter(grouping = group)
+		ordered_gqs = golfer_qs.order_by('user_name')
+		golfer_list = list(ordered_gqs)
 		
-			# if a GET (or any other method) we'll create a blank form
-			hpt_attr = 'h' + str(pf_hole) + '_pts' #to set the key for the getattr function
-			
-			#pre fill scores into a new form
-			try:
-				pf_g1_score = getattr(golfer_list[0], hpt_attr)
-			except IndexError:	
-				pf_g1_score = None
-			try:	
-				pf_g2_score = getattr(golfer_list[1], hpt_attr)
-			except IndexError:
-				pf_g2_score = None
-			try:
-				pf_g3_score = getattr(golfer_list[2], hpt_attr)
-			except IndexError:	
-				pf_g3_score = None
-			try:
-				pf_g4_score = getattr(golfer_list[3], hpt_attr)
-			except IndexError:
-				pf_g4_score = None
-			
-			
-			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
-			content = {
-				'hole': pf_hole,
-				'group' : group,
-				'g1_name': g1_name,
-				'g1_rdp': g1_rdp,
-				'g2_name': g2_name,
-				'g2_rdp': g2_rdp,
-				'g3_name': g3_name,
-				'g3_rdp': g3_rdp,
-				'g4_name': g4_name,
-				'g4_rdp': g4_rdp,
-				'form':form,
-				}
-			return render(request, 'tourney/enterscores.html', content)
+
+		try:	
+			g1_name = golfer_list[0].golfer
+			g1_rdp = golfer_list[0].raw_day_points
+			g1_user_name = golfer_list[0].user_name #what's used to POST to Daily
+		except IndexError:
+			g1_name = 'None Assigned'
+			g1_rdp = 0
+			g1_user_name = ''
+		try:
+			g2_name = golfer_list[1].golfer
+			g2_rdp = golfer_list[1].raw_day_points
+			g2_user_name = golfer_list[1].user_name #what's used to POST to Daily
+		except IndexError:
+			g2_name = 'None Assigned'
+			g2_rdp = 0
+			g2_user_name = ''
+		try:
+			g3_name = golfer_list[2].golfer
+			g3_rdp = golfer_list[2].raw_day_points
+			g3_user_name = golfer_list[2].user_name #what's used to POST to Daily
+		except IndexError:
+			g3_name = 'None Assigned'
+			g3_rdp = 0
+			g3_user_name = ''		
+		try:
+			g4_name = golfer_list[3].golfer
+			g4_rdp = golfer_list[3].raw_day_points
+			g4_user_name = golfer_list[3].user_name #what's used to POST to Daily
+		except IndexError:
+			g4_name = 'None Assigned'
+			g4_rdp = 0
+			g4_user_name = ''		
 	
-		else:
-			form = EnterScoreForm()
-			content = {
-				'hole': pf_hole,
-				'group' : 0,
-				'g1_name': '',
-				'g1_ts': 0,
-				'g2_name': '',
-				'g2_ts': 0,
-				'g3_name': '',
-				'g3_ts': 0,
-				'g4_name': '',
-				'g4_ts': 0,
-				'form':form,
-				}
-			
-			return render(request, 'tourney/enterscores.html', content)	
+		# if a GET (or any other method) we'll create a blank form
+		hpt_attr = 'h' + str(pf_hole) + '_pts' #to set the key for the getattr function
+		
+		#pre fill scores into a new form
+		try:
+			pf_g1_score = getattr(golfer_list[0], hpt_attr)
+		except IndexError:	
+			pf_g1_score = None
+		try:	
+			pf_g2_score = getattr(golfer_list[1], hpt_attr)
+		except IndexError:
+			pf_g2_score = None
+		try:
+			pf_g3_score = getattr(golfer_list[2], hpt_attr)
+		except IndexError:	
+			pf_g3_score = None
+		try:
+			pf_g4_score = getattr(golfer_list[3], hpt_attr)
+		except IndexError:
+			pf_g4_score = None
+		
+		
+		form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
+		content = {
+			'hole': pf_hole,
+			'group' : group,
+			'g1_name': g1_name,
+			'g1_rdp': g1_rdp,
+			'g2_name': g2_name,
+			'g2_rdp': g2_rdp,
+			'g3_name': g3_name,
+			'g3_rdp': g3_rdp,
+			'g4_name': g4_name,
+			'g4_rdp': g4_rdp,
+			'form':form,
+			}
+		return render(request, 'tourney/enterscores.html', content)
+
+	else:
+		form = EnterScoreForm()
+		content = {
+			'hole': pf_hole,
+			'group' : 0,
+			'g1_name': '',
+			'g1_ts': 0,
+			'g2_name': '',
+			'g2_ts': 0,
+			'g3_name': '',
+			'g3_ts': 0,
+			'g4_name': '',
+			'g4_ts': 0,
+			'form':form,
+			}
+		
+		return render(request, 'tourney/enterscores.html', content)	
 	
 ###################################             COMPILE             #################################################
 	
