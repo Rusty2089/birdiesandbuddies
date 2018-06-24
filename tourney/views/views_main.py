@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from tourney.models import Profile, Daily, Message
 from django_tables2 import RequestConfig
-from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable
-from tourney.forms import EnterScoreForm, MessageForm, CompileForm
+from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable
+from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
@@ -437,7 +437,7 @@ def changeholes(request, hole_id):
 def compile(request):
 	compile_form = CompileForm(request.POST or None)
 	if request.method == 'POST':
-		if form.is_valid():
+		if compile_form.is_valid():
 			#get the info from the form
 			round = request.POST['round']
 			course = request.POST['course']
@@ -463,9 +463,9 @@ def compile(request):
 				r1_score = user.r1_score # the score from round 1; will be zero while the first round is played
 				r2_score = user.r2_score # the score from round 2; will be zero while the first two rounds are palyed
 				r3_score = user.r3_score # the score from round 3; will be zero while the first two rounds are palyed
-				instance = qsDaily.get(user_name = user)
+				instance = qsDaily.get(user_name = uname)
 				instance.quota = quota
-				instance.group = group
+				instance.grouping = group
 				instance.r1_score = r1_score
 				instance.r2_score = r2_score
 				instance.r3_score = r3_score
@@ -484,9 +484,6 @@ def compile(request):
 				else:
 					instance.teetime = g1_tt
 				instance.save()
-			
-			
-			#Compute current score
 			
 			return HttpResponseRedirect('/compile/')
 	table = DailyTable(Daily.objects.all())
@@ -519,3 +516,66 @@ def golfers_daily(request):
 @login_required
 def groups_daily(request):
 	return render(request, 'tourney/compile.html', {})
+
+########################## COMPUTES NEW QUOTA, GROUPS, AND SAVES NEW QUOTA, GROUP, AND NET SCORE INTO PROFILE ############################
+@login_required
+def reverse_compile(request):
+	reverse_compile_form = ReverseCompileForm(request.POST or None)
+	if request.method == 'POST':
+		if reverse_compile_form.is_valid():
+			#get the info from the form
+			round = request.POST['round']
+			
+			#make the variables going into Profile for getattr using 'round'
+			score_var = round + '_score'
+			if round == 'r1':
+				print('round 1')
+				group_var = 'r2_group'
+				quota_var = 'r2_quota'
+			if round == 'r2':
+				group_var = 'r3_group'
+				quota_var = 'r3_quota'
+			if round == 'r3':
+				group_var = 'r4_group'
+				quota_var = 'r4_quota'
+	
+			#load Profile and Daily as a queryset
+			qsProfile = Profile.objects.filter(isgolfing=True)
+			qsDaily = Daily.objects.order_by('net_tourney_score', 'golfer') #ordered to populate groups based on net tourney score
+			
+			#get info to save into Profile from Daily
+			np = 1 # nth players in a group (this will increase during the for loop until np_end is reached)
+			gn = 1 # group number (this will incerease during the for loop)
+			np_end = 4 # total number of golfers in a group
+			for user in qsDaily:
+				uname = user.user_name			
+				score = user.net_day_points
+				quota = (user.quota + user.raw_day_points) // 2 + ((user.quota + user.raw_day_points) % 2 > 0)
+				instance = qsProfile.get(display_name = uname)
+				setattr(instance, score_var, score)
+				setattr(instance, quota_var, quota)
+				if np <= np_end:
+					setattr(instance, group_var, gn)
+					np += 1
+				else:
+					np = 2
+					gn += 1
+					setattr(instance, group_var, gn)
+				instance.save()
+			
+			
+			
+			return HttpResponseRedirect('/reversecompile/')
+	table = DailyTable(Daily.objects.all())
+	RequestConfig(request).configure(table)
+	reverse_table = ReverseTable(Profile.objects.filter(isgolfing = True))
+	RequestConfig(request).configure(reverse_table)
+	return render(request, 'tourney/reversecompile.html', {'table': table, 'reverse_table': reverse_table, 'reverse_compile_form': reverse_compile_form})
+
+##################################### SEND REUNION OUR PAIRINGS ###############################
+def reunion(request):
+	reunion_list = []
+	qs = Daily.objects.order_by('grouping')
+	for user in qs:
+		reunion_list.append(tuple([user.grouping, user.golfer, user.course, user.teetime]))
+	return render(request, 'tourney/reunion.html', {'reunion_list': reunion_list})

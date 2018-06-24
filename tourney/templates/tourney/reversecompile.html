@@ -1,0 +1,26 @@
+{% extends "tourney/header.html" %}
+{% load render_table from django_tables2 %}
+{% block content %}
+
+
+<h3> Reverse Compile: for sending data from Daily to Profile</h3>
+
+<form action="/reversecompile/" method="post">
+    {% csrf_token %}
+	<center>
+	<table border="3" cellpadding = "5" cellspacing = "5">
+		{{ reverse_compile_form }}
+	</table>
+	<p></p>
+    <input type="submit" value="Run" />
+	</center>
+</form>
+
+{% render_table reverse_table %}
+<p></p>
+{% render_table table %}
+
+{% endblock %}
+
+
+

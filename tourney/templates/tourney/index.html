@@ -21,14 +21,14 @@
 <h4>Leaders:</h4>
 <table>
 	<font color="blue">
-	<tr>
+	<tr border-bottom: 1px solid #ddd>
 		<th>Golfer</th>
 		<th><center>Day Pts</center></th>
 		<th><center>Thru</center></th>
 	</tr>
 	</font>
 {% for golfer, net_day_points, thru in small_lb_list %}
-	<tr>
+	<tr border-bottom: 1px solid #ddd>
 		<td>{{ golfer }}</td>
 		<td><center>{{ net_day_points }}</center></td>
 		<td><center>{{ thru }}</center></td>
@@ -36,7 +36,6 @@
 {% endfor %}	
 </table>
 
-<!--{% render_table table %}-->
 
 <p></p>
 

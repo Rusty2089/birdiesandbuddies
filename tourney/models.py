@@ -20,6 +20,7 @@ class Profile(models.Model):
     r3_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
     r3_score = models.SmallIntegerField(default = 0)
     r4_quota = models.PositiveSmallIntegerField(default = 0)
+    r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
 	
     def __str__(self): #to return display_name instead of _id
         return self.display_name

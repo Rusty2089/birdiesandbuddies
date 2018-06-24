@@ -1,12 +1,12 @@
 # tables.py
 import django_tables2 as tables
-from tourney.models import Daily, Message
+from tourney.models import Daily, Message, Profile
 
 class DailyTable(tables.Table):
     class Meta:
         model = Daily
         #template_name = 'django_tables2/bootstrap.html'
-        fields = ('golfer', 'user_name', 'quota', 'grouping', 'courese', 'teetime', 'r1_score', 'r2_score')
+        fields = ('golfer', 'user_name', 'quota', 'grouping', 'course', 'teetime', 'r1_score', 'r2_score', 'r3_score')
 		
 class SmallLeaderTable(tables.Table):
 	net_day_points = tables.Column(
@@ -55,4 +55,11 @@ class ScoreCardTable(tables.Table):
 		
 	class Meta:
 		model = Daily
-		exclude = ('id', 'user_name', 'grouping', 'teetime', 'startscore')
+		exclude = ('id', 'user_name', 'grouping', 'teetime', 'course', 'startscore')
+		
+
+class ReverseTable(tables.Table):
+	#name = tables.Column(verbose_name= 'Messages' )
+	class Meta:
+		model = Profile
+		exclude = ('user_id', 'display_name', 'city', 'state', 'isgolfing')

@@ -1,0 +1,28 @@
+{% load render_table from django_tables2 %}
+
+<h3>Mays Group Pairings - Birdies and Buddies 2018</h3>
+
+
+<table>
+	<font color="blue">
+	<tr>
+		<th>Group</th>
+		<th><center>Golfer</center></th>
+		<th><center>Course</center></th>
+		<th><center>Tee Time</center></th>
+	</tr>
+	</font>
+{% for group, golfer, course, teetime in reunion_list %}
+	<tr>
+		<td>{{ group }}</td>
+		<td><center>{{ golfer }}</center></td>
+		<td><center>{{ course }}</center></td>
+		<td><center>{{ teetime }}</center></td>
+	</tr>
+{% endfor %}	
+</table>
+
+
+
+
+

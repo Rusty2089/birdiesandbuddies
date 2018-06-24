@@ -90,10 +90,13 @@ class MessageForm(forms.ModelForm):
 		
 		
 class CompileForm(forms.Form):
-	round = forms.ChoiceField(label='Round: ', choices=ROUND_CHOICES)
+	round = forms.ChoiceField(label='Round to setup: ', choices=ROUND_CHOICES)
 	course = forms.ChoiceField(label='Course: ', choices=COURSE_CHOICES)
 	g1_tt = forms.TimeField(label='Group 1 Tee Time: ')
 	g2_tt = forms.TimeField(label='Group 2 Tee Time: ')
 	g3_tt = forms.TimeField(label='Group 3 Tee Time: ')
 	g4_tt = forms.TimeField(label='Group 4 Tee Time: ')
 	g5_tt = forms.TimeField(label='Group 5 Tee Time: ')
+	
+class ReverseCompileForm(forms.Form):
+	round = forms.ChoiceField(label='Round to save: ', choices=ROUND_CHOICES)

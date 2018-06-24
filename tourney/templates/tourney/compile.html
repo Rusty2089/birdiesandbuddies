@@ -2,7 +2,7 @@
 {% load render_table from django_tables2 %}
 {% block content %}
 
-<p>Compile</p>
+<h3> Compile: for setting up each round by sending to Daily from Profile</h3>
 
 
   <p>Delete current records for Daily Database  <a href="{% url 'delete_daily' %}" class="btn-danger">Delete</a></p>
@@ -11,7 +11,7 @@
 
 
   
-<form action="/editprofile/" method="post">
+<form action="/compile/" method="post">
     {% csrf_token %}
 	<center>
 	<table border="3" cellpadding = "5" cellspacing = "5">
