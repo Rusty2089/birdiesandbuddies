@@ -22,13 +22,14 @@ def main(request):
 			instance = qs.get(user_name = who.display_name)
 			group = instance.grouping
 			teetime = instance.teetime
+			course = instance.course
 		else:
 			group = 'None'
 			teetime  = 'None'
 			
 		#make a list that becomes the small leaderboard
 		small_lb_list = []
-		small_lb_qs = qs.order_by('-net_day_points')[:7]   #CHANGE TO NER_TOURNEY_POINTS
+		small_lb_qs = qs.order_by('-net_tourney_score')[:7]
 		for j in small_lb_qs:
 			small_lb_list.append(tuple([j.golfer, j.net_day_points, j.thru]))
 		
@@ -53,7 +54,7 @@ def main(request):
 				posttime = timezone.now()
 				p = Message.objects.create(author=author, message=message, posttime=posttime)
 				return HttpResponseRedirect('/main/')
-		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
+		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
 	
 	else:
 		return HttpResponseRedirect('newprofile/')

@@ -9,29 +9,33 @@
 		<a class="lead" href="{% url 'login' %}">Log in</a>
 	{% endif %}
 
-	
-<!--https://weatherwidget.io/--->
-<a class="weatherwidget-io" href="https://forecast7.com/en/28d54n81d38/orlando/?unit=us" data-label_1="ORLANDO" data-label_2="WEATHER" data-mode="Current" data-days="3" data-theme="weather_one" >ORLANDO WEATHER</a>
-<script>
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-</script>
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <b>{{ name }}</b>
+    </div>
+    <div>
+      <a target="_blank"href="http://www.booked.net/weather/orlando-19887"><img src="https://w.bookcdn.com/weather/picture/21_19887_0_1_3658db_250_2a48ba_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=w209&anc_id=90251" alt="booked.net"/></a>
+    </div>
+  </div>
+</div>
 
-<p> <b>{{ name }}</b> - Group: {{ group }} - Tee Time: {{teetime}}</p>
+<p><center>Group: {{ group }} - Tee Time: {{ teetime }} on {{ course }}</center></p>
 
 <h4>Leaders:</h4>
 <table>
 	<font color="blue">
 	<tr border-bottom: 1px solid #ddd>
-		<th>Golfer</th>
-		<th><center>Day Pts</center></th>
-		<th><center>Thru</center></th>
+		<th style="border-bottom: 1px solid #ddd"></br>Golfer</th>
+		<th style="border-bottom: 1px solid #ddd"><center>Tourney</br> Score</center></th>
+		<th style="border-bottom: 1px solid #ddd"><center></br>Thru</center></th>
 	</tr>
 	</font>
 {% for golfer, net_day_points, thru in small_lb_list %}
 	<tr border-bottom: 1px solid #ddd>
-		<td>{{ golfer }}</td>
-		<td><center>{{ net_day_points }}</center></td>
-		<td><center>{{ thru }}</center></td>
+		<td style="border-bottom: 1px solid #ddd; padding: 2px 7px 2px 7px;">{{ golfer }}</td>
+		<td style="border-bottom: 1px solid #ddd; padding: 2px 7px 2px 7px;"><center>{{ net_day_points }}</center></td>
+		<td style="border-bottom: 1px solid #ddd; padding: 2px 7px 2px 7px;"><center>{{ thru }}</center></td>
 	</tr>
 {% endfor %}	
 </table>
