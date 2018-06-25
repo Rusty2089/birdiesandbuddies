@@ -22,6 +22,7 @@
 
 <p><center>Group: {{ group }} - Tee Time: {{ teetime }} on {{ course }}</center></p>
 
+<div class="container">
 <h4>Leaders:</h4>
 <table>
 	<font color="blue">
@@ -58,6 +59,8 @@
 {% for author, message in messlist %}
     <b>{{ author }}</b>: {{ message }}</br>
 {% endfor %}
+
+</div>
 
 {% endblock %}
 
