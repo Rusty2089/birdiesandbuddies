@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from tourney.models import Profile, Daily, Message
+from tourney.models import Profile, Daily, Message, Course
 from django_tables2 import RequestConfig
-from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable
+from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable, LeaderTable
 from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -61,7 +61,10 @@ def main(request):
 	
 @login_required
 def leaderboard(request):
-	return render(request, 'tourney/leaderboard.html', {})
+	leadertable = LeaderTable(Daily.objects.all())
+	leadertable.order_by = '-net_tourney_score'
+	RequestConfig(request).configure(leadertable)
+	return render(request, 'tourney/leaderboard.html', {'leadertable':leadertable})
 	
 
 ############################################        SCORE CARDS          ##################################################	
@@ -152,6 +155,11 @@ def enterscores(request):
 				#update net_day_points
 				net_score = getattr(instance, 'raw_day_points') - instance.quota
 				setattr(instance, 'net_day_points', net_score)
+				
+				#update net_tourney_score
+				net_tourney_score = instance.r1_score + instance.r2_score + net_score
+				setattr(instance, 'net_tourney_score', net_tourney_score)
+				
 				instance.save()
 			return HttpResponseRedirect('/enterscores/')
 	
@@ -159,9 +167,13 @@ def enterscores(request):
 	else:
 		if qs.filter(user_name = who).exists():
 			instance = qs.get(user_name = who.display_name)
-			group = instance.grouping	
+			group = instance.grouping
 			hole = instance.thru + 1
 			thru = hole
+			course = instance.course
+			par_var = 'h' + str(hole) + '_par'
+			course_info = Course.objects.get(course_name = course)
+			par = getattr(course_info, par_var)
 			request.session['pass_hole'] = hole
 			#request.session.modified = True
 			if hole < 18:
@@ -234,7 +246,8 @@ def enterscores(request):
 			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
 			content = {
 				'hole': hole,
-				'group' : group,
+				'group': group,
+				'par': par,
 				'g1_name': g1_name,
 				'g1_rdp': g1_rdp,
 				'g2_name': g2_name,
@@ -332,6 +345,10 @@ def changeholes(request, hole_id):
 		group = instance.grouping	
 		#thru = instance.thru
 		pf_hole = hole_id
+		course = instance.course
+		par_var = 'h' + str(hole_id) + '_par'
+		course_info = Course.objects.get(course_name = course)
+		par = getattr(course_info, par_var)
 		request.session['pass_hole'] = hole_id
 		#request.session.modified = True
 		#par = 
@@ -399,7 +416,8 @@ def changeholes(request, hole_id):
 		form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
 		content = {
 			'hole': pf_hole,
-			'group' : group,
+			'group': group,
+			'par': par,
 			'g1_name': g1_name,
 			'g1_rdp': g1_rdp,
 			'g2_name': g2_name,

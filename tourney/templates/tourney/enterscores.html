@@ -1,14 +1,14 @@
 {% extends "tourney/header.html" %}
 {% block content %}
 
-<p>Enter Scores, Group {{ group }}</p>
+<p>Enter Scores for Group {{ group }}</p>
 
 
 
 <form action="/enterscores/" method="post">
   {% csrf_token %}
   <center>
-    <p><font size="5"><b>Hole: {{ hole }}</b> - Par: X</font>
+    <p><font size="4"><b>Hole: {{ hole }}</b> - Par {{ par }} - </font>
 	<select name="menu1" id="menu1">
       <option value="https://www.birdiesandbuddies.com/enterscores">Change Hole</option>
       <option value="https://www.birdiesandbuddies.com/1">Hole 1</option>

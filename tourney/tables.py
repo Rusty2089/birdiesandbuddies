@@ -28,6 +28,55 @@ class SmallLeaderTable(tables.Table):
 		model = Daily
 		fields = ('golfer', 'net_day_points', 'thru')
 		
+##################### LEADERBOARD ########################
+class LeaderTable(tables.Table):
+	golfer = tables.Column(
+		verbose_name = 'Golfer', 
+		attrs={
+		"th": {"id": "foo", "border-bottom": "1px solid #ddd"},
+		"td": {"align": "left", "width": "120px"}
+		}	
+		)
+	r1_score = tables.Column(
+		verbose_name = 'Round 1 Score', 
+		attrs={
+		"th": {"id": "foo"},
+		"td": {"text-align": "center", "width": "50px"}
+		}	
+		)
+	r2_score = tables.Column(
+		verbose_name = 'Round 2 Score', 
+		attrs={
+		"th": {"id": "foo", "text-align": "center"},
+		"td": {"text-align": "center", "width": "50px"}
+		}	
+		)	
+	net_day_points = tables.Column(
+		verbose_name = 'Daily Score', 
+		attrs={
+		"th": {"id": "foo", "text-align": "center"},
+		"td": {"text-align": "center", "width": "50px"}
+		}	
+		)
+	net_tourney_score = tables.Column(
+		verbose_name = 'Tourney Score', 
+		attrs={
+		"th": {"id": "foo", "text-align": "center"},
+		"td": {"text-align": "center", "width": "50px"}
+		}	
+		)
+	thru = tables.Column(	
+		verbose_name = 'Thru', 
+		attrs={
+		"th": {"id": "foo", "text-align": "center"},
+		"td": {"text-align": "center", "width": "50px"}
+		}	
+		)
+		
+	class Meta:
+		model = Daily
+		fields = ('golfer', 'r1_score', 'r2_score', 'net_day_points', 'net_tourney_score', 'thru')
+		
 class MessageTable(tables.Table):
 	message = tables.Column(verbose_name= 'Messages' )
 

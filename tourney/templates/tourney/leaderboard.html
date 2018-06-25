@@ -1,6 +1,9 @@
 {% extends "tourney/header.html" %}
+{% load render_table from django_tables2 %}
 {% block content %}
-<p>Leaderboard</p>
-{% endblock %}
 
-	
+
+{% render_table leadertable %}
+All scores on this page are "net", meaning quota has already been figured into the score.
+
+{% endblock %}
