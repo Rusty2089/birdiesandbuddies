@@ -54,8 +54,10 @@ def main(request):
 				posttime = timezone.now()
 				p = Message.objects.create(author=author, message=message, posttime=posttime)
 				return HttpResponseRedirect('/main/')
-		return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
-	
+		try:
+			return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
+		except UnboundLocalError:
+			return render(request, 'tourney/index.html', {'name': 'You need to be added to the Daily DB', 'group': 'None', 'teetime': 'None', 'course': 'None', 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
 	else:
 		return HttpResponseRedirect('newprofile/')
 	
@@ -113,14 +115,10 @@ def enterscores(request):
 	qs = Daily.objects.all()
 	user_list=[]
 	if request.method == 'POST':
-		form = EnterScoreForm(request.POST)    # or None)   #, initial={'hole':pf_hole})
+		form = EnterScoreForm(request.POST)
 		if form.is_valid():
-			#hole = int(request.POST['hole']) #returns the hole number as an integer
-			
 			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
 			group = inst.grouping  #sort the golfer list to match below
-			#hole = request.POST['hole_pass']
-			#hole = inst.thru + 1
 			hole = request.session.get('pass_hole')
 			thru = hole
 			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
@@ -168,10 +166,16 @@ def enterscores(request):
 		if qs.filter(user_name = who).exists():
 			instance = qs.get(user_name = who.display_name)
 			group = instance.grouping
-			hole = instance.thru + 1
+			if instance.thru < 18:
+				hole = instance.thru + 1
+			else:
+				hole = 18
 			thru = hole
 			course = instance.course
-			par_var = 'h' + str(hole) + '_par'
+			if hole <= 18:
+				par_var = 'h' + str(hole) + '_par'
+			else:
+				par_var = 'h18_par'
 			course_info = Course.objects.get(course_name = course)
 			par = getattr(course_info, par_var)
 			request.session['pass_hole'] = hole
@@ -263,8 +267,8 @@ def enterscores(request):
 		else:
 			form = EnterScoreForm()
 			content = {
-				'hole' : pf_hole,
-				'group' : 0,
+				'hole' : 'None',
+				'group' : 'You need to be added to the Daily DB',
 				'g1_name': '',
 				'g1_ts': 0,
 				'g2_name': '',
@@ -488,7 +492,8 @@ def compile(request):
 				instance.r1_score = r1_score
 				instance.r2_score = r2_score
 				instance.r3_score = r3_score
-				instance.net_tourney_score = r1_score + r2_score + r3_score #Computes starting score until scores are computed with enterscores view
+				instance.net_day_points = instance.raw_day_points - quota
+				instance.net_tourney_score = r1_score + r2_score + r3_score + instance.net_day_points #Computes starting score until scores are computed with enterscores view
 				instance.course = course
 				if group == 1:
 					instance.teetime = g1_tt
