@@ -31,7 +31,7 @@ def main(request):
 		small_lb_list = []
 		small_lb_qs = qs.order_by('-net_tourney_score')[:7]
 		for j in small_lb_qs:
-			small_lb_list.append(tuple([j.golfer, j.net_day_points, j.thru]))
+			small_lb_list.append(tuple([j.golfer, j.net_tourney_score, j.thru]))
 		
 		table = SmallLeaderTable(qs)
 		RequestConfig(request).configure(table)
@@ -493,7 +493,7 @@ def compile(request):
 				instance.r2_score = r2_score
 				instance.r3_score = r3_score
 				#instance.net_day_points = instance.raw_day_points - quota
-				#instance.net_tourney_score = r1_score + r2_score + r3_score + instance.net_day_points #Computes starting score until scores are computed with enterscores view
+				instance.net_tourney_score = r1_score + r2_score + r3_score #+ instance.net_day_points #Computes starting score until scores are computed with enterscores view
 				instance.course = course
 				if group == 1:
 					instance.teetime = g1_tt
