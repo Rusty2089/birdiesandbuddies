@@ -492,8 +492,8 @@ def compile(request):
 				instance.r1_score = r1_score
 				instance.r2_score = r2_score
 				instance.r3_score = r3_score
-				instance.net_day_points = instance.raw_day_points - quota
-				instance.net_tourney_score = r1_score + r2_score + r3_score + instance.net_day_points #Computes starting score until scores are computed with enterscores view
+				#instance.net_day_points = instance.raw_day_points - quota
+				#instance.net_tourney_score = r1_score + r2_score + r3_score + instance.net_day_points #Computes starting score until scores are computed with enterscores view
 				instance.course = course
 				if group == 1:
 					instance.teetime = g1_tt
