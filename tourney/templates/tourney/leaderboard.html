@@ -1,3 +1,18 @@
+<style>
+body {background-color: powderblue;}
+h1   {color: blue;}
+p    {color: red;}
+table, th, td {
+   font-size: 10px
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+td {
+    text-align: center;
+}
+
+</style>
 {% extends "tourney/header.html" %}
 {% load render_table from django_tables2 %}
 {% block content %}
@@ -7,3 +22,5 @@
 All scores on this page are "net", meaning quota has already been figured into the score.
 
 {% endblock %}
+
+

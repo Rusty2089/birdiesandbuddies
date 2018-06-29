@@ -30,48 +30,11 @@ class SmallLeaderTable(tables.Table):
 		
 ##################### LEADERBOARD ########################
 class LeaderTable(tables.Table):
-	golfer = tables.Column(
-		verbose_name = 'Golfer', 
-		attrs={
-		"th": {"id": "foo", "border-bottom": "1px solid #ddd"},
-		"td": {"align": "left", "width": "120px"}
-		}	
-		)
-	r1_score = tables.Column(
-		verbose_name = 'Round 1 Score', 
-		attrs={
-		"th": {"id": "foo"},
-		"td": {"text-align": "center", "width": "50px"}
-		}	
-		)
-	r2_score = tables.Column(
-		verbose_name = 'Round 2 Score', 
-		attrs={
-		"th": {"id": "foo", "text-align": "center"},
-		"td": {"text-align": "center", "width": "50px"}
-		}	
-		)	
-	net_day_points = tables.Column(
-		verbose_name = 'Daily Score', 
-		attrs={
-		"th": {"id": "foo", "text-align": "center"},
-		"td": {"text-align": "center", "width": "50px"}
-		}	
-		)
-	net_tourney_score = tables.Column(
-		verbose_name = 'Tourney Score', 
-		attrs={
-		"th": {"id": "foo", "text-align": "center"},
-		"td": {"text-align": "center", "width": "50px"}
-		}	
-		)
-	thru = tables.Column(	
-		verbose_name = 'Thru', 
-		attrs={
-		"th": {"id": "foo", "text-align": "center"},
-		"td": {"text-align": "center", "width": "50px"}
-		}	
-		)
+	thru = tables.Column(verbose_name = 'Thru',)
+	r1_score = tables.Column(verbose_name = 'Round 1',)
+	r2_score = tables.Column(verbose_name = 'Round 2',)
+	net_day_points = tables.Column(verbose_name = 'Daily Net',)
+	net_tourney_score = tables.Column(verbose_name = 'Tourney',)
 		
 	class Meta:
 		model = Daily
