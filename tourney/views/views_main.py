@@ -577,7 +577,11 @@ def reverse_compile(request):
 			for user in qsDaily:
 				uname = user.user_name			
 				score = user.net_day_points
-				quota = (user.quota + user.raw_day_points) // 2 + ((user.quota + user.raw_day_points) % 2 > 0)
+				quota = 0
+				if user.quota >= 25 and (user.raw_day_points - user.quota) > 2:
+					quota = user.quota + 2
+				else:
+					quota = (user.quota + user.raw_day_points) // 2 + ((user.quota + user.raw_day_points) % 2 > 0)
 				instance = qsProfile.get(display_name = uname)
 				setattr(instance, score_var, score)
 				setattr(instance, quota_var, quota)
