@@ -73,7 +73,7 @@ class Daily(models.Model):
 #	group5_ttime = models.TimeField(auto_now=False)
 	
 class Course(models.Model):
-    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)')))
+    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (green)', 'North (green)')))
     h1_par = models.PositiveSmallIntegerField()
     h2_par = models.PositiveSmallIntegerField()
     h3_par = models.PositiveSmallIntegerField()
