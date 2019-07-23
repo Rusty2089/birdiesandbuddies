@@ -11,16 +11,16 @@ class Profile(models.Model):
     state = models.CharField(max_length=2, default='FL')
     isgolfing = models.NullBooleanField(default=True)
     r1_quota = models.PositiveSmallIntegerField(default = 0)
-    r1_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+    r1_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
     r1_score = models.SmallIntegerField(default = 0)
     r2_quota = models.PositiveSmallIntegerField(default = 0)
-    r2_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+    r2_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
     r2_score = models.SmallIntegerField(default = 0)
     r3_quota = models.PositiveSmallIntegerField(default = 0)
-    r3_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+    r3_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
     r3_score = models.SmallIntegerField(default = 0)
     r4_quota = models.PositiveSmallIntegerField(default = 0)
-    r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+    r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
 	
     def __str__(self): #to return display_name instead of _id
         return self.display_name
