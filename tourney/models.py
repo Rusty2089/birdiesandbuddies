@@ -28,7 +28,7 @@ class Profile(models.Model):
 class Daily(models.Model):
 	user_name = models.CharField(max_length=20, unique=True, null=True)
 	golfer = models.CharField(max_length=30, unique=True, null=True)
-	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), default = 0)
+	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
 	teetime = models.TimeField(auto_now=False, null=True)
 	course = models.CharField(max_length=30, null=True)
 	#startscore = models.SmallIntegerField(default = 0)
