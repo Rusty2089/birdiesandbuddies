@@ -23,7 +23,7 @@ def new_profile(request):
 					last_name=request.POST['last_name'],
 					city=request.POST['city'],
 					state=request.POST['state'],
-					email=request.POST['email'],
+					#email=request.POST['email'],
 				)
 				u1.save()
 				# redirect to a new URL:
