@@ -97,6 +97,7 @@ class CompileForm(forms.Form):
 	g3_tt = forms.TimeField(label='Group 3 Tee Time: ')
 	g4_tt = forms.TimeField(label='Group 4 Tee Time: ')
 	g5_tt = forms.TimeField(label='Group 5 Tee Time: ')
+	g6_tt = forms.TimeField(label='Group 6 Tee Time: ')
 	
 class ReverseCompileForm(forms.Form):
 	round = forms.ChoiceField(label='Round to save: ', choices=ROUND_CHOICES)

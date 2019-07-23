@@ -469,6 +469,7 @@ def compile(request):
 			g3_tt = request.POST['g3_tt']
 			g4_tt = request.POST['g4_tt']
 			g5_tt = request.POST['g5_tt']
+			g6_tt = request.POST['g6_tt']
 	
 			#make the variables for getattr using 'round'
 			group_var = round + '_group'
@@ -505,6 +506,8 @@ def compile(request):
 					instance.teetime = g4_tt
 				elif group == 5:
 					instance.teetime = g5_tt
+				elif group == 6:
+					instance.teetime = g6_tt
 				else:
 					instance.teetime = g1_tt
 				instance.save()
