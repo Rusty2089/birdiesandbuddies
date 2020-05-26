@@ -7,6 +7,9 @@ from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompi
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
+def login(request):
+	return render(request, 'registration/login.html')
+
 #########################################################          MAIN              ####################################
 
 @login_required
