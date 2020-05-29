@@ -1,32 +1,33 @@
 {% extends "tourney/header.html" %}
 {% block content %}
 {% load staticfiles %} <!--not sure why this is needed here when it's in the header.html file but it gave an error without it -->
-<h2>Tourney Info</h2>
+<h4>Tourney Info</h4>
 
 
 <div id="accordion">
 	<div class="card">
 		<div class="card-header" id="headingOne">
 			<h5 class="mb-0">
-				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" data-target="#collapseOne">
+				<h5 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" data-target="#collapseOne">
 					Arrival and Check In
-				</h4>
+				</h5>
 			</h5>
 		</div>
 
 		<div id="collapseOne" class="panel-collapse collapse" aria-labelledby="headingOne" data-parent="#accordion">
 			<div class="card-body">
-				<p>Innisbrook Country Club</p>
+				<p>Hammock Beach Resort</p>
 				<ul>
-					<li>Address: 36750 U.S. Highway 19 North, Palm Harbor, FL 34684</li>
-					<li>Phone: 866-951-4216</li>
+					<li>Conservatory Course Address: <a href="http://maps.google.com/maps?q=200+Conservatory+Dr,+Palm+Coast,+FL+32137">200 Conservatory Dr, Palm Coast, FL 32137</a></li>
+					<li>Resort and Ocean Course Address: <a href="http://maps.google.com/maps?q=200+Ocean+Crest+Dr,+Palm+Coast,+FL+32137">200 Ocean Crest Dr, Palm Coast, FL 32137</a></li>
+					<li>Resort Phone: <a href="tel:866-841-0287">(866)841-0287</a></li>
 				</ul>
-				<p>Room check in is at 4pm, but feel free to try to get your room early.  Room check in is at the Osprey Clubhouse / Guest Services (red star).</p>
-				<p>It seems like each course has its own clubhouse, so head over to the Copperhead Clubhouse (red oval) to check in for the tourney.</p>
-				<p>Driving range (red rectangle) is down the way a bit, but use it all you can.  You need it, and it's free.</p>
-				<p>If you get lost, call/text Joe at 321-261-1589</p>
+				<p>Friday's course is offiste and around 20 minutes from the Hammock Beach Resort.  It's probably best to head over to the Conservatory Course (address link above) for the first round, and then do check in after.</p>
+				<p>At the Conservatory Course, tell them you're in the Mays group, and you should be good to go.  The course has a driving range there.</p>
+				<p>Club storage is included, so we'll figure out if we can leave the clubs at the course on Friday.  There could also be a shuttle between the Resort and Conservatory Course, so stay tuned.</p>
+				<p>If you get lost on your way there, call/text Joe at <a href="tel:321-261-1589">(321)261-1589</a>.</p>
 				<center>
-					<img src="{% static "tourney/img/checkin.png" %}" height="350" alt="checkin"></br>
+					<!--   <img src="{% static "tourney/img/checkin.png" %}" height="350" alt="checkin"></br>   -->
 				</center>
 			</div>
 		</div>
@@ -34,15 +35,15 @@
 	<div class="card">
 		<div class="card-header" id="headingTwo">
 			<h5 class="mb-0">
-				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseTwo" aria-expanded="false" data-toggle="collapse" data-target="#collapseTwo">
+				<h5 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseTwo" aria-expanded="false" data-toggle="collapse" data-target="#collapseTwo">
 					Rules and Scoring
-				</h4>
+				</h5>
 			</h5>
 		</div>
 
 		<div id="collapseTwo" class="panel-collapse collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 			<div class="card-body">
-				<h5><b>Rules:</b></h5>
+				<h5>Rules:</h5>
 				<p>
 				<ol>
 				    <li>You get 2 tee shots off the 1st tee.  No mulligans the rest of the round.</li>
@@ -51,12 +52,13 @@
 					<li>All putts for birdie or better must be putted out.</li>
 					<li>To qualify for the closest to the pin contest, your ball must be on the green.</li>
 					<li>To qualify for the longest drive, your ball must be in the fairway.</li>
+					<li>To qualify for the sexiest player in tourney, you must have red hair.</li>
 				</ol>
 				
 				
 				
-				<h5><b>Scoring:</b></h5>
-				<p><b>All scoring is individual.</b>  There are random teams that are drawn, but chances are because you have terrible luck and suck at golf, your team won't win anyway, so just focus on less individual sucking.</p>
+				<h5>Scoring:</h5>
+				<p><b>All scoring is individual.</b>  There are random teams that are drawn, but don't tell someone you are on their team, because frankly, you suck and it would ruin their weekend.</p>
 				<p>Scoring is based on a points system where you can earn points for each hole based on your score versus par.  In this case, <b>high scores are good.</b>  Points for each hole are earned as follows:</p>
 				<ul>
 					<li>Bogey = 1 point</li>
@@ -67,21 +69,22 @@
 				</ul>
 				<p><b>Your score for each round is the total points you score for that round minus your quota (handicap) for that round.</b>  For example, if you start the round with a quota of 10 and score 12 points, you are +2 for that round and those 2 points are added to your overall tournament score (that’s a good thing!).</p>
 				<p><b>Your quota for the next round is adjusted by averaging the previous round’s score with the previous round’s quota.</b>  In the example above where someone starts with a quota and of 10 and scores 12 points, the quota for the next round is 11.  If the average ends in 0.5, the quota is rounded up.</p>
-				<p><b>New this year for 2019, </b>if a quota adjust to a 25 or more, we are going to cap an adjustment up by 2 points.  So if you start with a 26 and shoot a 32, your next day's quota will be 28 instaed of 29.</p>
+				<p><b>New as of 2019, </b>if a quota adjust to a 25 or more, we are going to cap an adjustment up by 2 points.  So if you start with a 26 and shoot a 32, your next day's quota will be 28 instaed of 29.  Yeah, this applies to maybe two people... and you still get screwed because you're actually good at golfing.</p>
 			</div>
 		</div>
 	</div>
 	<div class="card">
 		<div class="card-header" id="headingThree">
 			<h5 class="mb-0">
-				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseThree" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree">
+				<h5 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseThree" aria-expanded="false" data-toggle="collapse" data-target="#collapseThree">
 					Payouts
-				</h4>
+				</h5>
 			</h5>
 		</div>
 
 		<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree" data-parent="#accordion">
 			<div class="card-body">
+				<p>***********NEED TO UPDATE***********<br>
 				<p>Individual Winner - Needs no explanation, champ!<br>
 				First Place:	$200.00<br>
 				Second Place:	$120.00<br>
@@ -113,19 +116,19 @@
 	<div class="card">
 		<div class="card-header" id="headingFour">
 			<h5 class="mb-0">
-				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseFour" aria-expanded="false" data-toggle="collapse" data-target="#collapseFour">
+				<h5 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseFour" aria-expanded="false" data-toggle="collapse" data-target="#collapseFour">
 					Courses and Tee Times
-				</h4>
+				</h5>
 			</h5>
 		</div>
 
 		<div id="collapseFour" class="panel-collapse collapse" aria-labelledby="headingFour" data-parent="#accordion">
 			<div class="card-body">
-				<p>This year we will play Copperhead, Island, and North courses.  Tee times for the three days are:</p>
+				<p>This year we will play the Conservatory (off-site) and Ocean courses.  Tee times for the three days are:</p>
 				<ul>
-					<li>Friday: 10:40a - 11:30p on Copperhead (white tees)</li>
-					<li>Saturday: 10:20a - 11:10a on Island (white tees)</li>
-					<li>Sunday: 8:38a - 9:28a on North (green tees)</li>
+					<li>Friday (6/26): 1:00p - 1:50p on Conservatory Course (blue tees)</li>
+					<li>Saturday (6/27): 8:30a - 9:20a on Ocean Course (blue tees)</li>
+					<li>Sunday (6/28): 8:50a - 9:40a on Ocean Course (blue tees)</li>
 				</ul>
 			</div>
 		</div>
@@ -133,9 +136,9 @@
 	<div class="card">
 		<div class="card-header" id="headingFive">
 			<h5 class="mb-0">
-				<h4 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseFive" aria-expanded="false" data-toggle="collapse" data-target="#collapseFive">
+				<h5 role="button" class="collapsed" style="cursor: pointer;" aria-controls="collapseFive" aria-expanded="false" data-toggle="collapse" data-target="#collapseFive">
 					Golfers and Groupies
-				</h4>
+				</h5>
 			</h5>
 		</div>
 

@@ -9,7 +9,7 @@
 	<!-- Bootstrap CSS -->
     {% load staticfiles %}
 	<!--https://www.bootstrapcdn.com/bootswatch/-->
-   	<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/spacelab/bootstrap.min.css" rel="stylesheet" integrity="sha384-TgQmpeh1IG9vQ1WxIzpdfm5FX08N4+Nr5uzpgqvZAKQwWems+NIMmOVIMFxGq6EZ" crossorigin="anonymous">
+   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cyborg/bootstrap.min.css" integrity="sha384-GKugkVcT8wqoh3M8z1lqHbU+g6j498/ZT/zuXbepz7Dc09/otQZxTimkEMTkRWHP" crossorigin="anonymous">
 	
 	<style>
 		body {margin-bottom: 100px;}
@@ -17,12 +17,13 @@
 	
   </head>
 
-	<body class="body" style="background-color: white">
+	<body class="body" style="background-image: url({% static 'tourney/img/BBlogoBG.png' %}); background-repeat: no-repeat; background-size: 250px; background-position: center; background-attachment: fixed; background-color: black">
 		<div>
 			{% block content %}
 			{% endblock %}	
 		</div>
-	<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-primary">
+	<nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-primary">
+		<img src="{% static "tourney/img/BBlogoSM.png" %}" height="50" alt="BB Logo">
 		<a class="navbar-brand" style="color:white">Birdies and Buddies</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>

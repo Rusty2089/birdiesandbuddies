@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tqbkl5og8=*c_!f5cx&geu#n_rww#knrtpg7^ozp@qm)*@(d&d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
 	'thawing-tor-67269.herokuapp.com',
@@ -164,7 +164,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 #STATICFILES_DIRS = (
@@ -174,6 +174,6 @@ USE_TZ = True
 
 #BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 #STATICFILES_DIRS = (
 #    os.path.join(BASE_DIR, '../birdiesandbuddies/tourney/static'))

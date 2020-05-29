@@ -63,14 +63,6 @@ class Daily(models.Model):
 		
 	#((0, 'Aweful'), (1, 'Bogey'), (2, 'Par'), (4, 'Birdie'), (8, 'Eagle'), (10, 'D_Eagle')), blank=True, null=True)
 		
-#class RoundData(models.Model):
-#	round = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3)))
-#	course = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer')))
-#	group1_ttime = models.TimeField(auto_now=False)
-#	group2_ttime = models.TimeField(auto_now=False)
-#	group3_ttime = models.TimeField(auto_now=False)
-#	group4_ttime = models.TimeField(auto_now=False)
-#	group5_ttime = models.TimeField(auto_now=False)
 	
 class Course(models.Model):
     course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)')))
