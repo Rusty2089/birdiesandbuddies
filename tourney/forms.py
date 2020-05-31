@@ -50,7 +50,9 @@ COURSE_CHOICES = (
 	('Palmer', 'Palmer'),
 	('Copperhead (white)', 'Copperhead (white)'),
 	('Island (white)', 'Island (white)'),
-	('North (white)', 'North (white)')
+	('North (white)', 'North (white)'),
+	('Ocean', 'Ocean'),
+	('Conservatory', 'Conservatory')
 )
 
 class NewProfileForm(forms.Form):

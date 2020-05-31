@@ -19,5 +19,6 @@ urlpatterns = [
 	path('golfers_daily/', views.golfers_daily, name='golfers_daily'),
 	path('groups_daily/', views.groups_daily, name='groups_daily'),
 	path('reunion/', views.reunion, name='reunion'),
+	path('history/', views.history, name='history'),
 
 ]

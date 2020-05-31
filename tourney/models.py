@@ -65,7 +65,7 @@ class Daily(models.Model):
 		
 	
 class Course(models.Model):
-    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)')))
+    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)'), ('Ocean', 'Ocean'), ('Conservatory', 'Conservatory')))
     h1_par = models.PositiveSmallIntegerField()
     h2_par = models.PositiveSmallIntegerField()
     h3_par = models.PositiveSmallIntegerField()
@@ -92,4 +92,9 @@ class Message(models.Model):
 	message = models.TextField(max_length=200, null=True)
 	posttime = models.DateTimeField(null=True)
 	
-		
+class Extra(models.Model):
+	leader = models.CharField(max_length=30, blank=True)
+	type = models.CharField(max_length = 30, choices = (('Closest to the Pin', 'Closest to the Pin'), ('Long Drive', 'Long Drive')))
+	hole = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18)), blank=True, null=True, unique=True)
+	def __int__(self):
+		return self.hole

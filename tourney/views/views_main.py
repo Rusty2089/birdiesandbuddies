@@ -613,3 +613,7 @@ def reunion(request):
 	for user in qs:
 		reunion_list.append(tuple([user.grouping, user.golfer, user.course, user.teetime]))
 	return render(request, 'tourney/reunion.html', {'reunion_list': reunion_list})
+
+##################################### B&B HISTORY ##########################################
+def history(request):
+	return render(request, 'tourney/history.html')

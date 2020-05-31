@@ -1,0 +1,127 @@
+{% extends "tourney/header.html" %}
+{% block content %}
+{% load staticfiles %} <!--not sure why this is needed here when it's in the header.html file but it gave an error without it -->
+
+<style>
+table, th, td {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+</style>
+<h1></h1>
+<h2></h2>
+<h3></h3>
+<h4>Birdies and Buddies History</h4>
+<p></p>
+<h5>Tournaments</h5>
+<table>
+	<tr border-bottom: 1px solid blue>
+		<th style="border-bottom: 1px solid blue">Year</th>
+		<th style="border-bottom: 1px solid blue">Venue</th>
+		<th style="border-bottom: 1px solid blue">Players</th>
+		<th style="border-bottom: 1px solid blue">Winner</th>
+		<th style="border-bottom: 1px solid blue">Winning Score</th>
+	</tr>
+	<tr>
+		<td>2020</td>
+		<td>Hammock Beach</td>
+		<td>24</td>
+		<td>Not You!</td>
+		<td>TBD</td>
+	</tr>
+	<tr>
+		<td>2019</td>
+		<td>Innisbrook</td>
+		<td>24</td>
+		<td>Stephen Campbell</td>
+		<td>+9</td>
+	</tr>
+	<tr>
+		<td>2018</td>
+		<td>Reunion</td>
+		<td>24</td>
+		<td>Phil Tendler</td>
+		<td>+8 (playoff)</td>
+	</tr>
+	<tr>
+		<td>2017</td>
+		<td>Reunion</td>
+		<td>20</td>
+		<td>Phil Tendler</td>
+		<td>+11</td>
+	</tr>
+</table>
+<p></p>
+<h5>Runner Ups</h5>
+<table>
+	<tr border-bottom: 1px solid blue>
+		<th style="border-bottom: 1px solid blue">Year</th>
+		<th style="border-bottom: 1px solid blue">Venue</th>
+		<th style="border-bottom: 1px solid blue">First Loser</th>
+		<th style="border-bottom: 1px solid blue">Score</th>
+	</tr>
+	<tr>
+		<td>2020</td>
+		<td>Hammock Beach</td>
+		<td>Still Not You!</td>
+		<td>TBD</td>
+	</tr>
+	<tr>
+		<td>2019</td>
+		<td>Innisbrook</td>
+		<td>Phil Tendler & Ted Kane</td>
+		<td>+8</td>
+	</tr>
+	<tr>
+		<td>2018</td>
+		<td>Reunion</td>
+		<td>Kevin Mersinger</td>
+		<td>+8 (playoff)</td>
+	</tr>
+	<tr>
+		<td>2017</td>
+		<td>Reunion</td>
+		<td>Chris Empric</td>
+		<td>+9</td>
+	</tr>
+</table>
+<p></p>
+<h5>Denim Dan's Dingleberry Award</h5>
+<table>
+	<tr border-bottom: 1px solid blue>
+		<th style="border-bottom: 1px solid blue">Year</th>
+		<th style="border-bottom: 1px solid blue">Venue</th>
+		<th style="border-bottom: 1px solid blue">Last Place</th>
+		<th style="border-bottom: 1px solid blue">Score</th>
+	</tr>
+	<tr>
+		<td>2020</td>
+		<td>Hammock Beach</td>
+		<td>Probably You...</td>
+		<td>TBD</td>
+	</tr>
+	<tr>
+		<td>2019</td>
+		<td>Innisbrook</td>
+		<td>Justin McMurry & Chris Empric</td>
+		<td>-14</td>
+	</tr>
+	<tr>
+		<td>2018</td>
+		<td>Reunion</td>
+		<td>Ross Klein</td>
+		<td>-12</td>
+	</tr>
+	<tr>
+		<td>2017</td>
+		<td>Reunion</td>
+		<td>Mike Mainieri</td>
+		<td>-11</td>
+	</tr>
+</table>
+
+
+
+{% endblock %}
+
+	
