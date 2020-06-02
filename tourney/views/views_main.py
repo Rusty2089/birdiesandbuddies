@@ -134,6 +134,7 @@ def enterscores(request):
 			g2_score = request.POST['g2_score']
 			g3_score = request.POST['g3_score']
 			g4_score = request.POST['g4_score']
+			#extra_leader = request.POST['extra_leader']
 			score_list = [g1_score, g2_score, g3_score, g4_score]
 			n = 0
 			for i in ordered_gqs:
@@ -187,8 +188,6 @@ def enterscores(request):
 				pf_hole = hole #pre-filled hole value for form selector
 			else:
 				pf_hole = 18
-	
-			#par = 
 	
 			golfer_qs = qs.filter(grouping = group)
 			ordered_gqs = golfer_qs.order_by('user_name')
@@ -248,7 +247,6 @@ def enterscores(request):
 				pf_g4_score = getattr(golfer_list[3], hpt_attr)
 			except IndexError:
 				pf_g4_score = None
-			
 			
 			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
 			content = {
