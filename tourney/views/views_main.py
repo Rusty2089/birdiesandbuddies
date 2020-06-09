@@ -312,7 +312,7 @@ def enterscores(request):
 				'form':form,
 				}
 			
-			if extra_type == 'Closest to the Pin' or extra_type == 'Logest Drive':
+			if extra_type == 'Closest to the Pin' or extra_type == 'Long Drive':
 				return render(request, 'tourney/enterscoresextra.html', content)
 			else:
 				return render(request, 'tourney/enterscores.html', content)
@@ -494,7 +494,7 @@ def changeholes(request, hole_id):
 			'g4_rdp': g4_rdp,
 			'form':form,
 			}
-		if extra_type == 'Closest to the Pin' or extra_type == 'Logest Drive':
+		if extra_type == 'Closest to the Pin' or extra_type == 'Long Drive':
 			return render(request, 'tourney/enterscoresextra.html', content)
 		else:
 			return render(request, 'tourney/enterscores.html', content)
