@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from tourney.models import Profile, Daily, Message, Course
+from tourney.models import Profile, Daily, Message, Course, Extra
 from django_tables2 import RequestConfig
 from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable, LeaderTable
 from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm
@@ -39,6 +39,19 @@ def main(request):
 		table = SmallLeaderTable(qs)
 		RequestConfig(request).configure(table)
 		
+		#Develop variables to pass for extra
+		extraqs = Extra.objects.all()
+		ctpliststart = extraqs.filter(type = 'Closest to the Pin')
+		ctpliststart = ctpliststart.order_by('hole')
+		ctplist = []
+		for i in ctpliststart:
+			ctplist.append(tuple([i.hole, i.leader]))
+		ldliststart = extraqs.filter(type = 'Long Drive')
+		ldliststart = ldliststart.order_by('hole')
+		ldlist = []
+		for i in ldliststart:		
+			ldlist.append(tuple([i.hole, i.leader]))
+		
 		messtable = MessageTable(Message.objects.all()) ###### DELTE ALL OF THIS??????????????
 		messtable.order_by = '-posttime'
 		messtable.exclude = ('posttime')
@@ -58,9 +71,9 @@ def main(request):
 				p = Message.objects.create(author=author, message=message, posttime=posttime)
 				return HttpResponseRedirect('/main/')
 		try:
-			return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
+			return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist, 'ctplist': ctplist, 'ldlist': ldlist})
 		except UnboundLocalError:
-			return render(request, 'tourney/index.html', {'name': 'You need to be added to the Daily DB', 'group': 'None', 'teetime': 'None', 'course': 'None', 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist})
+			return render(request, 'tourney/index.html', {'name': 'You need to be added to the Daily DB', 'group': 'None', 'teetime': 'None', 'course': 'None', 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist, 'ctplist': ctplist, 'ldlist': ldlist})
 	else:
 		return HttpResponseRedirect('newprofile/')
 	
@@ -119,50 +132,68 @@ def enterscores(request):
 	user_list=[]
 	if request.method == 'POST':
 		form = EnterScoreForm(request.POST)
-		if form.is_valid():
-			inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
-			group = inst.grouping  #sort the golfer list to match below
-			hole = request.session.get('pass_hole')
-			thru = hole
-			hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
-			golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
-			ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
-			#golfer_list = list(ordered_gqs)  #sort the golfer list to match below
+		#if form.is_valid(): #THIS WAS Commented out because form was not validating with new EXTRA_NAMES added.  everything below was indented in one tab
+		inst = qs.get(user_name = who.display_name) #sort the golfer list to match below
+		group = inst.grouping  #sort the golfer list to match below
+		hole = request.session.get('pass_hole')
+		thru = hole
+		hole_score = 'h' + str(hole) + '_pts' #should be a string like 'h1_pts' so it can be used with setattr()
+		golfer_qs = qs.filter(grouping = group)  #sort the golfer list to match below
+		ordered_gqs = golfer_qs.order_by('user_name')  #sort the golfer list to match below
+		#golfer_list = list(ordered_gqs)  #sort the golfer list to match below
+		
+		#update thru and hole scores in Daily
+		g1_score = request.POST['g1_score']
+		g2_score = request.POST['g2_score']
+		g3_score = request.POST['g3_score']
+		g4_score = request.POST['g4_score']
+		try:
+			extra_leader = request.POST['extra_names']
+		except:
+			pass
+		score_list = [g1_score, g2_score, g3_score, g4_score]
+		n = 0
+		for i in ordered_gqs:
+			instance = qs.get(user_name = i)
+			instance.thru = thru
+			pts = int(score_list[n])
+			n += 1
+			setattr(instance, hole_score, pts)
 			
-			#update thru and hole scores in Daily
-			g1_score = request.POST['g1_score']
-			g2_score = request.POST['g2_score']
-			g3_score = request.POST['g3_score']
-			g4_score = request.POST['g4_score']
-			score_list = [g1_score, g2_score, g3_score, g4_score]
-			n = 0
-			for i in ordered_gqs:
-				instance = qs.get(user_name = i)
-				instance.thru = thru
-				pts = int(score_list[n])
-				n += 1
-				setattr(instance, hole_score, pts)
-				
-				#update raw_daily_points
-				points_sum = 0
-				for p in range(1,19):  
-					hole_attr = 'h' + str(p) + '_pts'
-					try:
-						points_sum += getattr(instance, hole_attr)
-					except TypeError:
-						pass
-				setattr(instance, 'raw_day_points', points_sum)
-				
-				#update net_day_points
-				net_score = getattr(instance, 'raw_day_points') - instance.quota
-				setattr(instance, 'net_day_points', net_score)
-				
-				#update net_tourney_score
-				net_tourney_score = instance.r1_score + instance.r2_score + net_score
-				setattr(instance, 'net_tourney_score', net_tourney_score)
-				
-				instance.save()
-			return HttpResponseRedirect('/enterscores/')
+			#update raw_daily_points
+			points_sum = 0
+			for p in range(1,19):  
+				hole_attr = 'h' + str(p) + '_pts'
+				try:
+					points_sum += getattr(instance, hole_attr)
+				except TypeError:
+					pass
+			setattr(instance, 'raw_day_points', points_sum)
+			
+			#update net_day_points
+			net_score = getattr(instance, 'raw_day_points') - instance.quota
+			setattr(instance, 'net_day_points', net_score)
+			
+			#update net_tourney_score
+			net_tourney_score = instance.r1_score + instance.r2_score + net_score
+			setattr(instance, 'net_tourney_score', net_tourney_score)
+			
+			instance.save()
+		
+		#See if there is an extra and save extra
+		eqs = Extra.objects.all()
+		try:
+			einstance = Extra.objects.get(hole=hole)
+			einstance.leader = extra_leader
+			einstance.save()
+		except Extra.DoesNotExist:
+			pass
+			
+		return HttpResponseRedirect('/enterscores/')
+			
+		#else:
+		#	print('Form did not validate')
+		#	return render(request, 'tourney/errortemplate.html')
 	
 # CREATE A NEW FORM FOR WHEN PAGE IS FIRST LOADED
 	else:
@@ -188,13 +219,23 @@ def enterscores(request):
 			else:
 				pf_hole = 18
 	
-			#par = 
-	
+				
 			golfer_qs = qs.filter(grouping = group)
 			ordered_gqs = golfer_qs.order_by('user_name')
 			golfer_list = list(ordered_gqs)
 			
-	
+			#create extra_list for drop down of golfers for extra (closest to pin and long drive)
+			extra_list = (('None','None'),(golfer_list[0].golfer, golfer_list[0].golfer),(golfer_list[1].golfer, golfer_list[1].golfer), (golfer_list[2].golfer, golfer_list[2].golfer), (golfer_list[3].golfer, golfer_list[3].golfer))
+			
+			#determine if hole is an extra and which kind of (Closest to the Pin or Long Drive)
+			eqs = Extra.objects.all()
+			try:
+				einstance = Extra.objects.get(hole=hole)
+				extra_type = einstance.type
+				print(extra_type)
+			except Extra.DoesNotExist:
+				extra_type = 'None'
+			
 			try:	
 				g1_name = golfer_list[0].golfer
 				g1_rdp = golfer_list[0].raw_day_points
@@ -250,11 +291,16 @@ def enterscores(request):
 				pf_g4_score = None
 			
 			
-			form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
+			
+			
+			#form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score}) #here
+			form = EnterScoreForm(extra_list, initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score}) #WORKS
+		
 			content = {
 				'hole': hole,
 				'group': group,
 				'par': par,
+				'extra_type': extra_type,
 				'g1_name': g1_name,
 				'g1_rdp': g1_rdp,
 				'g2_name': g2_name,
@@ -265,8 +311,12 @@ def enterscores(request):
 				'g4_rdp': g4_rdp,
 				'form':form,
 				}
-			return render(request, 'tourney/enterscores.html', content)
-	
+			
+			if extra_type == 'Closest to the Pin' or extra_type == 'Logest Drive':
+				return render(request, 'tourney/enterscoresextra.html', content)
+			else:
+				return render(request, 'tourney/enterscores.html', content)
+				
 		else:
 			form = EnterScoreForm()
 			content = {
@@ -364,6 +414,14 @@ def changeholes(request, hole_id):
 		ordered_gqs = golfer_qs.order_by('user_name')
 		golfer_list = list(ordered_gqs)
 		
+		extra_list = (('None','None'),(golfer_list[0].golfer, golfer_list[0].golfer),(golfer_list[1].golfer, golfer_list[1].golfer), (golfer_list[2].golfer, golfer_list[2].golfer), (golfer_list[3].golfer, golfer_list[3].golfer))
+
+		try:
+			einstance = Extra.objects.get(hole=hole_id)
+			extra_type = einstance.type
+			#print(extra_type)
+		except Extra.DoesNotExist:
+			extra_type = 'None'
 
 		try:	
 			g1_name = golfer_list[0].golfer
@@ -420,11 +478,12 @@ def changeholes(request, hole_id):
 			pf_g4_score = None
 		
 		
-		form = EnterScoreForm(initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
+		form = EnterScoreForm(extra_list, initial={'g1_score': pf_g1_score, 'g2_score': pf_g2_score, 'g3_score': pf_g3_score, 'g4_score': pf_g4_score})
 		content = {
 			'hole': pf_hole,
 			'group': group,
 			'par': par,
+			'extra_type': extra_type,
 			'g1_name': g1_name,
 			'g1_rdp': g1_rdp,
 			'g2_name': g2_name,
@@ -435,7 +494,10 @@ def changeholes(request, hole_id):
 			'g4_rdp': g4_rdp,
 			'form':form,
 			}
-		return render(request, 'tourney/enterscores.html', content)
+		if extra_type == 'Closest to the Pin' or extra_type == 'Logest Drive':
+			return render(request, 'tourney/enterscoresextra.html', content)
+		else:
+			return render(request, 'tourney/enterscores.html', content)
 
 	else:
 		form = EnterScoreForm()

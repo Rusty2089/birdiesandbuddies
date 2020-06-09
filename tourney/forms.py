@@ -75,12 +75,15 @@ class EditProfileForm(forms.ModelForm):
 		fields = ['first_name', 'last_name', 'city', 'state', 'isgolfing']
 		
 class EnterScoreForm(forms.Form):
+	def __init__(self, extra_list, *args, **kwargs): #NEW
+		super(EnterScoreForm, self).__init__(*args, **kwargs) #NEW
+		self.fields['extra_names'] = forms.ChoiceField(choices=extra_list) #NEW
+	
 	g1_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g2_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g3_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
 	g4_score = forms.ChoiceField(label='Score', choices=SCORE_CHOICES)
-
-		
+			
 class MessageForm(forms.ModelForm):
 	message = forms.CharField(label='Message', max_length = 200)
 	
