@@ -12,7 +12,7 @@
 <div class="container">
   <div class="row">
     <div class="col-9">
-      <b>{{ name }}</b>
+      <b class="text-primary">{{ name }}</b>
     </div>
     <div>
       <!-- weather widget start --><a target="_blank" href="https://www.booked.net/weather/palm-coast-19050"><img src="https://w.bookcdn.com/weather/picture/21_19050_0_1_3498db_250_2980b9_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=w209&anc_id=6564"  alt="booked.net"/></a><!-- weather widget end -->
@@ -25,13 +25,11 @@
 <div class="container">
 <h5>Leaders:</h5>
 <table>
-	<font color="blue">
-	<tr border-bottom: 1px solid #ddd>
+	<tr class="text-primary" border-bottom: 1px solid #ddd>
 		<th style="border-bottom: 1px solid #ddd"></br>Golfer</th>
 		<th style="border-bottom: 1px solid #ddd"><center>Tourney</br> Score</center></th>
 		<th style="border-bottom: 1px solid #ddd"><center></br>Thru</center></th>
 	</tr>
-	</font>
 {% for golfer, net_day_points, thru in small_lb_list %}
 	<tr border-bottom: 1px solid #ddd>
 		<td style="border-bottom: 1px solid #ddd; padding: 2px 7px 2px 7px;">{{ golfer }}</td>
@@ -41,12 +39,12 @@
 {% endfor %}	
 </table>
 <p></p>
-<b><u>Closest to the Pin</u></b></br>
+<b class="text-primary"><u>Closest to the Pin</u></b></br>
 {% for hole, leader in ctplist %}
     Hole {{ hole }} - {{ leader }}</br>
 {% endfor %}
 
-<b><u>Longest Drive</u></b></br>
+<b class="text-primary"><u>Longest Drive</u></b></br>
 {% for hole, leader in ldlist %}
     Hole {{ hole }} - {{ leader }}</br>
 {% endfor %}

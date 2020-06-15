@@ -16,11 +16,26 @@ td {
 {% extends "tourney/header.html" %}
 {% load render_table from django_tables2 %}
 {% block content %}
-
+All scores on this page are "net", meaning quota has already been figured into the score.
+<p></p>
 
 {% render_table leadertable %}
-All scores on this page are "net", meaning quota has already been figured into the score.
 
+<p></p>
+<table>
+	<tr class="text-primary">
+		<th>Team</th>
+		<th><center>Players</center></th>
+		<th>Score</th>
+	</tr>
+	{% for i in team_list %}
+		<tr>
+			<td>{{ i.0 }}</td>
+			<td>{{ i.2 }}, {{ i.3 }}</br>{{ i.4 }}, {{ i.5 }}</td>
+			<td>{{ i.1 }}</td>
+		</tr>
+	{% endfor %}
+
+</table>
 {% endblock %}
-
 

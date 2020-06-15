@@ -6,6 +6,7 @@ from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCard
 from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from operator import itemgetter
 
 def login(request):
 	return render(request, 'registration/login.html')
@@ -52,10 +53,10 @@ def main(request):
 		for i in ldliststart:		
 			ldlist.append(tuple([i.hole, i.leader]))
 		
-		messtable = MessageTable(Message.objects.all()) ###### DELTE ALL OF THIS??????????????
-		messtable.order_by = '-posttime'
-		messtable.exclude = ('posttime')
-		RequestConfig(request).configure(messtable)     ###### DELTE ALL OF THIS??????????????
+		#messtable = MessageTable(Message.objects.all()) ###### DELTE ALL OF THIS??????????????
+		#messtable.order_by = '-posttime'
+		#messtable.exclude = ('posttime')
+		#RequestConfig(request).configure(messtable)     ###### DELTE ALL OF THIS??????????????
 	
 		messlist = []
 		messqs = Message.objects.order_by('-posttime')[:20]
@@ -71,9 +72,9 @@ def main(request):
 				p = Message.objects.create(author=author, message=message, posttime=posttime)
 				return HttpResponseRedirect('/main/')
 		try:
-			return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist, 'ctplist': ctplist, 'ldlist': ldlist})
+			return render(request, 'tourney/index.html', {'name': name, 'group': group, 'teetime': teetime, 'course': course, 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messlist':messlist, 'ctplist': ctplist, 'ldlist': ldlist})
 		except UnboundLocalError:
-			return render(request, 'tourney/index.html', {'name': 'You need to be added to the Daily DB', 'group': 'None', 'teetime': 'None', 'course': 'None', 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messtable':messtable, 'messlist':messlist, 'ctplist': ctplist, 'ldlist': ldlist})
+			return render(request, 'tourney/index.html', {'name': 'You need to be added to the Daily DB', 'group': 'None', 'teetime': 'None', 'course': 'None', 'table': table, 'form': form, 'small_lb_list': small_lb_list, 'messlist':messlist, 'ctplist': ctplist, 'ldlist': ldlist})
 	else:
 		return HttpResponseRedirect('newprofile/')
 	
@@ -82,8 +83,26 @@ def leaderboard(request):
 	leadertable = LeaderTable(Daily.objects.all())
 	leadertable.order_by = '-net_tourney_score'
 	RequestConfig(request).configure(leadertable)
-	return render(request, 'tourney/leaderboard.html', {'leadertable':leadertable})
-	
+	qsDaily=Daily.objects.all() #new until return statement
+	team_list = []
+	for i in range(1, 7):
+		team_i_list = [i, 0]
+		score = 0
+		team = qsDaily.filter(team = i)
+		for j in range(5):
+			try:
+				team_i_list.append(team[j].golfer)
+			except IndexError:
+				team_i_list.append('')
+			try:
+				score = score + team[j].net_tourney_score
+			except IndexError:
+				continue
+		team_i_list[1] = score
+		team_list.append(tuple(team_i_list))
+	team_list = sorted(team_list, key=itemgetter(1), reverse=True)
+	print(team_list)
+	return render(request, 'tourney/leaderboard.html', {'leadertable':leadertable, 'team_list':team_list})
 
 ############################################        SCORE CARDS          ##################################################	
 
@@ -549,12 +568,14 @@ def compile(request):
 				uname = user.display_name
 				quota = getattr(user, quota_var)
 				group = getattr(user, group_var)
+				team = user.team #new
 				r1_score = user.r1_score # the score from round 1; will be zero while the first round is played
 				r2_score = user.r2_score # the score from round 2; will be zero while the first two rounds are palyed
 				r3_score = user.r3_score # the score from round 3; will be zero while the first two rounds are palyed
 				instance = qsDaily.get(user_name = uname)
 				instance.quota = quota
 				instance.grouping = group
+				instance.team = team #new
 				instance.r1_score = r1_score
 				instance.r2_score = r2_score
 				instance.r3_score = r3_score
