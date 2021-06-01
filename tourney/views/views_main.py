@@ -554,7 +554,7 @@ def compile(request):
 			g4_tt = request.POST['g4_tt']
 			g5_tt = request.POST['g5_tt']
 			g6_tt = request.POST['g6_tt']
-			g6_tt = request.POST['g7_tt'] #ADDED FOR 28 Golfers for 2021
+			g7_tt = request.POST['g7_tt'] #ADDED FOR 28 Golfers for 2021
 	
 			#make the variables for getattr using 'round'
 			group_var = round + '_group'
