@@ -11,17 +11,17 @@ class Profile(models.Model):
     state = models.CharField(max_length=2, default='FL')
     isgolfing = models.NullBooleanField(default=True)
     r1_quota = models.PositiveSmallIntegerField(default = 0)
-    r1_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
+    r1_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
     r1_score = models.SmallIntegerField(default = 0)
     r2_quota = models.PositiveSmallIntegerField(default = 0)
-    r2_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
+    r2_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
     r2_score = models.SmallIntegerField(default = 0)
     r3_quota = models.PositiveSmallIntegerField(default = 0)
-    r3_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
+    r3_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
     r3_score = models.SmallIntegerField(default = 0)
     r4_quota = models.PositiveSmallIntegerField(default = 0)
-    r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
-    team = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0) #random team for the tourney
+    r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
+    team = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0) #random team for the tourney
 	
     def __str__(self): #to return display_name instead of _id
         return self.display_name
@@ -29,12 +29,12 @@ class Profile(models.Model):
 class Daily(models.Model):
 	user_name = models.CharField(max_length=20, unique=True, null=True)
 	golfer = models.CharField(max_length=30, unique=True, null=True)
-	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0)
+	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
 	teetime = models.TimeField(auto_now=False, null=True)
 	course = models.CharField(max_length=30, null=True)
 	#startscore = models.SmallIntegerField(default = 0)
 	quota = models.PositiveSmallIntegerField(default = 0)
-	team = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6)), default = 0) #random team for the tourney
+	team = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0) #random team for the tourney
 	h1_pts = models.PositiveSmallIntegerField(choices = ((0, '0'), (1, '1'), (2, '2'), (4, '4'), (8, '8'), (10, '10')), blank=True, null=True)
 	h2_pts = models.PositiveSmallIntegerField(choices = ((0, '0'), (1, '1'), (2, '2'), (4, '4'), (8, '8'), (10, '10')), blank=True, null=True)
 	h3_pts = models.PositiveSmallIntegerField(choices = ((0, '0'), (1, '1'), (2, '2'), (4, '4'), (8, '8'), (10, '10')), blank=True, null=True)
@@ -67,7 +67,7 @@ class Daily(models.Model):
 		
 	
 class Course(models.Model):
-    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)'), ('Ocean', 'Ocean'), ('Conservatory', 'Conservatory')))
+    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)'), ('Ocean', 'Ocean'), ('Conservatory', 'Conservatory'), ('Las Colinas', 'Las Colinas'), ('El Campeon', 'El Campeon')))
     h1_par = models.PositiveSmallIntegerField()
     h2_par = models.PositiveSmallIntegerField()
     h3_par = models.PositiveSmallIntegerField()
