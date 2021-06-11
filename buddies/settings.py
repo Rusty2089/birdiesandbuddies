@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tqbkl5og8=*c_!f5cx&geu#n_rww#knrtpg7^ozp@qm)*@(d&d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
 	'thawing-tor-67269.herokuapp.com',
@@ -140,7 +140,7 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social' #added 20200514
 SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 
-SOCIAL_AUTH_POSTGRES_JSONFIELD = False
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
