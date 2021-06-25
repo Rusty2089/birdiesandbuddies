@@ -85,7 +85,7 @@ def leaderboard(request):
 	RequestConfig(request).configure(leadertable)
 	qsDaily=Daily.objects.all() #new until return statement
 	team_list = []
-	for i in range(1, 7):
+	for i in range(1, 8):
 		team_i_list = [i, 0]
 		score = 0
 		team = qsDaily.filter(team = i)
