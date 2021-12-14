@@ -20,5 +20,6 @@ urlpatterns = [
 	path('groups_daily/', views.groups_daily, name='groups_daily'),
 	path('reunion/', views.reunion, name='reunion'),
 	path('history/', views.history, name='history'),
+	path('goletalights/', views.reunion, name='goletalights'),
 
 ]

@@ -703,3 +703,7 @@ def reunion(request):
 ##################################### B&B HISTORY ##########################################
 def history(request):
 	return render(request, 'tourney/history.html')
+	
+##################################### B&B HISTORY ##########################################
+def goletalights(request):
+	return render(request, 'tourney/goletalights.html')
