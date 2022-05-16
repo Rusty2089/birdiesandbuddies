@@ -102,10 +102,10 @@ WSGI_APPLICATION = 'buddies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd1por2ma62952u',
-        'USER': 'blexwlbpphyejn',
-        'PASSWORD': '59e735339730ca22be5c465a5473a6186eee7ce9f0a55c2ace9cde3452610a9a',
-        'HOST': 'ec2-54-243-213-188.compute-1.amazonaws.com',
+        'NAME': 'd9r9qmes127q8s',
+        'USER': 'zmdyvwmnjdiqaa',
+        'PASSWORD': 'eb4c50387758676b431453315aff00c98e168c021f3c7271a5e2fec61158db33',
+        'HOST': 'ec2-52-55-33-170.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -128,6 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'main'
@@ -171,10 +172,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-# Static asset configuration
-
-#BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#STATIC_ROOT = 'staticfiles'
-#STATIC_URL = '/static/'
-#STATICFILES_DIRS = (
-#    os.path.join(BASE_DIR, '../birdiesandbuddies/tourney/static'))
