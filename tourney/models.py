@@ -9,7 +9,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=15)
     city = models.CharField(max_length=20, default='City')
     state = models.CharField(max_length=2, default='FL')
-    isgolfing = models.NullBooleanField(default=True)
+    isgolfing = models.BooleanField(null=False)
     r1_quota = models.PositiveSmallIntegerField(default = 0)
     r1_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
     r1_score = models.SmallIntegerField(default = 0)
