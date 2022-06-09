@@ -144,6 +144,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 #SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
+SECURE_SSL_REDIRECT = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
