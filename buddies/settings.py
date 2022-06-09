@@ -89,7 +89,6 @@ AUTHENTICATION_BACKENDS = (
 	'social_core.backends.google.GoogleOAuth2',  # for Google authentication
 	'django.contrib.auth.backends.ModelBackend',
 	'social_core.backends.facebook.FacebookOAuth2',
-	'social.backends.linkedin.LinkedinOAuth2', #<-- LinkedIn
 	
 )
 
@@ -142,8 +141,8 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social' #added 20200514
 SOCIAL_AUTH_FACEBOOK_KEY = '2475319119160214'  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '09e4020d129fe5656f248be3e2b86f7a'
 
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '86cp1k6yywyjak'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'cRX9A3metLzJVDZz'
+#SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '86cp1k6yywyjak'
+#SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'cRX9A3metLzJVDZz'
 
 #SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
