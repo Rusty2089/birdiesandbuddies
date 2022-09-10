@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ModelForm
 from tourney.models import Profile, Daily, Message, Lights
-from multiselectfield import MultiSelectField
 
 GOLFING_CHOICES = (
 	(True, 'Golfer'),
