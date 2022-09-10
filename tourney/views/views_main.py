@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from tourney.models import Profile, Daily, Message, Course, Extra
 from django_tables2 import RequestConfig
 from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable, LeaderTable
-from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm
+from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm, LightsForm
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from operator import itemgetter
