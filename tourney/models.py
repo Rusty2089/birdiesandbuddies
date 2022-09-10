@@ -108,4 +108,4 @@ class Lights(models.Model):
 	zoneRoof = MultiSelectField(choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
 	zonePalms = MultiSelectField(choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
 	def __str__(self):
-        return self.creator
+		return self.creator
