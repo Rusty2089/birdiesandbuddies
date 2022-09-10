@@ -714,7 +714,7 @@ def goletalights(request):
 		if form.is_valid():
 		
 		# redirect to a new URL:
-		return HttpResponseRedirect('/goletalights/')
+			return HttpResponseRedirect('/goletalights/')
 
 	# if a GET (or any other method) we'll create a blank form
 	return render(request, 'tourney/goletalights.html', {'form': form})
