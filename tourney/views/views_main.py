@@ -704,6 +704,17 @@ def reunion(request):
 def history(request):
 	return render(request, 'tourney/history.html')
 	
-##################################### B&B HISTORY ##########################################
+##################################### LIGHTS ##########################################
+def goletalights_json(request):
+	return render(request, 'tourney/goletalights_json.html')
+	
 def goletalights(request):
-	return render(request, 'tourney/goletalights.html')
+	form = LightsForm(request.POST or None)
+	if request.method == 'POST':
+		if form.is_valid():
+		
+		# redirect to a new URL:
+		return HttpResponseRedirect('/goletalights/')
+
+	# if a GET (or any other method) we'll create a blank form
+	return render(request, 'tourney/goletalights.html', {'form': form})

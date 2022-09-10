@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 	'social_django', #for OAuth
 	#'social.apps.django_app.default',
 	'django_tables2',
-	
 ]
 
 MIDDLEWARE = [

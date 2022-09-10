@@ -1,29 +1,27 @@
-{
-  "lights": [
-    {
-      "zone": "roof",
-      "brightness": 255,
-      "effect": "solid",
-      "colors": [
-        "R255G0B0",
-        "R255G255B255",
-        "R0G255B0"
-      ]
-    },
-    {
-      "zone": "edging",
-      "brightness": 255,
-      "effect": "solid",
-      "colors": [
-        "R255G0B0",
-        "R255G255B255",
-        "R0G255B10"
-      ]
-    }
-  ]
-}
+<div class="page-header">
+  <h1>Goleta Lights</h1>
+</div>
 
+<div class="container-fluid">
 
+<form action="/goletalights/" method="post">
+    {% csrf_token %}
+	<center>
+	<table border="3" cellpadding = "5" cellspacing = "5">
+		{{ form }}
+	</table>
+	<p></p>
+    <input type="submit" value="Save" />
+	</center>
+</form>
 
+<center>
+	<p></p>
+	<p>
+		Update info and hit "Save", or use the</br>
+		Navigation Bar below to move on.
+	</p>
+</center>
+</div>
 
-
+{% endblock %}

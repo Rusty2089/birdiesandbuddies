@@ -21,5 +21,6 @@ urlpatterns = [
 	path('reunion/', views.reunion, name='reunion'),
 	path('history/', views.history, name='history'),
 	path('goletalights/', views.goletalights, name='goletalights'),
+	path('goletalights/json', views.goletalights_json, name='goletalights_json'),
 
 ]
