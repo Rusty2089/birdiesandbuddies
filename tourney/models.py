@@ -105,7 +105,7 @@ class Lights(models.Model):
 	creator = models.CharField(max_length=15)
 	time = models.DateField(auto_now_add=True)
 	ready = models.BooleanField(null=False, default=False)
-	zoneRoof = CharField(max_length = 200, choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
-	zonePalms = CharField(max_length = 200, choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
+	zoneRoof = models.CharField(max_length = 200, choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
+	zonePalms = models.CharField(max_length = 200, choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
 	def __str__(self):
 		return self.creator
