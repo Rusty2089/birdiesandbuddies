@@ -712,8 +712,11 @@ def goletalights(request):
 	form = LightsForm(request.POST or None)
 	if request.method == 'POST':
 		if form.is_valid():
-		
-		# redirect to a new URL:
+			creator = request.POST['creator']
+			time = timezone.now()
+			zoneRoof = request.POST['zoneRoof']
+			zonePalms = request.POST['zonePalms']
+			p = Message.objects.create(creator=creator, time=time, zoneRoof=zoneRoof, zonePalms=zonePalms)
 			return HttpResponseRedirect('/goletalights/')
 
 	# if a GET (or any other method) we'll create a blank form
