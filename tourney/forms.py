@@ -121,8 +121,8 @@ class ReverseCompileForm(forms.Form):
 	
 class LightsForm(forms.ModelForm):
 	creator = forms.CharField(label='Your Name', max_length=15)
-	zoneRoof = forms.TextField(widget=forms.SelectMultiple, choices=COLOR_CHOICES)
-	zonePalms = forms.TextField(widget=forms.SelectMultiple, choices=COLOR_CHOICES)
+	zoneRoof = forms.TextArea(widget=forms.SelectMultiple, choices=COLOR_CHOICES)
+	zonePalms = forms.TextArea(widget=forms.SelectMultiple, choices=COLOR_CHOICES)
 	
 	class Meta:
 		model = Lights
