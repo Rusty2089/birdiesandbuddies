@@ -5,6 +5,7 @@ from .models import Course
 from .models import Daily
 from .models import Message
 from .models import Extra
+from .models import Lights
 
 admin.site.register(Profile)
 admin.site.register(Course)
