@@ -112,7 +112,7 @@ class Light(models.Model):
 	creator = models.CharField(max_length=15)
 	time = models.DateField(auto_now_add=True)
 	ready = models.BooleanField(null=False, default=False)
-	#zoneRoof = models.ManyToManyField(LightColor)
-	#zonePalms = models.ManyToManyField(LightColor)
+	zoneRoof = models.ManyToManyField(LightColor, related_name="zoneRoofColor")
+	zonePalms = models.ManyToManyField(LightColor, related_name="zonePalmsColor")
 	def __str__(self):
 		return self.creator
