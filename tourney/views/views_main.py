@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from tourney.models import Profile, Daily, Message, Course, Extra, Lights
+from tourney.models import Profile, Daily, Message, Course, Extra, Light, LightColor
 from django_tables2 import RequestConfig
 from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable, LeaderTable
 from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm, LightsForm

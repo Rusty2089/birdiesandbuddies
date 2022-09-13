@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from multiselectfield import MultiSelectFormField
-from tourney.models import Profile, Daily, Message, Lights
+from tourney.models import Profile, Daily, Message, Light, LightColor
 
 GOLFING_CHOICES = (
 	(True, 'Golfer'),
@@ -112,9 +112,9 @@ class ReverseCompileForm(forms.Form):
 	
 class LightsForm(forms.ModelForm):
 	creator = forms.CharField(label='Your Name', max_length=15)
-	zoneRoof = MultiSelectFormField(choices=Lights.COLOR_CHOICES)
-	zonePalms = MultiSelectFormField(choices=Lights.COLOR_CHOICES)
+	zoneRoof = forms.ModelMultipleChoiceField(queryset=LightColor.objects.all(), widget=forms.CheckboxSelectMultiple)
+	zonePalms = forms.ModelMultipleChoiceField(queryset=LightColor.objects.all(), widget=forms.CheckboxSelectMultiple)
 	
 	class Meta:
-		model = Lights
+		model = Light
 		fields = ['creator', 'zoneRoof', 'zonePalms']
