@@ -58,16 +58,6 @@ COURSE_CHOICES = (
 	('El Campeon', 'El Campeon')
 )
 
-COLOR_CHOICES = (
-	('White', 'White'),
-	('Red', 'Red'),
-	('Orange', 'Orange'),
-	('Yellow', 'Yellow'),
-	('Green', 'Green'),
-	('Blue', 'Blue'), 
-	('Purple', 'Purple')
-)
-
 class NewProfileForm(forms.Form):
 	display_name = forms.CharField(label='User Name', max_length=20)
 	first_name = forms.CharField(label='First Name', max_length=15)
@@ -122,8 +112,8 @@ class ReverseCompileForm(forms.Form):
 	
 class LightsForm(forms.ModelForm):
 	creator = forms.CharField(label='Your Name', max_length=15)
-	zoneRoof = MultiSelectFormField(choices=COLOR_CHOICES)
-	zonePalms = MultiSelectFormField(choices=COLOR_CHOICES)
+	zoneRoof = MultiSelectFormField(choices=Lights.COLOR_CHOICES)
+	zonePalms = MultiSelectFormField(choices=Lights.COLOR_CHOICES)
 	
 	class Meta:
 		model = Lights
