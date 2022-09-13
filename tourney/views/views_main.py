@@ -716,7 +716,7 @@ def goletalights(request):
 			time = timezone.now()
 			zoneRoof = request.POST['zoneRoof']
 			zonePalms = request.POST['zonePalms']
-			p = Lights.objects.create(creator=creator, time=time, zoneRoof=zoneRoof, zonePalms=zonePalms)
+			p = Light.objects.create(creator=creator, time=time, zoneRoof=zoneRoof, zonePalms=zonePalms)
 			return HttpResponseRedirect('/goletalights/')
 
 	# if a GET (or any other method) we'll create a blank form
