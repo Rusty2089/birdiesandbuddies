@@ -101,18 +101,13 @@ class Extra(models.Model):
 	hole = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12), (13, 13), (14, 14), (15, 15), (16, 16), (17, 17), (18, 18)), blank=True, null=True, unique=True)
 	def __int__(self):
 		return self.hole
-
-class LightColor(models.Model):
-	color = models.CharField(max_length=15, blank=False)
-	hsv = models.PositiveSmallIntegerField()
-	def __str__(self):
-		return self.color
-		
+	
 class Light(models.Model):
 	creator = models.CharField(max_length=15)
 	time = models.DateField(auto_now_add=True)
 	ready = models.BooleanField(null=False, default=False)
-	zoneRoof = models.ManyToManyField(LightColor, related_name="zoneRoofColor")
-	zonePalms = models.ManyToManyField(LightColor, related_name="zonePalmsColor")
+	#zoneRoof = models.CharField(max_length = 200, choices = (('White', 'White'), ('Red', 'Red'), ('Orange', 'Orange'), ('Yellow', 'Yellow'), ('Green', 'Green'), ('Blue', 'Blue'), ('Purple', 'Purple')))
+	zoneRoof = models.CharField(max_length =50, default='White')
+	zonePalms = models.CharField(max_length =50, default='White')
 	def __str__(self):
 		return self.creator

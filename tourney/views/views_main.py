@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from tourney.models import Profile, Daily, Message, Course, Extra, Light, LightColor
+from tourney.models import Profile, Daily, Message, Course, Extra, Light
 from django_tables2 import RequestConfig
 from tourney.tables import DailyTable, SmallLeaderTable, MessageTable, ScoreCardTable, ReverseTable, LeaderTable
 from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompileForm, LightsForm
@@ -714,8 +714,8 @@ def goletalights(request):
 		if form.is_valid():
 			creator = request.POST['creator']
 			time = timezone.now()
-			zoneRoof = request.POST['zoneRoof']
-			zonePalms = request.POST['zonePalms']
+			zoneRoof = request.POST.getlist('zoneRoof',[])
+			zonePalms = request.POST.getlist('zonePalms',[])
 			p = Light.objects.create(creator=creator, time=time, zoneRoof=zoneRoof, zonePalms=zonePalms)
 			return HttpResponseRedirect('/goletalights/')
 

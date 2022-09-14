@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from multiselectfield import MultiSelectFormField
-from tourney.models import Profile, Daily, Message, Light, LightColor
+from tourney.models import Profile, Daily, Message, Light
 
 GOLFING_CHOICES = (
 	(True, 'Golfer'),
@@ -58,6 +58,16 @@ COURSE_CHOICES = (
 	('El Campeon', 'El Campeon')
 )
 
+COLOR_CHOICES = (
+	('White', 'White'),
+	('Red', 'Red'),
+	('Orange', 'Orange'),
+	('Yellow', 'Yellow'),
+	('Green', 'Green'),
+	('Blue', 'Blue'), 
+	('Purple', 'Purple')
+)
+
 class NewProfileForm(forms.Form):
 	display_name = forms.CharField(label='User Name', max_length=20)
 	first_name = forms.CharField(label='First Name', max_length=15)
@@ -112,8 +122,8 @@ class ReverseCompileForm(forms.Form):
 	
 class LightsForm(forms.ModelForm):
 	creator = forms.CharField(label='Your Name', max_length=15)
-	zoneRoof = forms.ModelMultipleChoiceField(queryset=LightColor.objects.all(), widget=forms.CheckboxSelectMultiple)
-	zonePalms = forms.ModelMultipleChoiceField(queryset=LightColor.objects.all(), widget=forms.CheckboxSelectMultiple)
+	zoneRoof = forms.ChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
+	zonePalms = forms.ChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
 	
 	class Meta:
 		model = Light
