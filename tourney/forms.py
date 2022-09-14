@@ -122,8 +122,8 @@ class ReverseCompileForm(forms.Form):
 	
 class LightsForm(forms.ModelForm):
 	creator = forms.CharField(label='Your Name', max_length=15)
-	zoneRoof = forms.ChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
-	zonePalms = forms.ChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
+	zoneRoof = forms.MultipleChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
+	zonePalms = forms.MultipleChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
 	
 	class Meta:
 		model = Light
