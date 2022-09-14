@@ -714,9 +714,9 @@ def goletalights(request):
 		if form.is_valid():
 			creator = request.POST['creator']
 			time = timezone.now()
-			zoneRoof = request.POST.getlist('zoneRoof',[])
-			zonePalms = request.POST.getlist('zonePalms',[])
-			p = Light.objects.create(creator=creator, time=time, zoneRoof=zoneRoof, zonePalms=zonePalms)
+			RoofColors = request.POST.getlist('RoofColors',[])
+			PalmColors = request.POST.getlist('PalmColors',[])
+			p = Light.objects.create(creator=creator, time=time, RoofColors=RoofColors, PalmColors=PalmColors)
 			return HttpResponseRedirect('/goletalights/')
 
 	# if a GET (or any other method) we'll create a blank form
