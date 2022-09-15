@@ -712,7 +712,7 @@ def goletalights_json(request):
 	RoofEffect = qs.RoofEffect
 	PalmColors = qs.PalmColors
 	PalmEffect = qs.PalmEffect
-	return render(request, 'tourney/goletalights_json.html', {'name': name, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect})
+	return render(request, 'tourney/goletalights_json.html', {'creator': creator, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect})
 	
 def goletalights(request):
 	form = LightsForm(request.POST or None)
