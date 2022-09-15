@@ -7,6 +7,7 @@ from tourney.forms import EnterScoreForm, MessageForm, CompileForm, ReverseCompi
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from operator import itemgetter
+import json
 
 def login(request):
 	return render(request, 'registration/login.html')
@@ -720,7 +721,7 @@ def goletalights(request):
 		if form.is_valid():
 			creator = request.POST['creator']
 			#postTime = timezone.now()
-			RoofColors = request.POST.getlist('RoofColors',[])
+			RoofColors = json.dumps(request.POST.getlist('RoofColors',[]))
 			PalmColors = request.POST.getlist('PalmColors',[])
 			p = Light.objects.create(creator=creator, RoofColors=RoofColors, PalmColors=PalmColors)
 			return HttpResponseRedirect('/goletalights/')
