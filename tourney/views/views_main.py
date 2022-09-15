@@ -706,7 +706,7 @@ def history(request):
 	
 ##################################### LIGHTS ##########################################
 def goletalights_json(request):
-	qs = Light.objects.order_by('postTime')[0]
+	qs = Light.objects.order_by('-postTime')[0]
 	creator = qs.creator
 	RoofColors = qs.RoofColors
 	RoofEffect = qs.RoofEffect
