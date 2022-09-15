@@ -706,7 +706,13 @@ def history(request):
 	
 ##################################### LIGHTS ##########################################
 def goletalights_json(request):
-	return render(request, 'tourney/goletalights_json.html')
+	qs = Light.objects.order_by('postTime')[0]
+	creator = qs.creator
+	RoofColors = qs.RoofColors
+	RoofEffect = qs.RoofEffect
+	PalmColors = qs.PalmColors
+	PalmEffect = qs.PalmEffect
+	return render(request, 'tourney/goletalights_json.html', {'name': name, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect})
 	
 def goletalights(request):
 	form = LightsForm(request.POST or None)
