@@ -713,7 +713,7 @@ def goletalights(request):
 	if request.method == 'POST':
 		if form.is_valid():
 			creator = request.POST['creator']
-			time = timezone.now()
+			#postTime = timezone.now()
 			RoofColors = request.POST.getlist('RoofColors',[])
 			PalmColors = request.POST.getlist('PalmColors',[])
 			p = Light.objects.create(creator=creator, time=time, RoofColors=RoofColors, PalmColors=PalmColors)
