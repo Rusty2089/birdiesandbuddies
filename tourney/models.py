@@ -104,7 +104,7 @@ class Extra(models.Model):
 	
 class Light(models.Model):
 	creator = models.CharField(max_length=15)
-	time = models.DateField(auto_now_add=True)
+	timeCreated = models.DateTimeField(auto_now_add=True)
 	ready = models.BooleanField(null=False, default=False)
 	RoofColors = models.CharField(max_length =50, default='White')
 	RoofEffect = models.CharField(max_length =15, default='Solid')
