@@ -721,8 +721,8 @@ def goletalights(request):
 		if form.is_valid():
 			creator = request.POST['creator']
 			#postTime = timezone.now()
-			RoofColors = json.dumps(request.POST.getlist('RoofColors',[]))
-			PalmColors = request.POST.getlist('PalmColors',[])
+			RoofColors = json.dumps(request.POST.getlist('RoofColors',[])) #json.dumps() saves the list with double quotes
+			PalmColors = json.dumps(request.POST.getlist('PalmColors',[]))
 			p = Light.objects.create(creator=creator, RoofColors=RoofColors, PalmColors=PalmColors)
 			return HttpResponseRedirect('/goletalights/')
 
