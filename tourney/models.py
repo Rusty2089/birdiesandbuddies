@@ -106,9 +106,9 @@ class Light(models.Model):
 	creator = models.CharField(max_length=15)
 	postTime = models.DateTimeField(auto_now_add=True)
 	ready = models.BooleanField(null=False, default=False)
-	RoofColors = models.CharField(max_length =50, default='White')
+	RoofColors = models.CharField(max_length =100, default='White')
 	RoofEffect = models.CharField(max_length =15, default='Solid')
-	PalmColors = models.CharField(max_length =50, default='White')
+	PalmColors = models.CharField(max_length =100, default='White')
 	PalmEffect = models.CharField(max_length =15, default='Solid')
 	def __str__(self):
 		return self.creator
