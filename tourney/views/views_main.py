@@ -713,7 +713,7 @@ def goletalights_json(request):
 	RoofEffect = qs.RoofEffect
 	PalmColors = qs.PalmColors
 	PalmEffect = qs.PalmEffect
-	FloorColors = qs.FloodColors
+	FloodColors = qs.FloodColors
 	SconceColors = qs.SconceColors
 	return render(request, 'tourney/goletalights_json.html', {'creator': creator, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect, 'FloodColors': FloodColors, 'SconceColors': SconceColors})
 	
