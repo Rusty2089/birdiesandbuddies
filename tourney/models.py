@@ -110,5 +110,7 @@ class Light(models.Model):
 	RoofEffect = models.CharField(max_length =15, default='Solid')
 	PalmColors = models.CharField(max_length =100, default='White')
 	PalmEffect = models.CharField(max_length =15, default='Solid')
+	FloodColors = models.CharField(max_length =25, default='White')
+	SconceColors = models.CharField(max_length =25, default='White')
 	def __str__(self):
 		return self.creator

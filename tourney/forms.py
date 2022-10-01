@@ -124,7 +124,9 @@ class LightsForm(forms.ModelForm):
 	creator = forms.CharField(label='Your Name', max_length=15)
 	RoofColors = forms.MultipleChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
 	PalmColors = forms.MultipleChoiceField(choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
+	FloodColors = forms.ChoiceField(label='Flood Lights', choices=COLOR_CHOICES)
+	SconceColors = forms.ChoiceField(label='Sconces', choices=COLOR_CHOICES) 
 	
 	class Meta:
 		model = Light
-		fields = ['creator', 'RoofColors', 'PalmColors']
+		fields = ['creator', 'RoofColors', 'PalmColors', 'FloodColors', 'SconceColors']
