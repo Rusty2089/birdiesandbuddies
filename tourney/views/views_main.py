@@ -723,7 +723,9 @@ def goletalights(request):
 			#postTime = timezone.now()
 			RoofColors = json.dumps(request.POST.getlist('RoofColors',[])) #json.dumps() saves the list with double quotes
 			PalmColors = json.dumps(request.POST.getlist('PalmColors',[]))
-			p = Light.objects.create(creator=creator, RoofColors=RoofColors, PalmColors=PalmColors)
+			FloodColors = json.dumps(request.POST.getlist('FloodColors',[]))
+			SconceColors = json.dumps(request.POST.getlist('SconceColors',[]))
+			p = Light.objects.create(creator=creator, RoofColors=RoofColors, PalmColors=PalmColors, FloodColors=FloodColors, SconceColors=SconceColors)
 			return HttpResponseRedirect('/goletalights/')
 
 	# if a GET (or any other method) we'll create a blank form
