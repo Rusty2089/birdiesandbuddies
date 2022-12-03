@@ -125,8 +125,11 @@ class LightsForm(forms.ModelForm):
 	RoofColors = forms.MultipleChoiceField(label='Roof Line',choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
 	PalmColors = forms.MultipleChoiceField(label='Tree Trunks',choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
 	FloodColors = forms.ChoiceField(label='Flood Lights', choices=COLOR_CHOICES)
-	SconceColors = forms.ChoiceField(label='Sconces', choices=COLOR_CHOICES) 
+	SconceColors = forms.ChoiceField(label='Sconces', choices=COLOR_CHOICES)
+	StripePalmColor = forms.ChoiceField(label='Candy Cane Palm', choices=COLOR_CHOICES)
+	GarageFrameColors = forms.MultipleChoiceField(label= 'Garage Frames',choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple) 
+	SnowFlakeColors = forms.MultipleChoiceField(label='Snow Flakes',choices=COLOR_CHOICES, widget=forms.CheckboxSelectMultiple)
 	
 	class Meta:
 		model = Light
-		fields = ['creator', 'RoofColors', 'PalmColors', 'FloodColors', 'SconceColors']
+		fields = ['creator', 'RoofColors', 'PalmColors', 'FloodColors', 'SconceColors', 'StripePalmColor', 'GarageFrameColors', 'SnowFlakeColors']

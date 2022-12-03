@@ -709,12 +709,16 @@ def history(request):
 def goletalights_json(request):
 	qs = Light.objects.order_by('-postTime')[0]
 	creator = qs.creator
+	number = qs.pk #primary key
 	RoofColors = qs.RoofColors
 	RoofEffect = qs.RoofEffect
 	PalmColors = qs.PalmColors
 	PalmEffect = qs.PalmEffect
 	FloodColors = qs.FloodColors
 	SconceColors = qs.SconceColors
+	StripePalmColor = qs.StripePalmColor
+	GarageFrameColors = qs.GarageFrameColors
+	SnowFlakeColors = qs.SnowFlakeColors
 	return render(request, 'tourney/goletalights_json.html', {'creator': creator, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect, 'FloodColors': FloodColors, 'SconceColors': SconceColors})
 	
 def goletalights(request):
@@ -727,7 +731,10 @@ def goletalights(request):
 			PalmColors = json.dumps(request.POST.getlist('PalmColors',[]))
 			FloodColors = json.dumps(request.POST.getlist('FloodColors',[]))
 			SconceColors = json.dumps(request.POST.getlist('SconceColors',[]))
-			p = Light.objects.create(creator=creator, RoofColors=RoofColors, PalmColors=PalmColors, FloodColors=FloodColors, SconceColors=SconceColors)
+			StripePalmColor = json.dumps(request.POST.getlist('StripePalmColor',[]))
+			GarageFrameColors = json.dumps(request.POST.getlist('GarageFrameColors',[]))
+			SnowFlakeColors = json.dumps(request.POST.getlist('SnowFlakeColors',[]))
+			p = Light.objects.create(creator=creator, RoofColors=RoofColors, PalmColors=PalmColors, FloodColors=FloodColors, SconceColors=SconceColors, StripePalmColor=StripePalmColor, GarageFrameColors=GarageFrameColors, SnowFlakeColors=SnowFlakeColors)
 			return HttpResponseRedirect('/goletalights/')
 
 	# if a GET (or any other method) we'll create a blank form
