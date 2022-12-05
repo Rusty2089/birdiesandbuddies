@@ -5,25 +5,97 @@
   <h1>Goleta Lights</h1>
 </div>
 
-<div class="container-fluid">
-
 <form action="/goletalights/" method="post">
-    {% csrf_token %}
-	<center>
-	<table border="3" cellpadding = "5" cellspacing = "5">
-		{{ form }}
-	</table>
-	<p></p>
-    <input type="submit" value="Save" />
-	</center>
-</form>
+  {% csrf_token %}
 
+<div class="container">
+  <div class="row" >
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Your Name </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div class="col-9">
+                 {{ form.creator }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Roof Line </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose Multiple</font>
+               </div>
+               <div class="col-9">
+                 {{ form.RoofColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Garage/Window Frames </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose Multiple</font>
+               </div>
+               <div class="col-9">
+                 {{ form.GarageFrameColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Small Palms </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose Multiple</font>
+               </div>
+               <div class="col-9">
+                 {{ form.PalmColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+	
+	
+	
+  </div>
+ </div>
 <center>
-	<p></p>
-	<p>
-		Select Colors and Hit "Save"
-	</p>
+  <button type="submit" class="btn btn-outline-success">Save Scores</button>
+  <button type="reset" class="btn btn-outline-success">Reset</button>
 </center>
-</div>
+</form>
 
 {% endblock %}
