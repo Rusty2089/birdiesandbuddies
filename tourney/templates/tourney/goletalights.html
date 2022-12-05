@@ -18,7 +18,7 @@
           <div align="right" class="card-body" style="padding:5px">
             <div class="container">
               <div class="row">
-               <div class="col-9">
+               <div class="col-9" align="left">
                  {{ form.creator }}
                </div>
               </div>
@@ -38,7 +38,7 @@
                <div align="center" class="col">
 				 <font size = 1">Choose Multiple</font>
                </div>
-               <div class="col-9">
+               <div class="col-9" align="left">
                  {{ form.RoofColors }}
                </div>
               </div>
@@ -58,8 +58,28 @@
                <div align="center" class="col">
 				 <font size = 1">Choose Multiple</font>
                </div>
-               <div class="col-9">
+               <div class="col-9" align="left">
                  {{ form.GarageFrameColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Candy Cane Palm </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose One</font>
+               </div>
+               <div class="col-9" align="left">
+                 {{ form.StripePalmColor }}
                </div>
               </div>
 			</div>
@@ -88,12 +108,70 @@
       </center>
     </div>
 	
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Snow Flakes </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose One</font>
+               </div>
+               <div class="col-9" align="left">
+                 {{ form.SnowFlakeColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
+
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Sconces </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose One</font>
+               </div>
+               <div class="col-9" align="left">
+                 {{ form.SconceColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
 	
+	<div class="col-sm">
+      <center>
+	  <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div align="left" class="card-header" style="padding:5px"> Flood Lights </div>
+          <div align="right" class="card-body" style="padding:5px">
+            <div class="container">
+              <div class="row">
+               <div align="center" class="col">
+				 <font size = 1">Choose One</font>
+               </div>
+               <div class="col-9" align="left">
+                 {{ form.FloodColors }}
+               </div>
+              </div>
+			</div>
+          </div>
+      </div>
+      </center>
+    </div>
 	
   </div>
  </div>
 <center>
-  <input type="submit" value="Save" />
+  <input type="submit" class="btn btn-outline-success" value="Save" />
   <!--<button type="submit" class="btn btn-outline-success" value="Save">Submit</button>
   <button type="reset" class="btn btn-outline-success">Reset</button>-->
 </center>
