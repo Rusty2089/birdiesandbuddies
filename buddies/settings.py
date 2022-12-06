@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tqbkl5og8=*c_!f5cx&geu#n_rww#knrtpg7^ozp@qm)*@(d&d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
 	'thawing-tor-67269.herokuapp.com',
@@ -101,10 +101,10 @@ WSGI_APPLICATION = 'buddies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd9r9qmes127q8s',
-        'USER': 'zmdyvwmnjdiqaa',
-        'PASSWORD': 'eb4c50387758676b431453315aff00c98e168c021f3c7271a5e2fec61158db33',
-        'HOST': 'ec2-52-55-33-170.compute-1.amazonaws.com',
+        'NAME': 'ddljkdd7i8bfm0',
+        'USER': 'ufitvnpiazcglu',
+        'PASSWORD': '76f05d5d352402298c13838ff45ce71814090e7f3964699668bb254869d69fa6',
+        'HOST': 'ec2-44-209-24-62.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
