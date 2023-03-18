@@ -101,10 +101,10 @@ WSGI_APPLICATION = 'buddies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ddljkdd7i8bfm0',
-        'USER': 'ufitvnpiazcglu',
-        'PASSWORD': '76f05d5d352402298c13838ff45ce71814090e7f3964699668bb254869d69fa6',
-        'HOST': 'ec2-44-209-24-62.compute-1.amazonaws.com',
+        'NAME': 'dbiuar8j8r4cps',
+        'USER': 'kzlmydnxtevgua',
+        'PASSWORD': '104c32bec3178f8b35e42e5f16f0453c05ade21ee327f23a34390805fdec6d96',
+        'HOST': 'ec2-52-71-23-11.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }

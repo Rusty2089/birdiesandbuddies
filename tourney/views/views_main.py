@@ -710,6 +710,7 @@ def goletalights_json(request):
 	qs = Light.objects.order_by('-postTime')[0]
 	creator = qs.creator
 	number = qs.pk #primary key
+	postTime = qs.postTime
 	RoofColors = qs.RoofColors
 	RoofEffect = qs.RoofEffect
 	PalmColors = qs.PalmColors
@@ -719,7 +720,7 @@ def goletalights_json(request):
 	StripePalmColor = qs.StripePalmColor
 	GarageFrameColors = qs.GarageFrameColors
 	SnowFlakeColors = qs.SnowFlakeColors
-	return render(request, 'tourney/goletalights_json.html', {'creator': creator, 'number': number, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect, 'FloodColors': FloodColors, 'SconceColors': SconceColors, 'StripePalmColor': StripePalmColor, 'GarageFrameColors': GarageFrameColors, 'SnowFlakeColors': SnowFlakeColors})
+	return render(request, 'tourney/goletalights_json.html', {'creator': creator, 'number': number, 'postTime': postTime, 'RoofColors': RoofColors, 'RoofEffect': RoofEffect, 'PalmColors': PalmColors, 'PalmEffect': PalmEffect, 'FloodColors': FloodColors, 'SconceColors': SconceColors, 'StripePalmColor': StripePalmColor, 'GarageFrameColors': GarageFrameColors, 'SnowFlakeColors': SnowFlakeColors})
 	
 def goletalights(request):
 	form = LightsForm(request.POST or None)
