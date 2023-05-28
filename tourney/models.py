@@ -22,7 +22,7 @@ class Profile(models.Model):
     r3_score = models.SmallIntegerField(default = 0)
     r4_quota = models.PositiveSmallIntegerField(default = 0)
     r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
-    team = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0) #random team for the tourney
+    team = models.CharField(max_length=30, choices = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'))) #random team for the tourney
 	
     def __str__(self): #to return display_name instead of _id
         return self.display_name
@@ -35,7 +35,7 @@ class Daily(models.Model):
 	course = models.CharField(max_length=30, null=True)
 	#startscore = models.SmallIntegerField(default = 0)
 	quota = models.PositiveSmallIntegerField(default = 0)
-	team = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0) #random team for the tourney
+	team = models.CharField(max_length=30, choices = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'))) #random team for the tourney
 	h1_pts = models.PositiveSmallIntegerField(choices = ((0, '0'), (1, '1'), (2, '2'), (4, '4'), (8, '8'), (10, '10')), blank=True, null=True)
 	h2_pts = models.PositiveSmallIntegerField(choices = ((0, '0'), (1, '1'), (2, '2'), (4, '4'), (8, '8'), (10, '10')), blank=True, null=True)
 	h3_pts = models.PositiveSmallIntegerField(choices = ((0, '0'), (1, '1'), (2, '2'), (4, '4'), (8, '8'), (10, '10')), blank=True, null=True)
