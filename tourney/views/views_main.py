@@ -597,6 +597,7 @@ def compile(request):
 				instance.quota = quota
 				instance.grouping = group
 				instance.team = team #new
+				instance.roomTeam = roomTeam #new for 2023
 				instance.r1_score = r1_score
 				instance.r2_score = r2_score
 				instance.r3_score = r3_score
