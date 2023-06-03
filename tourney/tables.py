@@ -6,7 +6,7 @@ class DailyTable(tables.Table):
     class Meta:
         model = Daily
         #template_name = 'django_tables2/bootstrap.html'
-        fields = ('golfer', 'user_name', 'quota', 'grouping', 'team', 'course', 'teetime', 'r1_score', 'r2_score', 'r3_score')
+        fields = ('golfer', 'user_name', 'quota', 'grouping', 'team', ,'roomTeam', 'course', 'teetime', 'r1_score', 'r2_score', 'r3_score')
 		
 class SmallLeaderTable(tables.Table):
 	net_day_points = tables.Column(

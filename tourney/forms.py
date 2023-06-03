@@ -55,7 +55,8 @@ COURSE_CHOICES = (
 	('Ocean', 'Ocean'),
 	('Conservatory', 'Conservatory'),
 	('Las Colinas', 'Las Colinas'),
-	('El Campeon', 'El Campeon')
+	('El Campeon', 'El Campeon'),
+	('International', 'International')
 )
 
 COLOR_CHOICES = (
