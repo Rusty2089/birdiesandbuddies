@@ -589,6 +589,7 @@ def compile(request):
 				quota = getattr(user, quota_var)
 				group = getattr(user, group_var)
 				team = user.team #new
+				roomTeam = user.roomTeam #new for 2023
 				r1_score = user.r1_score # the score from round 1; will be zero while the first round is played
 				r2_score = user.r2_score # the score from round 2; will be zero while the first two rounds are palyed
 				r3_score = user.r3_score # the score from round 3; will be zero while the first two rounds are palyed
