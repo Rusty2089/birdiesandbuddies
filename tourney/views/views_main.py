@@ -104,10 +104,10 @@ def leaderboard(request):
 	team_list = sorted(team_list, key=itemgetter(1), reverse=True)
 	#new room teams for 2023
 	roomTeam_list = []
-	for i in ('Chili Dippers', 'Douche Bags', 'Three and a Half Men', 'The ASStronauts', 'Piss Missiles', 'Fireball', 'Tee Baggers'):
+	for i in ['Chili Dippers', 'Douche Bags', 'Three and a Half Men', 'The ASStronauts', 'Piss Missiles', 'Fireball', 'Tee Baggers']:
 		roomTeam_i_list = [i, 0]
 		score = 0
-		roomTeam = qsDaily.filter(roomTeam = i).values()
+		roomTeam = qsDaily.filter(roomTeam = i)
 		for j in range(5):
 			try:
 				roomTeam_i_list.append(roomTeam[j].golfer)
