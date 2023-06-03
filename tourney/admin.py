@@ -7,7 +7,10 @@ from .models import Message
 from .models import Extra
 from .models import Light
 
-admin.site.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+
+admin.site.register(Profile, ProfileAdmin)
+	list_display = [field.name for field in Profile._meta.get_fields()  if not field.is_relation]
 admin.site.register(Course)
 admin.site.register(Daily)
 admin.site.register(Message)
