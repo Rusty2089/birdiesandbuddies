@@ -107,7 +107,7 @@ def leaderboard(request):
 	for i in ('Chili Dippers', 'Douche Bags', 'Three and a Half Men', 'The ASStronauts', 'Piss Missiles', 'Fireball', 'Tee Baggers'):
 		roomTeam_i_list = [i, 0]
 		score = 0
-		roomTeam = qsDaily.filter(roomTeam__icontains = i)
+		roomTeam = qsDaily.filter(roomTeam = i).values()
 		for j in range(5):
 			try:
 				roomTeam_i_list.append(roomTeam[j].golfer)
