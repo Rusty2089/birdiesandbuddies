@@ -10,10 +10,12 @@ from .models import Light
 class ProfileAdmin(admin.ModelAdmin):
 	list_display = ('display_name', 'first_name', 'last_name', 'isgolfing', 'r1_quota', 'r1_group', 'team', 'roomTeam')
 	list_editable = ('display_name', 'isgolfing', 'r1_quota', 'r1_group', 'r1_group', 'team', 'roomTeam')
+	list_display_links = None
 	
 class DailyAdmin(admin.ModelAdmin):
 	list_display = [field.name for field in Daily._meta.get_fields()  if not field.is_relation]
 	list_editable = [field.name for field in Daily._meta.get_fields()  if not field.is_relation]
+	list_display_links = None
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Course)
