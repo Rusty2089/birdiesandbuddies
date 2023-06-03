@@ -110,7 +110,7 @@ def leaderboard(request):
 		roomTeam = qsDaily.filter(roomTeam = i)
 		for j in range(5):
 			try:
-				roomTeam_i_list.append(team[j].golfer)
+				roomTeam_i_list.append(roomTeam[j].golfer)
 			except IndexError:
 				roomTeam_i_list.append('')
 			try:
