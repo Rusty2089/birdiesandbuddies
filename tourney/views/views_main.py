@@ -102,8 +102,25 @@ def leaderboard(request):
 		team_i_list[1] = score
 		team_list.append(tuple(team_i_list))
 	team_list = sorted(team_list, key=itemgetter(1), reverse=True)
-	print(team_list)
-	return render(request, 'tourney/leaderboard.html', {'leadertable':leadertable, 'team_list':team_list})
+	#new room teams for 2023
+	roomTeam_list = []
+	for i in range(1, 8):
+		roomTeam_i_list = [i, 0]
+		score = 0
+		roomTeam = qsDaily.filter(team = i)
+		for j in range(5):
+			try:
+				roomTeam_i_list.append(team[j].golfer)
+			except IndexError:
+				roomTeam_i_list.append('')
+			try:
+				score = score + roomTeam[j].net_tourney_score
+			except IndexError:
+				continue
+		roomTeam_i_list[1] = score
+		roomTeam_list.append(tuple(roomTeam_i_list))
+	roomTeam_list = sorted(roomTeam_list, key=itemgetter(1), reverse=True)
+	return render(request, 'tourney/leaderboard.html', {'leadertable':leadertable, 'team_list':team_list, 'roomTeam_list':roomTeam_list})
 
 ############################################        SCORE CARDS          ##################################################	
 
