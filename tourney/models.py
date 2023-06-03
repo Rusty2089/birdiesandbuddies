@@ -22,8 +22,8 @@ class Profile(models.Model):
     r3_score = models.SmallIntegerField(default = 0)
     r4_quota = models.PositiveSmallIntegerField(default = 0)
     r4_group = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
-    team = models.CharField(max_length=30, choices = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'))) #random team for the tourney
-    roomTeam = models.CharField(max_length=30, null=True, choices = (('Chili Dippers', 'Chili Dippers'), ('Douche Bags', 'Douche Bags'), ('Three and a Half Men', 'Three and a Half Men'), ('The ASStronauts', 'The ASStronauts'), ('Piss Missiles', 'Piss Missiles'), ('Fireball', 'Fireball'), ('Tee Baggers', 'Tee Baggers'))) #room team names new for 2023
+    team = models.CharField(max_length=30, blank=True, choices = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7'))) #random team for the tourney
+    roomTeam = models.CharField(max_length=30, blank=True, null=True, choices = (('Chili Dippers', 'Chili Dippers'), ('Douche Bags', 'Douche Bags'), ('Three and a Half Men', 'Three and a Half Men'), ('The ASStronauts', 'The ASStronauts'), ('Piss Missiles', 'Piss Missiles'), ('Fireball', 'Fireball'), ('Tee Baggers', 'Tee Baggers'))) #room team names new for 2023
 	
     def __str__(self): #to return display_name instead of _id
         return self.display_name
