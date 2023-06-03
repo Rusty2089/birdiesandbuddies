@@ -102,6 +102,7 @@ def leaderboard(request):
 		team_i_list[1] = score
 		team_list.append(tuple(team_i_list))
 	team_list = sorted(team_list, key=itemgetter(1), reverse=True)
+	
 	#new room teams for 2023
 	roomTeam_list = []
 	roomTeamNames = ['Chili Dippers', 'Douche Bags', 'Three and a Half Men', 'The ASStronauts', 'Piss Missiles', 'Fireball', 'Tee Baggers']
@@ -115,7 +116,7 @@ def leaderboard(request):
 			except IndexError:
 				roomTeam_i_list.append('')
 			try:
-				score = score + roomTeam[j].net_tourney_score
+				score = score + roomTeam[j].net_day_points #NET DAILY POINTS SINCE THIS IS A DAILY BRACKET
 			except IndexError:
 				continue
 		roomTeam_i_list[1] = score
