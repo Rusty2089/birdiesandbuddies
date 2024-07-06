@@ -70,7 +70,7 @@ class Daily(models.Model):
 		
 	
 class Course(models.Model):
-    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)'), ('Ocean', 'Ocean'), ('Conservatory', 'Conservatory'), ('Las Colinas', 'Las Colinas'), ('El Campeon', 'El Campeon'), ('International', 'International')))
+    course_name = models.CharField(max_length = 30, choices = (('Nicklaus', 'Nicklaus'), ('Palmer', 'Palmer'), ('Copperhead (white)', 'Copperhead (white)'), ('Island (white)', 'Island (white)'), ('North (white)', 'North (white)'), ('South (white)', 'South (white)'), ('Ocean', 'Ocean'), ('Conservatory', 'Conservatory'), ('Las Colinas', 'Las Colinas'), ('El Campeon', 'El Campeon'), ('International', 'International')))
     h1_par = models.PositiveSmallIntegerField()
     h2_par = models.PositiveSmallIntegerField()
     h3_par = models.PositiveSmallIntegerField()
