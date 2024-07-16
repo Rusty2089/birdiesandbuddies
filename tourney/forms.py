@@ -111,6 +111,7 @@ class MessageForm(forms.ModelForm):
 class CompileForm(forms.Form):
 	round = forms.ChoiceField(label='Round to setup: ', choices=ROUND_CHOICES)
 	course = forms.ChoiceField(label='Course: ', choices=COURSE_CHOICES)
+    #tees = forms.CharField(label='Tee Color', max_length=15)
 	g1_tt = forms.TimeField(label='Group 1 Tee Time: ')
 	g2_tt = forms.TimeField(label='Group 2 Tee Time: ')
 	g3_tt = forms.TimeField(label='Group 3 Tee Time: ')
