@@ -49,9 +49,10 @@ ROUND_CHOICES = (
 COURSE_CHOICES = (
 	('Nicklaus', 'Nicklaus'),
 	('Palmer', 'Palmer'),
-	('Copperhead (white)', 'Copperhead (white)'),
-	('Island (white)', 'Island (white)'),
-	('North (white)', 'North (white)'),
+	('Copperhead', 'Copperhead'),
+	('Island', 'Island'),
+	('North', 'North'),
+    ('South', 'South'),
 	('Ocean', 'Ocean'),
 	('Conservatory', 'Conservatory'),
 	('Las Colinas', 'Las Colinas'),
