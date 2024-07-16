@@ -32,7 +32,7 @@ class Daily(models.Model):
 	user_name = models.CharField(max_length=20, unique=True, null=True)
 	golfer = models.CharField(max_length=30, unique=True, null=True)
 	grouping = models.PositiveSmallIntegerField(choices = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)), default = 0)
-	roomTeam = models.CharField(max_length=30, null=True, choices = (('Hawk Tuah The Future', 'Hawk Tuah The Future'), ('Destiny Swingers', 'Destiny Swingers'), ('Oriental Cory & 3 Happy Endings', 'Oriental Cory & 3 Happy Engings'), ('Pandas and Polar Bears', 'Pandas and Polar Bears'), ('Douche Bags', 'Douche Bags'), ('Balled Eagles', 'Balled Eagles'), ('Fore Guys 1 Cup', 'Fore Guys 1 Cup')))
+	roomTeam = models.CharField(max_length=33, null=True, choices = (('Hawk Tuah The Future', 'Hawk Tuah The Future'), ('Destiny Swingers', 'Destiny Swingers'), ('Oriental Cory & 3 Happy Endings', 'Oriental Cory & 3 Happy Engings'), ('Pandas and Polar Bears', 'Pandas and Polar Bears'), ('Douche Bags', 'Douche Bags'), ('Balled Eagles', 'Balled Eagles'), ('Fore Guys 1 Cup', 'Fore Guys 1 Cup')))
 	teetime = models.TimeField(auto_now=False, null=True)
 	course = models.CharField(max_length=30, null=True)
 	#startscore = models.SmallIntegerField(default = 0)
