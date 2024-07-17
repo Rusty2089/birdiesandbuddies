@@ -105,7 +105,7 @@ def leaderboard(request):
 	
 	#new room teams for 2023
 	roomTeam_list = []
-	roomTeamNames = ['Hawk Tuah The Future', 'Destiny Swingers', 'Oriental Cory &3 Happy Endings', 'Pandas and Polar Bears', 'Douche Bags', 'Balled Eagles', 'Fore Guys 1 Cup', 'Fore Guys 1 Cup']
+	roomTeamNames = ['Hawk Tuah The Future', 'Destiny Swingers', 'Oriental Cory &3 Happy Endings', 'Pandas and Polar Bears', 'Douche Bags', 'Balled Eagles', 'Fore Guys 1 Cup']
 	for i in roomTeamNames:
 		roomTeam_i_list = [i, 0]
 		score = 0
