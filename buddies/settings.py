@@ -98,6 +98,19 @@ WSGI_APPLICATION = 'buddies.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+    # 'default': {
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'birdiesandbuddies_db',
+        # 'USER': 'birdiesandbuddies_db_user',
+        # 'PASSWORD': '6WqJ5XwMItZRhqCzfe08lHgcHBFDXLKS',
+        # 'HOST': 'dpg-d1cvfiqli9vc739jnbp0-a',
+        # 'PORT': '5432',
+    # }
+# }
+
+postgresql://birdiesandbuddies_db_user:6WqJ5XwMItZRhqCzfe08lHgcHBFDXLKS@dpg-d1cvfiqli9vc739jnbp0-a/
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
