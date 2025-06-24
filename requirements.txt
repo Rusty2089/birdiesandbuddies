@@ -1,5 +1,5 @@
 gunicorn==20.1.0
-django-heroku==0.3.1
+django-heroku = "==0.3.1"
 social-auth-app-django = "==5.0.0"
 python-social-auth = "==0.3.06"
 django-tables2 = "==2.4.1"
