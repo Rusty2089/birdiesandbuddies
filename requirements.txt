@@ -12,7 +12,7 @@ django-allauth==0.50.0
 django-popup-field==0.1.6
 django-widget-tweaks==1.4.12
 enum-compat==0.0.3
-greenlet==1.1.2
+greenlet==3.2.3
 idna==3.3
 numpy==2.3.0
 oauthlib==3.2.0
